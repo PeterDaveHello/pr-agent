@@ -1,0 +1,21 @@
+requirements.txt
+  s_821536d05357e4::t_5450c473406fe8 41
+tests/unittest/test_mosaico_observability_deps.py
+  s_821536d05357e4::t_5450c473406fe8 6,22,28,64,66-67,81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "2681614c2896179adcea5c900991588af8ea3ef5",
+  "prompts": {},
+  "sessions": {
+    "s_821536d05357e4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fbdc2-e412-71b0-95dd-f354c7713d34",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
