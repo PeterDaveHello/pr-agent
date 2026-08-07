@@ -1,0 +1,39 @@
+tests/unittest/test_litellm_chat_completion_core.py
+  s_41508437c40ead::t_cdd8f6937d68ca 4,45-46
+  s_41508437c40ead::t_c0d19c38aef5a4 108-132,135-136,156-168,172
+  s_41508437c40ead::t_e021c5e04ac38e 133-134
+  s_7db1db20ef2032::t_dd67e9a8a7003d 47-48,169-171,173-174
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_41508437c40ead::t_b9b70a9de26729 426-427
+tests/unittest/test_get_max_tokens.py
+  s_41508437c40ead::t_588530b927e951 245-267
+  s_41508437c40ead::t_9dd1997ef97cbd 242-244
+pr_agent/algo/__init__.py
+  s_41508437c40ead::t_f8d0735b787d67 153,162,187,241-245
+  s_41508437c40ead::t_51fc9d0f4a9ea8 96
+  s_41508437c40ead::t_b4f52204feec7e 340-348
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "3e9b36ef5002bf1a2f8d1b6c68ba6b1f177d32d9",
+  "prompts": {},
+  "sessions": {
+    "s_41508437c40ead": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f19bc-84be-7821-924f-e29183a9544e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_7db1db20ef2032": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0e636f3ebffeoi7k1bdAHtKjmf",
+        "model": "big-pickle"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+requirements.txt
+  s_821536d05357e4::t_d700cd24d36fde 19
+  s_821536d05357e4::t_c0a3a96ba18db1 41
+tests/unittest/test_mosaico_observability_deps.py
+  s_821536d05357e4::t_0af916f34b5d18 64,66-67,81
+  s_821536d05357e4::t_57b7484c97d922 6,22,28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "dd2b206d4173ea27472015dd59fb9a0d76f1d9da",
+  "prompts": {},
+  "sessions": {
+    "s_821536d05357e4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fbdc2-e412-71b0-95dd-f354c7713d34",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+tests/unittest/test_get_max_tokens.py
+  s_ecde7f975647b8::t_c7b3bd6d77d5e8 77-89
+pr_agent/algo/__init__.py
+  s_ecde7f975647b8::t_cff3ec7d1f2e4b 54-57
+tests/unittest/test_litellm_reasoning_effort.py
+  s_ecde7f975647b8::t_0a43f6d518e4c9 321-324
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "28bac1901af964cdddd93237c0131d5524d509f9",
+  "prompts": {},
+  "sessions": {
+    "s_ecde7f975647b8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4820-2651-7f11-b5e1-1280507939f4",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

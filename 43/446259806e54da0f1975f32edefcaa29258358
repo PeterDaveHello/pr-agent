@@ -1,0 +1,33 @@
+tests/unittest/test_get_max_tokens.py
+  s_41508437c40ead::t_9c5a289a4383ae 242-267
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_41508437c40ead::t_174eb2e62ec260 426-427
+pr_agent/algo/__init__.py
+  s_41508437c40ead::t_3d2b1a187722ba 96,153,162,187,241-245,340-348
+tests/unittest/test_litellm_chat_completion_core.py
+  s_7db1db20ef2032::t_f025b4d214b142 4,45-48,108-136,156-174
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "43446259806e54da0f1975f32edefcaa29258358",
+  "prompts": {},
+  "sessions": {
+    "s_41508437c40ead": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f19bc-84be-7821-924f-e29183a9544e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_7db1db20ef2032": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0e636f3ebffeoi7k1bdAHtKjmf",
+        "model": "big-pickle"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+docs/docs/installation/locally.md
+  s_30a69b69de80b1::t_02f575a8f9b12a 3
+pr_agent/settings/configuration.toml
+  s_30a69b69de80b1::t_02f575a8f9b12a 7
+tests/unittest/test_mosaico_health.py
+  s_30a69b69de80b1::t_02f575a8f9b12a 51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "922cf0db6ff8f87a2b46561f0a53f90a6fcd9e27",
+  "prompts": {},
+  "sessions": {
+    "s_30a69b69de80b1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7eaa-3d15-7cc3-9a22-9182f59d6c1f",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
