@@ -1,5 +1,7 @@
 tests/unittest/test_mosaico_observability_deps.py
   s_821536d05357e4::t_5450c473406fe8 6,22,28,64,66-67,81
+requirements.txt
+  s_821536d05357e4::t_46c9666a4e0a78 41
 ---
 {
   "schema_version": "authorship/3.0.0",
