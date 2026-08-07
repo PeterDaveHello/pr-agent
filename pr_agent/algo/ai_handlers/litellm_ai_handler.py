@@ -201,6 +201,25 @@ class LiteLLMAIHandler(BaseAiHandler):
         if get_settings().get("DEEPSEEK.KEY", None):
             os.environ['DEEPSEEK_API_KEY'] = get_settings().get("DEEPSEEK.KEY")
 
+        # Support GLM (Z.AI / Zhipu) models
+        if get_settings().get("ZAI.KEY", None):
+            os.environ['ZAI_API_KEY'] = get_settings().get("ZAI.KEY")
+
+        # Support Moonshot (Kimi) models
+        if get_settings().get("MOONSHOT.KEY", None):
+            os.environ['MOONSHOT_API_KEY'] = get_settings().get("MOONSHOT.KEY")
+        # Optional Moonshot endpoint override (e.g. China: https://api.moonshot.cn/v1)
+        if get_settings().get("MOONSHOT.API_BASE", None):
+            os.environ['MOONSHOT_API_BASE'] = get_settings().get("MOONSHOT.API_BASE")
+
+        # Support Qwen (Alibaba DashScope) models
+        if get_settings().get("DASHSCOPE.KEY", None):
+            os.environ['DASHSCOPE_API_KEY'] = get_settings().get("DASHSCOPE.KEY")
+
+        # Support Xiaomi MiMo models
+        if get_settings().get("XIAOMI_MIMO.KEY", None):
+            os.environ['XIAOMI_MIMO_API_KEY'] = get_settings().get("XIAOMI_MIMO.KEY")
+
         # Support deepinfra models
         if get_settings().get("DEEPINFRA.KEY", None):
             os.environ['DEEPINFRA_API_KEY'] = get_settings().get("DEEPINFRA.KEY")

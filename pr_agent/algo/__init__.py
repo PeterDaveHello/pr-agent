@@ -74,6 +74,8 @@ MAX_TOKENS = {
     'deepseek/deepseek-reasoner': 64000,  # 64K, but may be limited by config.max_model_tokens
     'deepseek/deepseek-v4-pro': 1000000,  # 1M, but may be limited by config.max_model_tokens
     'deepseek/deepseek-v4-flash': 1000000,  # 1M, but may be limited by config.max_model_tokens
+    'zai/glm-5.2': 200000,  # 200K, matching the Z.AI GLM-5/5.1 lineage, but may be limited by config.max_model_tokens
+    'moonshot/kimi-k3': 262144,  # 256K, matching the Moonshot Kimi-k2.5/k2.6 lineage, but may be limited by config.max_model_tokens
     'openai/qwq-plus': 131072,  # 131K context length, but may be limited by config.max_model_tokens
     'replicate/llama-2-70b-chat:2c1608e18606fad2812020dc541930f2d0495ce32eee50074220b87300bc16e1': 4096,
     'meta-llama/Llama-2-7b-chat-hf': 4096,
@@ -266,6 +268,7 @@ MAX_TOKENS = {
     'groq/openai/gpt-oss-120b': 131072,
     'groq/openai/gpt-oss-20b': 131072,
     'groq/qwen/qwen3-32b': 131000,
+    'dashscope/qwen3.8-max': 1000000,  # 1M, qwen3.8-max is the actual DashScope model id (context_window 1M per QwenCode metadata), but may be limited by config.max_model_tokens
     'groq/moonshotai/kimi-k2-instruct': 131072,
     'groq/deepseek-r1-distill-llama-70b': 128000,
     'groq/meta-llama/llama-4-maverick-17b-128e-instruct': 131072,
@@ -313,6 +316,8 @@ MAX_TOKENS = {
     "mistral/codestral-mamba-latest": 256000,
     "codestral/codestral-latest": 8191,
     "codestral/codestral-2405": 8191,
+    'xiaomi_mimo/mimo-v2.5': 1048576,  # 1M, matching the LiteLLM registry for mimo-v2.5, xiaomi_mimo/ is the native LiteLLM Xiaomi provider, but may be limited by config.max_model_tokens
+    'xiaomi_mimo/mimo-v2.5-pro': 1048576,  # 1M, matching the LiteLLM registry for mimo-v2.5-pro, but may be limited by config.max_model_tokens
 }
 
 USER_MESSAGE_ONLY_MODELS = [

@@ -344,6 +344,84 @@ key = ...
 
 (you can obtain a deepseek-v4 key from [here](https://platform.deepseek.com/api_keys))
 
+### GLM (Z.AI)
+
+To use GLM models with Z.AI (Zhipu), for example, set:
+
+```toml
+[config] # in configuration.toml
+model = "zai/glm-5.2"
+fallback_models=["zai/glm-5.2"]
+```
+
+and fill up your key
+
+```toml
+[zai] # in .secrets.toml
+key = ...
+```
+
+(you can obtain a Z.AI API key from [here](https://z.ai/))
+
+### Kimi (Moonshot)
+
+To use Kimi models with Moonshot, for example, set:
+
+```toml
+[config] # in configuration.toml
+model = "moonshot/kimi-k3"
+fallback_models=["moonshot/kimi-k3"]
+```
+
+and fill up your key
+
+```toml
+[moonshot] # in .secrets.toml
+key = ...
+```
+
+(you can obtain a Moonshot API key from [here](https://platform.moonshot.ai/))
+
+If you are on the China endpoint instead, add `api_base = "https://api.moonshot.cn/v1"` under `[moonshot]`.
+
+### Qwen (DashScope)
+
+To use Qwen models with Alibaba DashScope, for example, set:
+
+```toml
+[config] # in configuration.toml
+model = "dashscope/qwen3.8-max"
+fallback_models=["dashscope/qwen3.8-max"]
+```
+
+and fill up your key
+
+```toml
+[dashscope] # in .secrets.toml
+key = ...
+```
+
+(you can obtain a DashScope API key from [here](https://dashscope.console.aliyun.com/))
+
+### Xiaomi MiMo
+
+To use Xiaomi MiMo models, for example, set:
+
+```toml
+[config] # in configuration.toml
+model = "xiaomi_mimo/mimo-v2.5"
+fallback_models=["xiaomi_mimo/mimo-v2.5"]
+```
+
+and fill up your key
+
+```toml
+[xiaomi_mimo] # in .secrets.toml
+key = ...
+```
+
+(you can obtain a Xiaomi MiMo API key from [here](https://platform.xiaomimimo.com/#/docs))
+
 ### DeepInfra
 
 To use DeepSeek model with DeepInfra, for example, set:
