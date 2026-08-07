@@ -1,0 +1,24 @@
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 77-78,271
+  h_91c03fe45fa613 319-320
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 336-409
+  h_91c03fe45fa613 410-429
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 347-425
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 204-219
+pr_agent/settings/.secrets_template.toml
+  h_91c03fe45fa613 121-133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "cb48e5aa51ff15e25a005f1a61ef7cb913a659ad",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

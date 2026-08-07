@@ -1,0 +1,16 @@
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 77-78
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 336-371
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "94fd7ed75bd8b02e1e6e92b8c2abb0b007919084",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
