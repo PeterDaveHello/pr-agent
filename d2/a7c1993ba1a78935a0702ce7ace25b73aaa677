@@ -1,0 +1,27 @@
+tests/unittest/test_litellm_callback_drain.py
+  s_1b74832f8a7ac3::t_baaa99824c34c8 81-82
+  s_1b74832f8a7ac3::t_29868c429e8247 69
+  s_1b74832f8a7ac3::t_a2014e6254feb2 101-102
+  s_1b74832f8a7ac3::t_35cb0241fd5734 333
+  s_1b74832f8a7ac3::t_e0213f6d13a334 59-68,70-80,83-100
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1b74832f8a7ac3::t_b2b231abf3861f 152-153
+  s_1b74832f8a7ac3::t_01cdcfdf2a6752 145-146,201,217,220
+  s_1b74832f8a7ac3::t_ae1970eebc7969 147-151,206-216
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "d2a7c1993ba1a78935a0702ce7ace25b73aaa677",
+  "prompts": {},
+  "sessions": {
+    "s_1b74832f8a7ac3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe235-f99b-7872-b2a6-2735ce159bf6",
+        "model": "gpt-5.3-codex-spark"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
