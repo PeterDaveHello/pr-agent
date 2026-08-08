@@ -1,0 +1,33 @@
+tests/unittest/test_litellm_callback_drain.py
+  s_1b74832f8a7ac3::t_35cb0241fd5734 342
+  s_1b74832f8a7ac3::t_e0213f6d13a334 60-69,71-81,84-92,95-97,100,102-105
+  s_1b74832f8a7ac3::t_a2014e6254feb2 111
+  s_1b74832f8a7ac3::t_baaa99824c34c8 82-83
+  s_1b74832f8a7ac3::t_403fa080e99817 106,110
+  s_1b74832f8a7ac3::t_739cbae0682e64 93-94,98-99,101,107-109
+  s_1b74832f8a7ac3::t_29868c429e8247 70
+  s_1b74832f8a7ac3::t_721c08d155aac5 347,389-391,399,420,425-430
+  s_1b74832f8a7ac3::t_08b0030a06794e 348,358,360-388,392-398,400-419,421-424
+  s_1b74832f8a7ac3::t_99ebc18155d973 18-19,357
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1b74832f8a7ac3::t_08b0030a06794e 208-215
+  s_1b74832f8a7ac3::t_b2b231abf3861f 152-153
+  s_1b74832f8a7ac3::t_ae1970eebc7969 147-151,206-207,216-222
+  s_1b74832f8a7ac3::t_01cdcfdf2a6752 145-146,201,223,226
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "afbf46d9fcaafe6b4d0bdad25896ab8d3ea0d87d",
+  "prompts": {},
+  "sessions": {
+    "s_1b74832f8a7ac3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe235-f99b-7872-b2a6-2735ce159bf6",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
