@@ -1,0 +1,19 @@
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1b74832f8a7ac3::t_b2b231abf3861f 152-153
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "6326c596a1e686c883a94059a90364ab40c0e9a3",
+  "prompts": {},
+  "sessions": {
+    "s_1b74832f8a7ac3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe235-f99b-7872-b2a6-2735ce159bf6",
+        "model": "gpt-5.3-codex-spark"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

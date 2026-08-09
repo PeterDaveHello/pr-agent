@@ -1,0 +1,29 @@
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1b74832f8a7ac3::t_ae1970eebc7969 147-151,206-216
+  s_1b74832f8a7ac3::t_01cdcfdf2a6752 145-146,201,217,220
+  s_1b74832f8a7ac3::t_b2b231abf3861f 152-153
+tests/unittest/test_litellm_callback_drain.py
+  s_1b74832f8a7ac3::t_739cbae0682e64 92-93,97-98,100,106-108
+  s_1b74832f8a7ac3::t_403fa080e99817 105,109
+  s_1b74832f8a7ac3::t_baaa99824c34c8 81-82
+  s_1b74832f8a7ac3::t_e0213f6d13a334 59-68,70-80,83-91,94-96,99,101-104
+  s_1b74832f8a7ac3::t_a2014e6254feb2 110
+  s_1b74832f8a7ac3::t_35cb0241fd5734 341
+  s_1b74832f8a7ac3::t_29868c429e8247 69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "8c1909a038edd0cd1f3e7f0815f7f0f99b8ec6ca",
+  "prompts": {},
+  "sessions": {
+    "s_1b74832f8a7ac3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe235-f99b-7872-b2a6-2735ce159bf6",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}

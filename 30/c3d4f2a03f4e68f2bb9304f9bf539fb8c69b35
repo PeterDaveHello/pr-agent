@@ -1,0 +1,20 @@
+tests/unittest/test_gunicorn_config.py
+  s_1b74832f8a7ac3::t_a5fb1fbdfb9481 60
+  s_1b74832f8a7ac3::t_5869aa016de378 8,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "30c3d4f2a03f4e68f2bb9304f9bf539fb8c69b35",
+  "prompts": {},
+  "sessions": {
+    "s_1b74832f8a7ac3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe235-f99b-7872-b2a6-2735ce159bf6",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
