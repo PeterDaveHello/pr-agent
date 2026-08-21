@@ -1,0 +1,21 @@
+requirements.txt
+  s_a6c2f4b2bf0381::t_5d67d53a13a815 1,19,41-43
+tests/unittest/test_mosaico_observability_deps.py
+  s_a6c2f4b2bf0381::t_5d67d53a13a815 6-9,22-24,27-28,60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b95be76d8f678f2b3070eb6112768e3b8d2d48c4",
+  "prompts": {},
+  "sessions": {
+    "s_a6c2f4b2bf0381": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f55e0-fb58-7e42-bd7f-4a326264bfd1",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

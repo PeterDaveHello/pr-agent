@@ -1,0 +1,22 @@
+requirements.txt
+  s_a6c2f4b2bf0381::t_e5b2955cd38db3 1
+  s_a6c2f4b2bf0381::t_5d67d53a13a815 19,41-43
+tests/unittest/test_mosaico_observability_deps.py
+  s_a6c2f4b2bf0381::t_5d67d53a13a815 6-9,22-24,27-28,60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "18cd84977b86c36a4c322fa9f1421f4bada9b12e",
+  "prompts": {},
+  "sessions": {
+    "s_a6c2f4b2bf0381": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f55e0-fb58-7e42-bd7f-4a326264bfd1",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
