@@ -1,0 +1,19 @@
+requirements.txt
+  s_f56f51e7b2e31b::t_80b570f3fe5490 11,26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "c871a072df8020a8786f52e9a2d31745bd1a369a",
+  "prompts": {},
+  "sessions": {
+    "s_f56f51e7b2e31b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4869-7713-aa27-1e9ea5abc8c9",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
