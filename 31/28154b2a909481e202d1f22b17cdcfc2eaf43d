@@ -1,0 +1,101 @@
+pr_agent/algo/__init__.py
+  s_3f77ffff0d614f::t_9a26a2f398d368 302-303
+  s_71e7e22320dc72::t_c0c3857c1515ee 415,417,426-433,435-437
+  h_91c03fe45fa613 298-299,301,411-414,416,418-421,423
+  s_3f77ffff0d614f::t_f07caa898ce127 300,422,434
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_f56f51e7b2e31b::t_dc358f4e320527 15
+  h_91c03fe45fa613 369-390,395-406,711,730-754,890-923,925-928,932
+  s_3f77ffff0d614f::t_0cdb109bead9b1 391
+  s_3f77ffff0d614f::t_1006c4bad6df17 392-394
+tests/unittest/test_litellm_openrouter_controls.py
+  h_91c03fe45fa613 127-128,133,156-161,166
+tests/unittest/test_get_max_tokens.py
+  s_3f77ffff0d614f::t_9a26a2f398d368 206-207,209
+  s_3f77ffff0d614f::t_f07caa898ce127 204
+  h_91c03fe45fa613 201-203,205,208,210-220
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_138809568520f7 1305
+  s_3f77ffff0d614f::t_90e3f3b9504536 1344,1365-1366
+  s_3f77ffff0d614f::t_5929a03fde4349 1345
+  s_3f77ffff0d614f::t_9b5b9101ba3ff1 1406
+  s_3f77ffff0d614f::t_3727223f27606f 966,968-971,976-980
+  s_3f77ffff0d614f::t_e329796adfd929 1308
+  s_3f77ffff0d614f::t_a2ff4e08565002 1374-1375
+  s_3f77ffff0d614f::t_dccac11085b4fd 1323-1324
+  s_3f77ffff0d614f::t_9ee78dd4b26305 962-963
+  s_3f77ffff0d614f::t_b85754f343d457 1291
+  s_3f77ffff0d614f::t_7d7c572f6c6524 1293-1294
+  s_3f77ffff0d614f::t_e96b7bb1bfa1b5 1350-1354
+  s_3f77ffff0d614f::t_da79ff2f7aa25d 1053
+  h_91c03fe45fa613 37-56,920-932,937-948,1054-1084,1086-1131,1157-1182,1184-1288,1368-1369,1381-1397
+  s_3f77ffff0d614f::t_bb345c18e67788 959-960
+  s_3f77ffff0d614f::t_05f2e6bd4f7337 954
+  s_3f77ffff0d614f::t_dfa247c1ae53dd 957
+  s_3f77ffff0d614f::t_2e211f0a186fd6 1318
+  s_3f77ffff0d614f::t_676a7e160c950d 1330-1334
+  s_3f77ffff0d614f::t_f3ee7cd587eaab 995,1372
+  s_3f77ffff0d614f::t_700a2844d6c96d 1342
+  s_3f77ffff0d614f::t_2b379533b49f9a 1347-1348
+  s_3f77ffff0d614f::t_f07c7142db2fe3 1360
+  s_3f77ffff0d614f::t_e647f373d0fd46 1339
+  s_3f77ffff0d614f::t_0e4dff871b8b90 1001-1017,1335,1355
+  s_3f77ffff0d614f::t_f140c929cf25b9 1302
+  s_3f77ffff0d614f::t_ff915cb5880516 934-936,949-951
+  s_3f77ffff0d614f::t_1e33f90c5dc240 1313-1315
+  s_3f77ffff0d614f::t_68bb2bcf639844 1336
+  s_3f77ffff0d614f::t_0ad27ed6e84496 1378-1380,1398-1400
+  s_3f77ffff0d614f::t_1fcdcc4c1a69f2 1403
+  s_3f77ffff0d614f::t_ae4f0b264e1f68 1297-1299
+  s_3f77ffff0d614f::t_a65387fe80aead 1356-1357
+  s_3f77ffff0d614f::t_f07caa898ce127 1085,1183
+  s_3f77ffff0d614f::t_1f08455edb3225 1310-1311
+  s_3f77ffff0d614f::t_6241b3e9b5ee2c 997-998
+  s_3f77ffff0d614f::t_5b16d5b25d2e10 1051
+  s_3f77ffff0d614f::t_270b4bb649d058 1363
+  s_3f77ffff0d614f::t_75f7884aee5f9e 1326-1328
+  s_3f77ffff0d614f::t_c9ec998fe1717c 933,952-953,955-956,958,961,964-965,967,972-975,981-994,996,999-1000,1052,1132-1156,1289-1290,1292,1295-1296,1300-1301,1303-1304,1306-1307,1309,1312,1316-1317,1319-1320,1322,1325,1329,1337-1338,1340-1341,1343,1346,1349,1358-1359,1361-1362,1364,1367,1370-1371,1373,1376-1377,1401-1402,1404-1405,1407-1408
+  s_3f77ffff0d614f::t_5b6b8982bf4182 1321
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 395
+docs/docs/usage-guide/changing_a_model.md
+  s_3f77ffff0d614f::t_f07caa898ce127 197-199
+  h_91c03fe45fa613 187-188,196,200-214
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "3128154b2a909481e202d1f22b17cdcfc2eaf43d",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    },
+    "s_71e7e22320dc72": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4998-7cc2-897a-c4e2fcb9a0e3",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_f56f51e7b2e31b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4869-7713-aa27-1e9ea5abc8c9",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
