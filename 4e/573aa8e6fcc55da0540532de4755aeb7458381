@@ -1,0 +1,56 @@
+tests/unittest/test_bitbucket_app.py
+  s_af191e498abf5c::t_427c4c4db11e44 62-88
+  s_af191e498abf5c::t_9bc164747b48f5 26,31,35-42,44-47,61,101,104,108-113,115-122,124-125,127,129-130,132,145-149,152,154,158-161,163,165-181
+  s_af191e498abf5c::t_ddb5fb0d11f186 54-57
+  s_af191e498abf5c::t_17a5d10550d3a4 103
+  s_af191e498abf5c::t_6b290a48545360 12
+  s_af191e498abf5c::t_b85533e47fa5de 33-34
+  s_af191e498abf5c::t_3ee217db434260 126
+  s_af191e498abf5c::t_6261e8eac90141 13,16-17
+  s_af191e498abf5c::t_ab90238bcf99eb 29,32,52,102,105,135,150-151,153,182
+  s_af191e498abf5c::t_765467d1f2fc30 48-51
+  s_af191e498abf5c::t_c3e894c37fd265 58,100,143-144
+  s_af191e498abf5c::t_236a0daeca1e67 138-142
+  s_af191e498abf5c::t_69b0567af03a3e 30
+  s_af191e498abf5c::t_da7db43066adf7 133-134
+  s_af191e498abf5c::t_e5d422a7a3a865 5-7
+  s_af191e498abf5c::t_0f0d8cfc24692a 123
+  s_af191e498abf5c::t_5867520a81c71e 128
+  s_af191e498abf5c::t_ee818f1635168b 59-60
+  s_af191e498abf5c::t_c0e106473903fa 131
+  s_af191e498abf5c::t_cdebe6949aa594 1-4,92-96
+  s_af191e498abf5c::t_0340a82f18579c 27-28
+  s_af191e498abf5c::t_50dac359207c98 8-11,14-15,18-25,43,114,136-137,155-157,162,164,184-185
+  s_af191e498abf5c::t_3a8d2d0e42dfad 53,183
+  s_af191e498abf5c::t_319d1673d41d5b 106-107
+  s_af191e498abf5c::t_4321f9958b717d 89-91,97-99
+pr_agent/settings/configuration.toml
+  s_af191e498abf5c::t_23fd0c7cce12b9 357
+docs/docs/usage-guide/automations_and_usage.md
+  s_af191e498abf5c::t_23fd0c7cce12b9 308
+  s_af191e498abf5c::t_6261e8eac90141 309
+pr_agent/servers/bitbucket_app.py
+  s_af191e498abf5c::t_6261e8eac90141 41,45,47
+  s_af191e498abf5c::t_6b290a48545360 44
+  s_af191e498abf5c::t_ab90238bcf99eb 39-40,87,142
+  s_af191e498abf5c::t_c3e894c37fd265 81-86,88,138-141,143
+  s_af191e498abf5c::t_f88a4b102052a6 49-50
+  s_af191e498abf5c::t_50dac359207c98 6,42-43,46,48
+  s_af191e498abf5c::t_bab49b89eebea4 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4e573aa8e6fcc55da0540532de4755aeb7458381",
+  "prompts": {},
+  "sessions": {
+    "s_af191e498abf5c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04482-bb20-7a72-8b04-772bfed266cc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
