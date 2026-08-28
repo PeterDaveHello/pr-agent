@@ -1,0 +1,37 @@
+docs/docs/usage-guide/changing_a_model.md
+  s_3f77ffff0d614f::t_4905412e211fa3 197
+  s_3f77ffff0d614f::t_ac2aa4790cab06 187-188,201
+  s_3f77ffff0d614f::t_0b9b94bb3b6031 196,198-200
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_3f77ffff0d614f::t_e032effdc6bb94 820
+  s_3f77ffff0d614f::t_30ffc940e9df3e 15,453,459-463,465-475,806-807,809,811,980
+  s_3f77ffff0d614f::t_46952f871ae20e 449-452,454-458,464,804-805,808,810,821,977-979,981-984
+  s_3f77ffff0d614f::t_6290f458309c0f 985
+pr_agent/algo/__init__.py
+  s_3f77ffff0d614f::t_a48b9760addd40 298-303,412-415,419-425
+  s_3f77ffff0d614f::t_0b9b94bb3b6031 410-411,418
+tests/unittest/test_get_max_tokens.py
+  s_3f77ffff0d614f::t_557b517a5ab3ec 201-220
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_023f1c002f6824 935-937,939-940,959-961,970-971,973,980-981,984-990,992-993,997-998,1010,1018-1020,1022,1027-1028,1031,1039-1044,1048-1049,1059,1063-1064,1072,1074-1075,1079,1083
+  s_3f77ffff0d614f::t_cc5cc9f8018935 3,5,1001,1004-1009,1011-1017
+  s_3f77ffff0d614f::t_d7509c452e7db5 1002-1003
+  s_3f77ffff0d614f::t_e032effdc6bb94 1034-1037
+  s_3f77ffff0d614f::t_0da411fcb16f80 938,941-958,962-969,972,974-979,982-983,991,994-996,999-1000,1021,1023-1026,1029-1030,1032-1033,1038,1045-1047,1050-1058,1060-1062,1065-1071,1073,1076-1078,1080-1082,1084
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "6011036e18f59996902eed6ff68d6df638f6c12e",
+  "prompts": {},
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
