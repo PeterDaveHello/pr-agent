@@ -1,0 +1,33 @@
+pr_agent/settings/configuration.toml
+  s_af191e498abf5c::t_23fd0c7cce12b9 358
+tests/unittest/test_bitbucket_app_offload.py
+  s_af191e498abf5c::t_337d97df01812f 1-200
+docs/docs/usage-guide/automations_and_usage.md
+  s_af191e498abf5c::t_3db4c164766de4 308-311
+  s_af191e498abf5c::t_6261e8eac90141 312
+pr_agent/servers/bitbucket_app.py
+  s_af191e498abf5c::t_b611a854c31401 42-43
+  s_af191e498abf5c::t_ab90238bcf99eb 39-40,89,144
+  s_af191e498abf5c::t_bab49b89eebea4 1
+  s_af191e498abf5c::t_50dac359207c98 6,44-45,48,50
+  s_af191e498abf5c::t_f88a4b102052a6 51-52
+  s_af191e498abf5c::t_c3e894c37fd265 83-88,90,140-143,145
+  s_af191e498abf5c::t_6b290a48545360 46
+  s_af191e498abf5c::t_6261e8eac90141 41,47,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c9042718c8b445c93bcf85d5ba4f60c250231bfe",
+  "prompts": {},
+  "sessions": {
+    "s_af191e498abf5c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04482-bb20-7a72-8b04-772bfed266cc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
