@@ -1,0 +1,90 @@
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 390
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 201-218
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_3f77ffff0d614f::t_0cdb109bead9b1 391
+  s_f56f51e7b2e31b::t_dc358f4e320527 15
+  h_91c03fe45fa613 369-390,730-740,891-893,896,901
+  s_3f77ffff0d614f::t_1006c4bad6df17 392-394
+  h_91c03fe45fa613 395-406,711,741-755,894-895,897-900,902-917,920,925
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 187-188,196-209,213
+  h_91c03fe45fa613 210-212
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_1fcdcc4c1a69f2 1357
+  s_3f77ffff0d614f::t_9ee78dd4b26305 962-963
+  s_3f77ffff0d614f::t_ff915cb5880516 934-936,949-951
+  s_3f77ffff0d614f::t_f3ee7cd587eaab 966,1324
+  s_3f77ffff0d614f::t_bb345c18e67788 959-960
+  s_3f77ffff0d614f::t_a2ff4e08565002 1326-1328
+  s_3f77ffff0d614f::t_c9ec998fe1717c 933,952-953,955-956,958,961,964-965,967,970-971,1103-1129,1262-1263,1265,1268-1269,1273-1274,1276-1277,1279-1280,1282,1285,1289-1290,1292-1293,1295,1298,1302,1310-1311,1313-1314,1316,1319,1322-1323,1325,1330-1331,1355-1356,1358-1359,1361-1362,1364
+  s_3f77ffff0d614f::t_0e4dff871b8b90 972-991,1308
+  s_3f77ffff0d614f::t_0ad27ed6e84496 1332-1334,1352-1354
+  s_3f77ffff0d614f::t_3edd3888e42ac3 1363
+  s_3f77ffff0d614f::t_05f2e6bd4f7337 954
+  s_3f77ffff0d614f::t_9b5b9101ba3ff1 1360
+  s_3f77ffff0d614f::t_0dfba68e3f89dc 1329
+  h_91c03fe45fa613 920-932,937-948,1025-1102,1130-1260,1321,1335-1351
+  s_3f77ffff0d614f::t_dfa247c1ae53dd 957
+  s_3f77ffff0d614f::t_ba39548a41042d 1365
+  s_3f77ffff0d614f::t_6241b3e9b5ee2c 968-969
+  s_3f77ffff0d614f::t_b85754f343d457 1264
+  s_3f77ffff0d614f::t_7d7c572f6c6524 1266-1267
+  s_3f77ffff0d614f::t_ae4f0b264e1f68 1270-1272
+  s_3f77ffff0d614f::t_f140c929cf25b9 1275
+  s_3f77ffff0d614f::t_138809568520f7 1278
+  s_3f77ffff0d614f::t_e329796adfd929 1281
+  s_3f77ffff0d614f::t_1f08455edb3225 1283-1284
+  s_3f77ffff0d614f::t_1e33f90c5dc240 1286-1288
+  s_3f77ffff0d614f::t_2e211f0a186fd6 1291
+  s_3f77ffff0d614f::t_5b6b8982bf4182 1294
+  s_3f77ffff0d614f::t_dccac11085b4fd 1296-1297
+  s_3f77ffff0d614f::t_75f7884aee5f9e 1299-1301
+  s_3f77ffff0d614f::t_676a7e160c950d 1303-1307
+  s_3f77ffff0d614f::t_68bb2bcf639844 1309
+  s_3f77ffff0d614f::t_f07c7142db2fe3 1312
+  s_3f77ffff0d614f::t_270b4bb649d058 1315
+  s_3f77ffff0d614f::t_90e3f3b9504536 1317-1318
+  h_91c03fe45fa613 37-56,1261,1320
+pr_agent/algo/__init__.py
+  s_71e7e22320dc72::t_c0c3857c1515ee 301,413,415,419,422-433
+  h_91c03fe45fa613 298-300,409-412,414,416-418
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "c05b617975128387252cc36edbc7279c3186aff7",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.3-codex-spark"
+      },
+      "human_author": null
+    },
+    "s_71e7e22320dc72": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4998-7cc2-897a-c4e2fcb9a0e3",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_f56f51e7b2e31b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4869-7713-aa27-1e9ea5abc8c9",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}

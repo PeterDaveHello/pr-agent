@@ -1,0 +1,47 @@
+tests/unittest/test_bitbucket_app.py
+  s_af191e498abf5c::t_50dac359207c98 8-24,42,52,86,108-109,127-129,134,136,155-157
+  s_af191e498abf5c::t_c3e894c37fd265 57,72,115-116
+  s_af191e498abf5c::t_9bc164747b48f5 25,30,34-41,43-46,60,73,76,80-85,87-94,96-97,99,101-102,104,117-121,124,126,130-133,135,137-153
+  s_af191e498abf5c::t_ab90238bcf99eb 28,31,51,74,77,107,122-123,125,154
+  s_af191e498abf5c::t_e5d422a7a3a865 5-7
+  s_af191e498abf5c::t_0340a82f18579c 26-27
+  s_af191e498abf5c::t_69b0567af03a3e 29
+  s_af191e498abf5c::t_b85533e47fa5de 32-33
+  s_af191e498abf5c::t_765467d1f2fc30 47-50
+  s_af191e498abf5c::t_ddb5fb0d11f186 53-56
+  s_af191e498abf5c::t_ee818f1635168b 58-59
+  s_af191e498abf5c::t_4321f9958b717d 61-63,69-71
+  s_af191e498abf5c::t_17a5d10550d3a4 75
+  s_af191e498abf5c::t_319d1673d41d5b 78-79
+  s_af191e498abf5c::t_0f0d8cfc24692a 95
+  s_af191e498abf5c::t_3ee217db434260 98
+  s_af191e498abf5c::t_5867520a81c71e 100
+  s_af191e498abf5c::t_c0e106473903fa 103
+  s_af191e498abf5c::t_da7db43066adf7 105-106
+  s_af191e498abf5c::t_236a0daeca1e67 110-114
+  s_af191e498abf5c::t_cdebe6949aa594 1-4,64-68
+pr_agent/servers/bitbucket_app.py
+  s_af191e498abf5c::t_c3e894c37fd265 84-89,91,141-144,146
+  s_af191e498abf5c::t_ab90238bcf99eb 40-41,90,145
+  s_af191e498abf5c::t_50dac359207c98 6,37,42-51
+  s_af191e498abf5c::t_265a28e85d7b21 38-39
+  s_af191e498abf5c::t_bab49b89eebea4 1
+pr_agent/settings/configuration.toml
+  s_af191e498abf5c::t_9bc164747b48f5 357
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d65303fe76439bb9d86d838f4f5db345461189ae",
+  "prompts": {},
+  "sessions": {
+    "s_af191e498abf5c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04482-bb20-7a72-8b04-772bfed266cc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

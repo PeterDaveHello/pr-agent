@@ -1,0 +1,22 @@
+requirements-dev.txt
+  s_f56f51e7b2e31b::t_9c2069d574eac5 1
+requirements.txt
+  s_f56f51e7b2e31b::t_9c2069d574eac5 9-10,12,24,33
+  s_f56f51e7b2e31b::t_5a8ecbd4bd9fea 11,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "d937ddb23d9f35767c2a1e840cd256c3d49d5caf",
+  "prompts": {},
+  "sessions": {
+    "s_f56f51e7b2e31b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4869-7713-aa27-1e9ea5abc8c9",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}

@@ -1,0 +1,16 @@
+docker/Dockerfile
+  h_91c03fe45fa613 1
+Dockerfile.github_action
+  h_91c03fe45fa613 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "69afc142c74dc3f68489fc0bd1ef7d9166d4e858",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

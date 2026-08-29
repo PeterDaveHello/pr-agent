@@ -1,0 +1,22 @@
+tests/unittest/test_github_polling.py
+  s_af191e498abf5c::t_e2d95ae4d6792a 1-27
+pr_agent/servers/github_polling.py
+  s_af191e498abf5c::t_ec1b687cf7cd96 164,170-181,256
+  s_af191e498abf5c::t_62f1676a8e068d 165-169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "2e06bdbce6c9f3c6d972365865a3e7ad30d14f86",
+  "prompts": {},
+  "sessions": {
+    "s_af191e498abf5c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04482-bb20-7a72-8b04-772bfed266cc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

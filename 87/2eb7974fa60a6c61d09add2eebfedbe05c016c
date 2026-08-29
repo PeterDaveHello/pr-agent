@@ -1,0 +1,31 @@
+docs/docs/usage-guide/changing_a_model.md
+  s_3f77ffff0d614f::t_ac2aa4790cab06 187-188,196-214
+pr_agent/algo/__init__.py
+  s_3f77ffff0d614f::t_a48b9760addd40 298-303,411-423,426-437
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_3f77ffff0d614f::t_30ffc940e9df3e 15,388-425,730,749-773,909-942,944-947,951
+pr_agent/settings/configuration.toml
+  s_3f77ffff0d614f::t_158be31a0c5c9c 410
+tests/unittest/test_get_max_tokens.py
+  s_3f77ffff0d614f::t_557b517a5ab3ec 201-220
+tests/unittest/test_litellm_openrouter_controls.py
+  s_3f77ffff0d614f::t_ed4a8ab6e70ace 127-128,133,156-161,166
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_023f1c002f6824 37-56,920-1017,1051-1408
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "872eb7974fa60a6c61d09add2eebfedbe05c016c",
+  "prompts": {},
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

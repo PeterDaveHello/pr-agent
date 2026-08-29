@@ -1,0 +1,53 @@
+pr_agent/algo/__init__.py
+  s_3f77ffff0d614f::t_3ec94377543c4a 397-401
+pr_agent/settings/configuration.toml
+  s_3f77ffff0d614f::t_610e6441531635 419,423
+  s_3f77ffff0d614f::t_3ec94377543c4a 415
+  s_3f77ffff0d614f::t_289393709e8f60 410-411
+  s_3f77ffff0d614f::t_87114a7dc4d32a 416,418,421-422
+  s_3f77ffff0d614f::t_5406b6484726a8 417,420,424
+tests/unittest/test_litellm_openrouter_controls.py
+  s_3f77ffff0d614f::t_e9ce8397b2bec1 17,67,91-95,144,201-202,204-208,210-219,235-236,247-264,275-276,278-290
+  s_3f77ffff0d614f::t_289393709e8f60 237-239,241-246
+  s_3f77ffff0d614f::t_6929463db083f5 176-177,185-188,277,298-313,315
+  s_3f77ffff0d614f::t_aa425392b0c685 314
+  s_3f77ffff0d614f::t_dc7aac14931717 174,191-194,197-200,203,265-274
+  s_3f77ffff0d614f::t_610e6441531635 139,167,195-196,209
+  s_3f77ffff0d614f::t_1db7642e08e57b 8-9,62,90,220-234
+  s_3f77ffff0d614f::t_dce37d60af2a94 37-44,47,54
+  s_3f77ffff0d614f::t_d58c30b0226471 175,178-184,189-190,240,291-297
+  s_3f77ffff0d614f::t_fff26dc8c8260e 316-329
+docs/docs/usage-guide/changing_a_model.md
+  s_3f77ffff0d614f::t_1db7642e08e57b 530
+  s_3f77ffff0d614f::t_3ec94377543c4a 598
+  s_3f77ffff0d614f::t_87114a7dc4d32a 522,535
+  s_3f77ffff0d614f::t_610e6441531635 531
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_3f77ffff0d614f::t_dce37d60af2a94 917-919,921,923,926,929,949,951,955,958-960
+  s_3f77ffff0d614f::t_a2b829a1133b02 752,776,780-783,938
+  s_3f77ffff0d614f::t_dc7aac14931717 779
+  s_3f77ffff0d614f::t_289393709e8f60 962
+  s_3f77ffff0d614f::t_fff26dc8c8260e 973,976-977,981
+  s_3f77ffff0d614f::t_cf109e411c94b7 930-937,972,974-975,978-980,982
+  s_3f77ffff0d614f::t_d58c30b0226471 758-759
+  s_3f77ffff0d614f::t_1db7642e08e57b 878-879,922,924-925,927-928,950,952-953,956-957
+  s_3f77ffff0d614f::t_610e6441531635 753,760-763,777-778,939-948
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_289393709e8f60 863-865
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d6c7f1b3a4a19e2d8f22eee8070a87c7821cb19c",
+  "prompts": {},
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}

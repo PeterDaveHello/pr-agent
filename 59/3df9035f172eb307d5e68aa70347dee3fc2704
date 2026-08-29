@@ -1,0 +1,39 @@
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_3f77ffff0d614f::t_289393709e8f60 884
+  s_3f77ffff0d614f::t_a2b829a1133b02 691,710,713-716,865-868
+  s_3f77ffff0d614f::t_dc7aac14931717 711-712
+  s_3f77ffff0d614f::t_dce37d60af2a94 850-852,854,856,859,862-864,869,871,875-877,880-882
+  s_3f77ffff0d614f::t_1db7642e08e57b 811-812,855,857-858,860-861,870,872-873,878-879
+docs/docs/usage-guide/changing_a_model.md
+  s_3f77ffff0d614f::t_1db7642e08e57b 522,530-531
+  s_3f77ffff0d614f::t_42087df8d5aa2e 535
+pr_agent/settings/configuration.toml
+  s_3f77ffff0d614f::t_9435eb92ad389f 410
+  s_3f77ffff0d614f::t_289393709e8f60 405-406
+  s_3f77ffff0d614f::t_1db7642e08e57b 411
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_289393709e8f60 863-865
+tests/unittest/test_litellm_openrouter_controls.py
+  s_3f77ffff0d614f::t_e9ce8397b2bec1 17,67,91-95,139,144,167,172-174,183-184,186-200,216-217,228-245,256-270
+  s_3f77ffff0d614f::t_dce37d60af2a94 37-44,47,54
+  s_3f77ffff0d614f::t_1db7642e08e57b 8-9,62,90,201-215
+  s_3f77ffff0d614f::t_dc7aac14931717 175-182,185,246-255
+  s_3f77ffff0d614f::t_289393709e8f60 218-224,227
+  s_3f77ffff0d614f::t_fe20215fc89d31 271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "593df9035f172eb307d5e68aa70347dee3fc2704",
+  "prompts": {},
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

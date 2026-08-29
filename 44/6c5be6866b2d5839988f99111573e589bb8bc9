@@ -1,0 +1,67 @@
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_f56f51e7b2e31b::t_dc358f4e320527 15
+  h_91c03fe45fa613 696,715-735,876-881,895,900
+  h_91c03fe45fa613 369-391,736-740,882-892
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 201-218
+pr_agent/algo/__init__.py
+  s_71e7e22320dc72::t_c0c3857c1515ee 301,413,415,419,422-433
+  h_91c03fe45fa613 298-300,409-412,414,416-418
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 390
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 187-188,196-210
+tests/unittest/test_litellm_reasoning_effort.py
+  h_91c03fe45fa613 900-912,977-1025,1029-1054,1082-1212
+  s_3f77ffff0d614f::t_c9ec998fe1717c 913,932-933,935-936,938,941,1055-1081,1214-1215,1217,1221-1222,1246-1247,1249-1250,1252-1253,1255
+  s_3f77ffff0d614f::t_ff915cb5880516 914-916,929-931
+  s_3f77ffff0d614f::t_05f2e6bd4f7337 934
+  s_3f77ffff0d614f::t_dfa247c1ae53dd 937
+  s_3f77ffff0d614f::t_bb345c18e67788 939-940
+  s_3f77ffff0d614f::t_9ee78dd4b26305 942-943
+  s_3f77ffff0d614f::t_f3ee7cd587eaab 1216
+  s_3f77ffff0d614f::t_a2ff4e08565002 1218-1220
+  s_3f77ffff0d614f::t_0ad27ed6e84496 1223-1225,1243-1245
+  s_3f77ffff0d614f::t_1fcdcc4c1a69f2 1248
+  s_3f77ffff0d614f::t_9b5b9101ba3ff1 1251
+  s_3f77ffff0d614f::t_3edd3888e42ac3 1254
+  s_3f77ffff0d614f::t_ba39548a41042d 1256
+  h_91c03fe45fa613 917-928,1026-1028,1213,1226-1242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "446c5be6866b2d5839988f99111573e589bb8bc9",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.3-codex-spark"
+      },
+      "human_author": null
+    },
+    "s_71e7e22320dc72": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4998-7cc2-897a-c4e2fcb9a0e3",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_f56f51e7b2e31b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4869-7713-aa27-1e9ea5abc8c9",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
