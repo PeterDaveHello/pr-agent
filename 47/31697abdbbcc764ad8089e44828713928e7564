@@ -1,0 +1,28 @@
+tests/unittest/test_extra_config_url.py
+  s_2f5582391be529::t_29cb92c8bbdec6 28,30-31,33-71,137-138,147-152,158,162,167-169,175,177,179-180,183-186,189-191,196,198-199,202
+  s_3f77ffff0d614f::t_8811cc70f81a62 3,23-24,26-27,205,220-222,770,776-777
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4731697abdbbcc764ad8089e44828713928e7564",
+  "prompts": {},
+  "sessions": {
+    "s_2f5582391be529": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a050c1-5caf-7422-9b43-bbbdb2694f6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
