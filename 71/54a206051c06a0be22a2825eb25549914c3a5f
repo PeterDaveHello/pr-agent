@@ -1,0 +1,19 @@
+tests/unittest/test_azure_devops_webhook_auth.py
+  s_2f5582391be529::t_c43530e21fd506 1,9,21,24-31,34,40-42,47-49,54-55,59,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7154a206051c06a0be22a2825eb25549914c3a5f",
+  "prompts": {},
+  "sessions": {
+    "s_2f5582391be529": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a050c1-5caf-7422-9b43-bbbdb2694f6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
