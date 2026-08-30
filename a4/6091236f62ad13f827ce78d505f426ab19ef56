@@ -1,0 +1,19 @@
+AGENTS.md
+  s_dea31e024c2cae::t_111ffc0214f744 79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a46091236f62ad13f827ce78d505f426ab19ef56",
+  "prompts": {},
+  "sessions": {
+    "s_dea31e024c2cae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04eb1-763d-79e3-ad4f-bf05834fe34d",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
