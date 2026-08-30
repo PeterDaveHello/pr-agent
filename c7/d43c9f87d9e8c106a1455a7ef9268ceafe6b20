@@ -1,13 +1,26 @@
 pr_agent/algo/__init__.py
   h_91c03fe45fa613 77-78,271,319-320
 docs/docs/usage-guide/changing_a_model.md
-  h_91c03fe45fa613 347-425
+  h_91c03fe45fa613 347-425,347-424
 pr_agent/algo/ai_handlers/litellm_ai_handler.py
   h_91c03fe45fa613 204-222
 tests/unittest/test_get_max_tokens.py
-  h_91c03fe45fa613 336-429
+  h_91c03fe45fa613 336-429,336-427
 pr_agent/settings/.secrets_template.toml
   h_91c03fe45fa613 121-134
+tests/unittest/test_litellm_imds.py
+  s_0a136136ff735a::t_ed0ad92948abac 390
+  s_0a136136ff735a::t_834b79d23f19a4 236
+  s_0a136136ff735a::t_b1f13db9a2c274 252
+  s_b19e2f37244e41::t_4d01aa5c0e037d 362,372,376,427,496,504,547,549,556,563,635,637
+tests/unittest/test_litellm_api_key_guard.py
+  s_0a136136ff735a::t_b1f13db9a2c274 568,577
+  s_b19e2f37244e41::t_57501c251b8633 395,435,564,663,666,672,674
+  s_0a136136ff735a::t_61c3d2fe0be48c 630,633,639
+  s_0a136136ff735a::t_ef08f5f2f74e68 147
+  s_0a136136ff735a::t_f10e3662007d6e 292
+tests/unittest/test_litellm_databricks_provider.py
+  s_b19e2f37244e41::t_9b11c8ebe5c666 76,79,81,85
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -17,6 +30,32 @@ pr_agent/settings/.secrets_template.toml
   "humans": {
     "h_91c03fe45fa613": {
       "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    },
+    "s_a6c2f4b2bf0381": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f55e0-fb58-7e42-bd7f-4a326264bfd1",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_b19e2f37244e41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fd2a5-c265-7853-863d-ed26abca6516",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
     }
   }
 }

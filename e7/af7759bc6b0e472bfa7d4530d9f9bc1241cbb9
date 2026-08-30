@@ -1,0 +1,47 @@
+tests/unittest/test_litellm_openrouter_controls.py
+  s_dea31e024c2cae::t_d0fb6b0e2ed853 63,77,92,96,154,169-171,173,176-182,184-186
+  s_dea31e024c2cae::t_1b71384e3c01cd 202-207
+  s_dea31e024c2cae::t_d810caae4d449a 18,188-189,191,196-197,201
+  s_dea31e024c2cae::t_0845e8f021f172 155,157,162-163,165,167-168,216
+  s_dea31e024c2cae::t_8224d3daec08ca 172,174-175,183,187
+  s_dea31e024c2cae::t_e1ba88c49b4bfa 17,208-215
+  s_dea31e024c2cae::t_81d25ced2579a4 156,158-161,164,166,190,192-195,198-200
+tests/unittest/test_get_max_tokens.py
+  s_dea31e024c2cae::t_0845e8f021f172 90-110
+docs/docs/usage-guide/changing_a_model.md
+  s_dea31e024c2cae::t_22c76701ac2bb5 528-533
+  s_dea31e024c2cae::t_0845e8f021f172 520-527,534
+tests/unittest/test_mosaico_health.py
+  s_dea31e024c2cae::t_8224d3daec08ca 117,119-121,125,142-143
+  s_dea31e024c2cae::t_aef569a4f8d238 126-127,129-140,146
+  s_dea31e024c2cae::t_5e9d6f29db6014 56,61-62,64,69-73,115-116,118,122-124,128,141,144-145
+pr_agent/mosaico/executor.py
+  s_dea31e024c2cae::t_aef569a4f8d238 27
+  s_dea31e024c2cae::t_5e9d6f29db6014 106-107,110,115-116
+  s_dea31e024c2cae::t_ba20876b3e05af 31,108
+pr_agent/algo/__init__.py
+  s_dea31e024c2cae::t_aef569a4f8d238 337,341-343
+  s_dea31e024c2cae::t_5e9d6f29db6014 338-340
+  s_dea31e024c2cae::t_81d25ced2579a4 330-336
+  s_dea31e024c2cae::t_0845e8f021f172 80-83
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_dea31e024c2cae::t_aef569a4f8d238 18,1061-1062
+  s_dea31e024c2cae::t_d0fb6b0e2ed853 1063
+  s_dea31e024c2cae::t_5e9d6f29db6014 1064
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "e7af7759bc6b0e472bfa7d4530d9f9bc1241cbb9",
+  "prompts": {},
+  "sessions": {
+    "s_dea31e024c2cae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04eb1-763d-79e3-ad4f-bf05834fe34d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
