@@ -1,0 +1,19 @@
+tests/unittest/test_mosaico_smoke.py
+  s_2f5582391be529::t_2f6bd41258cb81 3-4,16,91-96,98-99,105,125-126,135,152,154,163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "0ded340e806c50645c6be8c8fba39018a17403f1",
+  "prompts": {},
+  "sessions": {
+    "s_2f5582391be529": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a050c1-5caf-7422-9b43-bbbdb2694f6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
