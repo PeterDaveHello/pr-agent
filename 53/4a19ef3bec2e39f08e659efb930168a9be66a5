@@ -1,0 +1,19 @@
+tests/unittest/test_mosaico_health.py
+  s_2f5582391be529::t_7411e52444bbb2 3-5,10,18,21,27-33,37-39,45-47,64-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "534a19ef3bec2e39f08e659efb930168a9be66a5",
+  "prompts": {},
+  "sessions": {
+    "s_2f5582391be529": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a050c1-5caf-7422-9b43-bbbdb2694f6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
