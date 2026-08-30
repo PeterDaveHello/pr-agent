@@ -1,0 +1,65 @@
+pr_agent/settings/configuration.toml
+  s_3f77ffff0d614f::t_2b0d37c9f23b6a 424
+  s_3f77ffff0d614f::t_67632bca63051f 423,425
+tests/unittest/test_get_max_tokens.py
+  s_3f77ffff0d614f::t_557b517a5ab3ec 201-220
+docs/docs/usage-guide/changing_a_model.md
+  s_3f77ffff0d614f::t_963080875865c5 537
+  s_3f77ffff0d614f::t_0b9b94bb3b6031 199
+  s_3f77ffff0d614f::t_ac2aa4790cab06 187-188,201
+  s_3f77ffff0d614f::t_d2abfdf6f5cf24 196,198
+  s_3f77ffff0d614f::t_e6e41d3e55fd6f 200
+  s_3f77ffff0d614f::t_2b0d37c9f23b6a 541
+  s_3f77ffff0d614f::t_4905412e211fa3 197
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_3f77ffff0d614f::t_6290f458309c0f 1008
+  s_3f77ffff0d614f::t_30ffc940e9df3e 457,463-467,469-479,813-814,816,818,1003
+  s_3f77ffff0d614f::t_9fd858c440e301 15
+  s_3f77ffff0d614f::t_46952f871ae20e 453-456,458-462,468,811-812,815,817,1000-1002,1004-1007
+  s_3f77ffff0d614f::t_1a092b0dfc7761 784-786,829-832
+  s_3f77ffff0d614f::t_bffcccf433f1d9 827-828,833-838
+tests/unittest/test_litellm_reasoning_effort.py
+  s_3f77ffff0d614f::t_023f1c002f6824 937-939,941-942,967-969,978-979,981,988-989,992-998,1000-1001,1005-1006,1069-1070,1072,1077-1078,1086,1095,1137,1141-1142,1152,1156-1157,1165,1167-1168,1172,1176
+  s_3f77ffff0d614f::t_d367368d8e0a8b 4,1029-1042,1046,1048-1050
+  s_3f77ffff0d614f::t_d7509c452e7db5 1021
+  s_3f77ffff0d614f::t_87d5629e856d19 1052-1068
+  s_3f77ffff0d614f::t_e032effdc6bb94 1089-1092
+  s_3f77ffff0d614f::t_d2abfdf6f5cf24 1010,1012,1017-1018,1020,1043-1044,1047
+  s_3f77ffff0d614f::t_cc5cc9f8018935 3,7,1009
+  s_3f77ffff0d614f::t_bffcccf433f1d9 1096-1103,1105-1110,1112,1127-1129,1132-1136
+  s_3f77ffff0d614f::t_058cd4a7a2b01f 1022-1023
+  s_3f77ffff0d614f::t_961a57f6fa665c 1119-1120,1131
+  s_3f77ffff0d614f::t_a65b2d66ec1790 6
+  s_3f77ffff0d614f::t_0da411fcb16f80 940,943-952,954,961-966,970-977,980,982-987,990-991,999,1002-1004,1007-1008,1071,1073-1076,1079,1085,1087-1088,1093,1138-1140,1143-1151,1153-1155,1158-1164,1166,1169-1171,1173-1175,1177
+  s_3f77ffff0d614f::t_1a092b0dfc7761 953,955-960,1024-1028,1080-1084,1104,1111,1113-1118,1121-1126,1130
+  s_3f77ffff0d614f::t_963080875865c5 1011,1013-1016,1019,1045
+  s_f56f51e7b2e31b::t_aa0362bb144b21 1051,1094
+pr_agent/algo/__init__.py
+  s_3f77ffff0d614f::t_a48b9760addd40 412-415,419-425
+  s_3f77ffff0d614f::t_77bd0d214c2c6f 298-303
+  s_3f77ffff0d614f::t_0b9b94bb3b6031 410-411,418
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "cb8fa07fe86287e9bd87b71dc0f4d10bc3a5f0de",
+  "prompts": {},
+  "sessions": {
+    "s_3f77ffff0d614f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a039f4-b4a3-7a72-884a-4cc8e4b919e9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    },
+    "s_f56f51e7b2e31b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a034d2-4869-7713-aa27-1e9ea5abc8c9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

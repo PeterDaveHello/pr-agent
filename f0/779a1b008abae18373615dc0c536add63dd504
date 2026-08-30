@@ -1,0 +1,19 @@
+tests/unittest/test_webhook_logic_core.py
+  s_2f5582391be529::t_debea4438f502e 6,118-125,379,416,424,439,447,455-456,484
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f0779a1b008abae18373615dc0c536add63dd504",
+  "prompts": {},
+  "sessions": {
+    "s_2f5582391be529": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a050c1-5caf-7422-9b43-bbbdb2694f6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

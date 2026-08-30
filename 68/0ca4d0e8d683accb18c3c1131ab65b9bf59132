@@ -1,0 +1,19 @@
+tests/unittest/test_gitlab_webhook_secret_provider.py
+  s_2f5582391be529::t_89a63f459ec3b2 3,91,99-103,106-107,110,113-114,116,119-120,122,125-126,138,143-144,151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "680ca4d0e8d683accb18c3c1131ab65b9bf59132",
+  "prompts": {},
+  "sessions": {
+    "s_2f5582391be529": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a050c1-5caf-7422-9b43-bbbdb2694f6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
