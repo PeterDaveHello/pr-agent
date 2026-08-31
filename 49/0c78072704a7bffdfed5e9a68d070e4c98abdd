@@ -1,0 +1,32 @@
+.github/workflows/publish.yml
+  s_cc58228427465a::t_97f3f3c5fda6c2 33
+  s_cc58228427465a::t_990f018075070d 31-32,34,38-42,59-61,146-148,164-167,170,172,241-243
+  s_cc58228427465a::t_997b88f631b759 43
+  s_cc58228427465a::t_397a4002f602bc 230,233
+tests/unittest/test_resolve_release.py
+  s_cc58228427465a::t_7e45d399a638e4 35-61
+  s_cc58228427465a::t_397a4002f602bc 105-106,116
+  s_cc58228427465a::t_2fb5dad52fb5ce 115
+  s_cc58228427465a::t_997b88f631b759 10,13
+  s_cc58228427465a::t_79644b6cf1b3d2 114
+  s_cc58228427465a::t_990f018075070d 1-9,11-12,14-34,62-104,107-113,117
+pr_agent/algo/release_inputs.py
+  s_cc58228427465a::t_997b88f631b759 1-49,60-72
+  s_cc58228427465a::t_2fb5dad52fb5ce 50-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "490c78072704a7bffdfed5e9a68d070e4c98abdd",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
