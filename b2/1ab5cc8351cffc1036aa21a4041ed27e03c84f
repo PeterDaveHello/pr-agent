@@ -1,0 +1,22 @@
+action.yaml
+  s_cc58228427465a::t_b4bbff2a56540f 17
+tests/unittest/test_github_action_metadata.py
+  s_cc58228427465a::t_46057be55d469e 10-11,18
+  s_cc58228427465a::t_b4bbff2a56540f 1-9,12-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b21ab5cc8351cffc1036aa21a4041ed27e03c84f",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
