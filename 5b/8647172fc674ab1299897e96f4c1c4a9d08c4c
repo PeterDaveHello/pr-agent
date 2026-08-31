@@ -1,0 +1,27 @@
+.github/workflows/publish.yml
+  s_cc58228427465a::t_990f018075070d 43-44
+  s_cc58228427465a::t_9f41ed84b086c3 53-56
+  s_cc58228427465a::t_3574bd2759d505 38,46,50,60,65
+tests/unittest/test_publish_workflow_security.py
+  s_cc58228427465a::t_9f41ed84b086c3 1-2,29-47,53-56
+  s_cc58228427465a::t_3574bd2759d505 3-5,7-15
+  s_cc58228427465a::t_f3bd2b46062e29 16
+  s_cc58228427465a::t_6976ae11b27993 48-52
+  s_cc58228427465a::t_bae47f8d46251b 6,17-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5b8647172fc674ab1299897e96f4c1c4a9d08c4c",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
