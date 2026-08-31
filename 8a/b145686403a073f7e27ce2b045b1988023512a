@@ -1,0 +1,25 @@
+action.yaml
+  s_cc58228427465a::t_b4bbff2a56540f 17
+Dockerfile.github_action
+  s_cc58228427465a::t_43ad56d980bb13 1-2
+tests/unittest/test_github_action_metadata.py
+  s_cc58228427465a::t_43ad56d980bb13 8-34,45-50
+  s_cc58228427465a::t_b4bbff2a56540f 1-7,35-36,39-44
+  s_cc58228427465a::t_46057be55d469e 37-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8ab145686403a073f7e27ce2b045b1988023512a",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
