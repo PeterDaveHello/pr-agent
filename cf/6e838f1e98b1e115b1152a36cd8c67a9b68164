@@ -1,0 +1,29 @@
+docker/Dockerfile
+  s_cc58228427465a::t_10bf22dcb882e2 52
+.github/workflows/publish.yml
+  s_cc58228427465a::t_990f018075070d 43-44
+  s_cc58228427465a::t_3574bd2759d505 38,46,50,60,65
+  s_cc58228427465a::t_9f41ed84b086c3 53-56
+tests/unittest/test_publish_workflow_security.py
+  s_cc58228427465a::t_f3bd2b46062e29 12
+  s_cc58228427465a::t_3574bd2759d505 3-5,7-11
+  s_cc58228427465a::t_9f41ed84b086c3 1-2,25-43,49-52
+  s_cc58228427465a::t_bae47f8d46251b 6,13-24
+  s_cc58228427465a::t_6976ae11b27993 44-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "cf6e838f1e98b1e115b1152a36cd8c67a9b68164",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
