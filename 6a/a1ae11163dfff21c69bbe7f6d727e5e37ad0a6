@@ -24,6 +24,7 @@ pr_agent/algo/ai_handlers/litellm_ai_handler.py
   s_0a136136ff735a::t_e2fdb96e9c9eb1 617-621
   s_0a136136ff735a::t_6ae2ff73616943 623-633
   s_0a136136ff735a::t_f50c3773b0787d 849,851
+  s_0a136136ff735a::t_01fb590658ea99 532-533,535-536
 tests/unittest/test_litellm_custom_provider.py
   s_0a136136ff735a::t_88682b3f997085 14-16,35-37,51,87,89,93-146,161,165-185
   s_0a136136ff735a::t_40ce8f4931fcf3 85-86
