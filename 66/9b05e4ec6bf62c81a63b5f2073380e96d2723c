@@ -1,0 +1,26 @@
+tests/unittest/test_bitbucket_app_sensitive_logging.py
+  s_cc58228427465a::t_658391109328e5 52-53,60
+  s_cc58228427465a::t_d51c2b67085951 3
+  s_cc58228427465a::t_12cefed6fed20e 36-37,49
+  s_cc58228427465a::t_1d6f63ebb4b5f9 54-59,61-65
+  s_cc58228427465a::t_c7ce4b397cc0e9 50-51
+pr_agent/servers/bitbucket_app.py
+  s_cc58228427465a::t_289491dad142b7 277
+  s_cc58228427465a::t_1d6f63ebb4b5f9 276,278-280
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "669b05e4ec6bf62c81a63b5f2073380e96d2723c",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
