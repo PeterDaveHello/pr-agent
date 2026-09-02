@@ -1,0 +1,36 @@
+docker/Dockerfile
+  s_cc58228427465a::t_10bf22dcb882e2 52
+.github/workflows/publish.yml
+  s_cc58228427465a::t_3574bd2759d505 38,46,50,60,69
+  s_cc58228427465a::t_9f41ed84b086c3 53-56,61-62
+  s_cc58228427465a::t_97c9f76a659b93 63-64
+  s_cc58228427465a::t_8c2727d9a0f03e 10
+  s_cc58228427465a::t_990f018075070d 43-44
+tests/unittest/test_publish_workflow_security.py
+  s_cc58228427465a::t_3574bd2759d505 3-5,7-11
+  s_cc58228427465a::t_f1103116b2945c 25,28-70,141,160
+  s_cc58228427465a::t_9f41ed84b086c3 1-2,26-27,134-140,142-151,157-159
+  s_cc58228427465a::t_f8c5bfee5a30bd 71-72
+  s_cc58228427465a::t_6976ae11b27993 152-156
+  s_cc58228427465a::t_3b303198f4e989 85-91,130
+  s_cc58228427465a::t_f3bd2b46062e29 12
+  s_cc58228427465a::t_bae47f8d46251b 6,13-20,22-24
+  s_cc58228427465a::t_97c9f76a659b93 21,73-84,92-105,114-115
+  s_cc58228427465a::t_93f9065e38a424 106-113,116-129,131-133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "fbe50cac21322db33f9409660c2f75d7e1a82b30",
+  "prompts": {},
+  "sessions": {
+    "s_cc58228427465a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a055d8-dcc9-7be1-a663-b669fb26b505",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
