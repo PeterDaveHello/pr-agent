@@ -1,0 +1,25 @@
+tests/unittest/test_litellm_api_key_guard.py
+  s_0a136136ff735a::t_a6cbdeb69b87a2 1716-1802
+  s_0a136136ff735a::t_29b5f10aff6612 8,1676,1698
+  s_0a136136ff735a::t_9448bd829d67b9 1671,1678
+  s_0a136136ff735a::t_3e302f8561ef0b 1621-1670,1672-1675,1677,1679-1697,1699-1715
+  s_0a136136ff735a::t_cc5dd461bde102 52-54
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_0a136136ff735a::t_7b90fa8f8b2345 618-650,2989-2997,3028-3029
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b3c3b4f93ba4e1a2ced086e13ffead07b3b29f17",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
