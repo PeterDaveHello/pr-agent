@@ -1,0 +1,31 @@
+tests/unittest/test_litellm_claude_adaptive_thinking.py
+  s_179ad6c2536eae::t_7e9ab688691957 102-103
+tests/unittest/test_get_max_tokens.py
+  s_0a136136ff735a::t_7c0e5734fb1264 373-395
+tests/unittest/test_litellm_chat_completion_core.py
+  s_0a136136ff735a::t_f056db04edd05c 215-238,310-339
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "e6bccc68a51cee6184a9a311a60a73b965833970",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_179ad6c2536eae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0610a-51f7-7750-abfa-6b9cc677e531",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
