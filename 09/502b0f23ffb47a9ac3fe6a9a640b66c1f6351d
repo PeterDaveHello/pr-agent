@@ -1,0 +1,19 @@
+tests/unittest/test_litellm_claude_adaptive_thinking.py
+  s_179ad6c2536eae::t_7e9ab688691957 102-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "09502b0f23ffb47a9ac3fe6a9a640b66c1f6351d",
+  "prompts": {},
+  "sessions": {
+    "s_179ad6c2536eae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0610a-51f7-7750-abfa-6b9cc677e531",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
