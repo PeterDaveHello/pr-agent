@@ -12,6 +12,7 @@ import stat
 from contextvars import ContextVar
 from functools import lru_cache, wraps
 from types import FunctionType, SimpleNamespace
+from urllib.parse import urlparse
 
 import httpx
 import litellm
@@ -934,6 +935,12 @@ def _azure_ai_native_transport(provider: str, model: str | None) -> tuple[str, s
         if AzureAIStudioConfig()._is_azure_openai_model(native_model, None):
             return "azure", native_model
     return provider, model
+
+
+def _is_cloudflare_gateway(api_base: str | None) -> bool:
+    """Match the AI Gateway host itself; a substring test also matches it inside a path or query."""
+    hostname = urlparse(api_base or "").hostname or ""
+    return hostname == "gateway.ai.cloudflare.com" or hostname.endswith(".gateway.ai.cloudflare.com")
 
 
 def _request_local_openai_headers(provider: str, organization=None, model: str | None = None) -> dict | None:
@@ -3100,7 +3107,7 @@ class LiteLLMAIHandler(BaseAiHandler):
         )
         companion_auth = (
             self._uses_captured_azure_companion_auth(provider)
-            and "gateway.ai.cloudflare.com" not in (params.get("api_base") or "")
+            and not _is_cloudflare_gateway(params.get("api_base"))
         )
         # Token- or companion-based Azure requests must block even a key that appears only
         # after native dispatch starts, not just an already visible fallback.
@@ -4215,7 +4222,7 @@ class LiteLLMAIHandler(BaseAiHandler):
         oidc_selector = azure_ad_token if isinstance(azure_ad_token, str) and azure_ad_token.startswith("oidc/") else None
         companion_auth = (
             self._uses_captured_azure_companion_auth(provider)
-            and "gateway.ai.cloudflare.com" not in (kwargs.get("api_base") or "")
+            and not _is_cloudflare_gateway(kwargs.get("api_base"))
         )
         if provider == "azure_ai" and companion_auth:
             native_transport, native_model = _azure_ai_native_transport(transport, transport_model)
@@ -4227,7 +4234,7 @@ class LiteLLMAIHandler(BaseAiHandler):
                 _azure_ad_guard = _azure_ad_guard or _raw_api_key_guard
         ordinary_sdk_auth = (
             provider == "azure" and (azure_ad_token or companion_auth) and not oidc_selector
-            and "gateway.ai.cloudflare.com" not in (kwargs.get("api_base") or "")
+            and not _is_cloudflare_gateway(kwargs.get("api_base"))
             and _request_local_openai_headers(transport, model=transport_model) is not None
         )
         if provider == "azure" and azure_ad_token and kwargs.get("api_key") is not None:
@@ -4238,7 +4245,7 @@ class LiteLLMAIHandler(BaseAiHandler):
             model = kwargs.get("model", "")
             headers = dict(kwargs.get("headers") or {})
             guard_key = kwargs.get("api_key") == DUMMY_LITELLM_API_KEY and (self._azure_ad or not captured_key)
-            cloudflare_key_branch = "gateway.ai.cloudflare.com" in (kwargs.get("api_base") or "")
+            cloudflare_key_branch = _is_cloudflare_gateway(kwargs.get("api_base"))
             if (
                 (guard_key or cloudflare_key_branch)
                 and (not oidc_selector or not _azure_oidc_guard or cloudflare_key_branch)

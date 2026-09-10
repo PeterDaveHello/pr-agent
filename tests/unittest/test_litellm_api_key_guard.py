@@ -8,7 +8,7 @@ import os
 from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
-from urllib.parse import unquote
+from urllib.parse import unquote, urlparse
 
 import httpx
 import litellm
@@ -242,6 +242,7 @@ async def _assert_native_azure_ad_auth(
     monkeypatch.setattr(azure_common, "get_secret_str", assertion)
     monkeypatch.setattr(litellm.module_level_client, "post", exchange)
     handler = LiteLLMAIHandler()
+    second_handler = None
     if concurrent_handlers:
         monkeypatch.setenv(token_variable, "request-ad-token-second")
         second_handler = LiteLLMAIHandler()
@@ -1219,7 +1220,8 @@ async def test_native_raw_azure_companion_snapshot(monkeypatch, native_azure_oid
     monkeypatch.setattr(azure.identity, "ClientSecretCredential", constructor)
     monkeypatch.setattr(azure.identity, "get_bearer_token_provider", lambda *args: lambda: "owned-companion-token")
     state.expected_api_key = headers.get("api-key")
-    suffix = "/models/chat/completions" if "services.ai.azure.com" in host else "/chat/completions"
+    hostname = urlparse(host).hostname or ""
+    suffix = "/models/chat/completions" if hostname.endswith(".services.ai.azure.com") else "/chat/completions"
     state.expected_url = host + suffix
     expected = None if "api-key" in headers else "Bearer owned-companion-token"
     assert await state.invoke(handler, model="azure_ai/test-model") == expected
@@ -8186,3 +8188,19 @@ async def test_native_bedrock_model_region_precedence(monkeypatch, model_source,
     assert seen[1].url == seen[0].url
     assert_request(seen[1])
     assert handler._aws_active_creds == captured
+
+
+@pytest.mark.parametrize(
+    ("api_base", "expected"),
+    (
+        ("https://gateway.ai.cloudflare.com/v1/account/gateway/azure-openai/resource", True),
+        ("https://eu.gateway.ai.cloudflare.com/v1/account/gateway/azure-openai/resource", True),
+        ("https://owned.example/?next=gateway.ai.cloudflare.com", False),
+        ("https://owned.example/gateway.ai.cloudflare.com/v1/account", False),
+        ("https://gateway.ai.cloudflare.com.owned.example/v1", False),
+        ("https://owned.openai.azure.com", False),
+        (None, False),
+    ),
+)
+def test_cloudflare_gateway_matches_the_host_not_the_string(api_base, expected):
+    assert litellm_handler._is_cloudflare_gateway(api_base) is expected
