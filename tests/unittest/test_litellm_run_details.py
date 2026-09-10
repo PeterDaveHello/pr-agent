@@ -191,6 +191,12 @@ def _bare_handler():
     handler.no_support_temperature_models = []
     handler.support_reasoning_models = []
     handler.user_message_only_models = []
+    handler._claude_thinking_controls = {
+        "enable_claude_adaptive_thinking": False,
+        "enable_claude_extended_thinking": False,
+        "extended_thinking_budget_tokens": 2048,
+        "extended_thinking_max_output_tokens": 4096,
+    }
     handler._custom_llm_provider = ""
     handler._aws_imds_mode = False
     handler._aws_imds_fell_back = False
