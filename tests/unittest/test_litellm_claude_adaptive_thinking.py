@@ -64,10 +64,17 @@ def _settings(
         verbosity_level=0,
         get=lambda key, default=None: flags.get(key, default),
     )
+    # Bedrock requests now resolve credentials per request rather than from the
+    # process environment, so a bedrock model needs them supplied here.
+    aws = {
+        "aws.AWS_ACCESS_KEY_ID": "AKIAIOSFODNN7EXAMPLE",
+        "aws.AWS_SECRET_ACCESS_KEY": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+        "aws.AWS_REGION_NAME": "us-east-1",
+    }
     return SimpleNamespace(
         config=config,
         litellm=SimpleNamespace(get=lambda key, default=None: default),
-        get=lambda key, default=None: default,
+        get=lambda key, default=None: aws.get(key, default),
     )
 
 
@@ -81,6 +88,9 @@ def _response():
 
 async def _run_completion(monkeypatch, model, reasoning_effort="medium", enabled=False,
                           extended_enabled=False, extended_override=None):
+    # An ambient selector would be refused before the request credentials are read.
+    for variable in ("AWS_PROFILE_NAME", "AWS_ROLE_NAME"):
+        monkeypatch.delenv(variable, raising=False)
     monkeypatch.setattr(
         litellm_handler,
         "get_settings",
