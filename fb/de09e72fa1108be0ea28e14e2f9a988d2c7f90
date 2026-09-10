@@ -1,0 +1,32 @@
+tests/unittest/test_streaming_api_error_construction.py
+  s_0a136136ff735a::t_1b51b53bc242f7 7,59-75,79-150
+  s_0a136136ff735a::t_4f475504514e41 76-78
+tests/unittest/test_mosaico_health.py
+  s_0a136136ff735a::t_1b51b53bc242f7 10,13-14,20-21,23,117,164-209,211-217,219-225,227-232,277-279,282,284-304,311-316
+  s_0a136136ff735a::t_4f475504514e41 280-281,283,305-310
+  s_0a136136ff735a::t_4586e0c4ad1fd1 11-12,210,218,226,233-276
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_0a136136ff735a::t_68ac917cb0997e 18-19,67-90,121-122
+docker/mosaico/README.md
+  s_0a136136ff735a::t_617a56c22bb0ad 53-61
+docker/mosaico/smoke_test.sh
+  s_0a136136ff735a::t_617a56c22bb0ad 26-27,109-110
+pr_agent/mosaico/executor.py
+  s_0a136136ff735a::t_68ac917cb0997e 21,30,36-37,115,136-141,144-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fbde09e72fa1108be0ea28e14e2f9a988d2c7f90",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
