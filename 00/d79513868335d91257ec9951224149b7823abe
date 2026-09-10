@@ -63,6 +63,7 @@ pr_agent/algo/ai_handlers/litellm_ai_handler.py
   s_0a136136ff735a::t_7b611e2c216cc5 690,1135,1137-1140,1152-1153,1161,1185
   s_0a136136ff735a::t_43f720b39a155d 144,1157-1158,1178
   s_0a136136ff735a::t_12c8b194303dbe 1085,1141,1143,1145-1148,1187-1189
+  s_0a136136ff735a::t_c4c65bf63ffca9 88,91
 tests/unittest/test_litellm_run_details.py
   s_0a136136ff735a::t_3166631eddc8bf 198-199
 tests/unittest/test_litellm_databricks_provider.py
