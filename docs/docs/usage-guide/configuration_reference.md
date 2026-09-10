@@ -167,7 +167,7 @@ to-do list.
 | `minimal_commits_for_incremental_review` | 0 |  |
 | `minimal_minutes_for_incremental_review` | 0 |  |
 | `enable_intro_text` | true |  |
-| `enable_help_text` | false | Determines whether to include help text in the PR review. Enabled by default. |
+| `enable_help_text` | false | Determines whether to include help text in the PR review. |
 | `enable_review_coverage_footer` | true |  |
 | `enable_large_pr_chunking` | false | large-diff chunking (opt-in). When the token budget leaves files out of the review, split the diff into chunks, review each chunk, and merge the per-chunk results into one review. |
 | `max_number_of_calls` | 3 | maximum number of chunk review calls, used only when enable_large_pr_chunking is true |
@@ -362,6 +362,9 @@ _This section only documents commented-out examples; see the [TOML source](https
 | --- | --- | --- |
 | `deployment_type` | "user" | The type of deployment to create. Valid values are 'app' or 'user'. |
 | `ratelimit_retries` | 5 |  |
+| `seconds_between_requests` | 0 | seconds between API requests; 0 = no pacing (1.59 behaviour) |
+| `seconds_between_writes` | 0 | seconds between write calls; 0 = no pacing (1.59 behaviour) |
+| `api_retries` | 0 | max retries per request with backoff; 0 = no retries (1.59 behaviour) |
 | `polling_request_timeout` | 10 | total seconds for comment-history fallback; positive values capped at 60 |
 | `base_url` | "https://api.github.com" |  |
 | `publish_inline_comments_fallback_with_verification` | true |  |
@@ -475,7 +478,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `provider_only` | [] | restrict routing to these upstream providers only, a hard allowlist (e.g. ["z-ai"]); empty = OpenRouter default routing |
 | `provider_order` | [] | preferred provider order; ignored when provider_only is set; empty = unset |
 | `allow_fallbacks` | true | when provider_order is set, allow routing beyond the listed providers |
-| `reasoning_effort` | "" | Invalid reasoning_effort values are warned about and treated as unset. Empty inherits config.reasoning_effort for models in SUPPORT_REASONING_EFFORT_MODELS. Valid values: "none", "minimal", "low", "medium", "high", "xhigh", "max". OpenRouter normalizes "max" to "xhigh" to match LiteLLM 1.98.0. Model-specific support varies; mandatory reasoning models reject "none". |
+| `reasoning_effort` | "" | Invalid reasoning_effort values are warned about and treated as unset. Empty inherits config.reasoning_effort for models in SUPPORT_REASONING_EFFORT_MODELS. Valid values: "none", "minimal", "low", "medium", "high", "xhigh", "max". OpenRouter normalizes "max" to "xhigh" for LiteLLM/OpenRouter compatibility. Model-specific support varies; mandatory reasoning models reject "none". |
 | `reasoning_max_tokens` | 0 | A positive value overrides global effort and non-none OpenRouter-specific efforts. Explicit openrouter.reasoning_effort = "none" keeps reasoning disabled, except on Grok 4.5/4.6: there "none" is clamped to the lowest supported effort first, so a positive budget wins over it. Some providers require max_tokens to be greater than the reasoning budget. |
 | `max_tokens` | 0 | hard cap on completion tokens for the request; 0 = unset |
 
