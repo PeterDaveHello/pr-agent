@@ -1,0 +1,42 @@
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_0a136136ff735a::t_e1846cf65f001f 18-19,67-68,78-94,96-100,131-132
+  s_0a136136ff735a::t_2a44e81c4937bc 69-77,95
+tests/unittest/test_mosaico_health.py
+  s_0a136136ff735a::t_74acd6264e1d32 10-11,64-113
+  s_0a136136ff735a::t_ed3cb533fbefaf 116-123,128-130,132-159
+  s_0a136136ff735a::t_fb54aea84108ce 23-63,114-115
+  s_0a136136ff735a::t_2a44e81c4937bc 124-127
+  s_0a136136ff735a::t_7d3bcfecacc609 131
+tests/unittest/test_config_reference.py
+  s_0a136136ff735a::t_2a44e81c4937bc 26
+tests/unittest/test_streaming_api_error_construction.py
+  s_0a136136ff735a::t_120984d0a1ea3f 190-212
+  s_0a136136ff735a::t_bf2284eaa6f895 213-234
+  s_0a136136ff735a::t_4bec5a537cbab3 8,60-100,112-127,146-151,153-157,159-164,166-169
+  s_0a136136ff735a::t_28bd7531a549f0 3,101-111,128-145,152,158,165,170-189
+docs/docs/installation/mosaico_server.md
+  s_0a136136ff735a::t_ed3cb533fbefaf 22
+  s_0a136136ff735a::t_fcd1afb9236a6c 21
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_0a136136ff735a::t_e1846cf65f001f 56,4158-4162,4164-4170
+pr_agent/settings/configuration.toml
+  s_0a136136ff735a::t_2a44e81c4937bc 444
+docs/docs/usage-guide/configuration_reference.md
+  s_0a136136ff735a::t_30284349dcfe50 476
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d9f60fa3885b4d15827bb60add03531d64e25164",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": null
+    }
+  }
+}
