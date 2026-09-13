@@ -23,6 +23,8 @@ tests/unittest/test_mosaico_health.py
 pr_agent/mosaico/executor.py
   s_0a136136ff735a::t_0b7a50b63d08d8 23,125-127,130,132
   s_0a136136ff735a::t_ea92eff8c9e9b8 21,128-129,131,133,136-137
+tests/unittest/test_config_reference.py
+  s_0a136136ff735a::t_c471d90b31a765 26
 ---
 {
   "schema_version": "authorship/3.0.0",
