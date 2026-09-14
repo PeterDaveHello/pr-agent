@@ -1,0 +1,45 @@
+docs/docs/installation/mosaico_server.md
+  s_0a136136ff735a::t_0b7a50b63d08d8 21-25,30
+  s_0a136136ff735a::t_ca830c9be57067 26-29
+pr_agent/settings/configuration.toml
+  s_0a136136ff735a::t_0b7a50b63d08d8 510-512
+tests/unittest/test_mosaico_health.py
+  s_0a136136ff735a::t_3edc4b16b1b147 168,170-171,173-174,181-182
+  s_0a136136ff735a::t_2f12ca2351f15f 21-22
+  s_0a136136ff735a::t_0b7a50b63d08d8 12,73,169,172,175,195,201-239
+  s_0a136136ff735a::t_ea92eff8c9e9b8 10-11,14,19,135-158,160-167,176-180,183-194,196-200,240-268
+  s_0a136136ff735a::t_65ebd27ac83995 13,159
+pr_agent/mosaico/executor.py
+  s_0a136136ff735a::t_0b7a50b63d08d8 23,125-127,130,132
+  s_0a136136ff735a::t_ea92eff8c9e9b8 21,128-129,131,133,136-137
+docs/docs/usage-guide/configuration_reference.md
+  s_0a136136ff735a::t_14a340445edb18 511-517
+docker/mosaico/README.md
+  s_0a136136ff735a::t_3edc4b16b1b147 141
+  s_0a136136ff735a::t_37dc33d5043dbb 136
+  s_0a136136ff735a::t_ca830c9be57067 137,143-148
+  s_0a136136ff735a::t_f5c07bb96dc2f3 138,142,149
+  s_0a136136ff735a::t_ea92eff8c9e9b8 135
+  s_0a136136ff735a::t_0b7a50b63d08d8 139-140
+tests/unittest/test_config_reference.py
+  s_0a136136ff735a::t_f0682ce0da3a63 26
+docker/mosaico/smoke_test.sh
+  s_0a136136ff735a::t_3edc4b16b1b147 109-110
+  s_0a136136ff735a::t_ea92eff8c9e9b8 26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "078caf314fce3846a8dd8d6e634dd09806f2531d",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": null
+    }
+  }
+}
