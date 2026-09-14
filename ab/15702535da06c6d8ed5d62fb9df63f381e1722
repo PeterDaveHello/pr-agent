@@ -1,0 +1,23 @@
+tests/unittest/test_litellm_imds.py
+  s_0a136136ff735a::t_7874f6e68433df 7,18,124-151,160-176,178-185,187-199,201-207
+  s_0a136136ff735a::t_f4eedd0cda6da7 152-159,177,186,200
+  s_0a136136ff735a::t_1165ba514e5fdd 208-209
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_0a136136ff735a::t_fb309d58bf31a7 2578,2591-2595,2682,2684
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ab15702535da06c6d8ed5d62fb9df63f381e1722",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": null
+    }
+  }
+}
