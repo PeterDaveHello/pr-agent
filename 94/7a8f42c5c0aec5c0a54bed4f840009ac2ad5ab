@@ -1,0 +1,35 @@
+tests/unittest/test_litellm_imds.py
+  s_0a136136ff735a::t_d8d6742b48f1e2 607-608,610-611,626-627,633,1076,1103,1135,1145-1147,1150-1151,1216,1218,1228-1231,1433,1435,1477,1479,1520,1522,1678-1680,1682,1702-1704,1707,1765-1768,1771,2024-2025,2086-2089,2091,2112-2113
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_0a136136ff735a::t_4bfba487f43213 12,1999-2000,2477,2534,2772-2788,2791,2795-2812,2815-2817
+docs/docs/usage-guide/changing_a_model.md
+  s_0a136136ff735a::t_e078cefd210624 319-321
+tests/unittest/test_litellm_aws_async_preparation.py
+  s_0a136136ff735a::t_c1705a982e7bd1 1-199
+tests/unittest/test_litellm_api_key_guard.py
+  s_6f8093975c7009::t_7f740eb7b302ea 8184-8186
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "947a8f42c5c0aec5c0a54bed4f840009ac2ad5ab",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_6f8093975c7009": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a09a58-8905-73c0-b6a4-ccc15a6c5b44",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
