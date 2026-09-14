@@ -24,6 +24,8 @@ docker/mosaico/README.md
 docker/mosaico/smoke_test.sh
   s_0a136136ff735a::t_3edc4b16b1b147 109-110
   s_0a136136ff735a::t_ea92eff8c9e9b8 26-27
+tests/unittest/test_config_reference.py
+  s_0a136136ff735a::t_9da19c65452afe 26
 ---
 {
   "schema_version": "authorship/3.0.0",
