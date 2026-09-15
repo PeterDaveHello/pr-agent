@@ -1,0 +1,28 @@
+docs/docs/usage-guide/changing_a_model.md
+  s_0a136136ff735a::t_f8692124f1d07a 319-322,325-329
+  s_0a136136ff735a::t_04490f54f896f6 323-324
+tests/unittest/test_litellm_imds.py
+  s_0a136136ff735a::t_f8692124f1d07a 617,1996-1997,2079-2080
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_0a136136ff735a::t_1e31ac8037be75 12,2018,2682-2690,2693-2697,2710-2711,2716-2719,2809,2816
+  s_0a136136ff735a::t_5bfe9725aee247 2691-2692,2715
+tests/unittest/test_litellm_aws_async_preparation.py
+  s_0a136136ff735a::t_a340070c2dc8a2 1-252,314-340
+  s_0a136136ff735a::t_5d7b168dc075a9 253-313
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9c4066299881166136695f1c9f485717fc2cb079",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": null
+    }
+  }
+}
