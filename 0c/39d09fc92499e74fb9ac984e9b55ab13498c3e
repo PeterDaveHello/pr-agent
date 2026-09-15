@@ -1,0 +1,35 @@
+tests/unittest/test_litellm_aws_async_preparation.py
+  s_0a136136ff735a::t_c1705a982e7bd1 1-10,19-182,201-218,220-222
+  s_0a136136ff735a::t_2d9ee4018422f8 183-200
+  s_0a136136ff735a::t_5ff9bbc71fccb4 219
+  s_0a136136ff735a::t_2144e036f9e05c 11-13,17-18
+  s_0a136136ff735a::t_d0725302dc72c3 14-16,223-274
+docs/docs/usage-guide/changing_a_model.md
+  s_0a136136ff735a::t_04490f54f896f6 319-330
+tests/unittest/test_litellm_api_key_guard.py
+  s_0a136136ff735a::t_ed58d744ce4105 8194
+  s_0a136136ff735a::t_4c7e31b07292c8 8185-8188,8191-8193,8195-8196
+tests/unittest/test_litellm_imds.py
+  s_0a136136ff735a::t_d8d6742b48f1e2 607-608,610-611,626-627,633,1076,1103,1135,1145-1147,1150-1151,1216,1218,1228-1231,1433,1435,1477,1479,1520,1522,1678-1680,1682,1702-1704,1707,1765-1768,1771,2024-2025,2086-2089,2091,2112-2113
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_0a136136ff735a::t_5ff9bbc71fccb4 2810-2811
+  s_0a136136ff735a::t_4bfba487f43213 12,1999-2000,2477,2534,2772-2783,2785-2786,2793,2796,2800-2809,2812-2817,2820-2822
+  s_0a136136ff735a::t_e22397cfc64c6f 2784,2787-2789
+  s_0a136136ff735a::t_c9f8bf7d1dd691 2790-2792
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0c39d09fc92499e74fb9ac984e9b55ab13498c3e",
+  "prompts": {},
+  "sessions": {
+    "s_0a136136ff735a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff127-ea5c-73c2-b1d8-fcea04a6dad8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": null
+    }
+  }
+}
