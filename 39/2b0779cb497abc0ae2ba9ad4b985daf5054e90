@@ -1,0 +1,26 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 794-809,870-871
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 272-274,311-312
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 43,1242-1243,1246-1252,1263,1267,2432-2433,2435,2449-2455,2457,2462,2497,2530,2542-2543,2545,2613,2774-2776,2778,2780
+pr_agent/algo/token_budget.py
+  h_91c03fe45fa613 9,46,57,62-64
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 49
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 110,114,124,126-128,131,140
+tests/unittest/test_litellm_reasoning_effort.py
+  h_91c03fe45fa613 963-969,972,975,986-1038,1042-1043,1045,1051-1052,1057-1058,1061-1062,1066,1070,1076-1106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "392b0779cb497abc0ae2ba9ad4b985daf5054e90",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
