@@ -1,0 +1,22 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 831
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 32-37,485
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 529-537,540
+tests/unittest/test_litellm_chat_completion_core.py
+  h_91c03fe45fa613 286-294,297,392-400,403
+tests/unittest/test_litellm_claude_adaptive_thinking.py
+  h_91c03fe45fa613 136-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cb1d0c3af81108e455810e81469efcd66eba0654",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
