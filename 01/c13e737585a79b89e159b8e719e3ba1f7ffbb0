@@ -1,0 +1,23 @@
+docs/docs/installation/mosaico_server.md
+  s_1fe4a22cf21de7::t_32a67de801edcb 24-25,38-42
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_32a67de801edcb 484-493,536
+docker/mosaico/README.md
+  s_1fe4a22cf21de7::t_32a67de801edcb 146-149,151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "01c13e737585a79b89e159b8e719e3ba1f7ffbb0",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
