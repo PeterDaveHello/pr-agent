@@ -1,0 +1,19 @@
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1fe4a22cf21de7::t_01e343917c6bc5 69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4c46adce475dc51f85fb64ee87de68d4c26f23c1",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
