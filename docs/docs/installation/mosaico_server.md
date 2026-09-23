@@ -25,12 +25,28 @@ The A2A server exposes three endpoints:
 Images with health-probe hardening return `Unhealthy: LLM probe failed` for provider
 failures; the health check's own warning records only the exception type.
 `mosaico.health_timeout_seconds` sets a finite positive deadline in seconds (default: 10)
-for cooperative asynchronous preparation and dispatch. Synchronous initialization and
-blocking SDK work can exceed this deadline. Older images may predate these protections.
+for cooperative asynchronous preparation, dispatch, stream consumption, and cleanup waiting.
+Synchronous initialization and blocking SDK work can exceed this deadline. Older images may predate these protections.
 Set `MOSAICO__HEALTH_TIMEOUT_SECONDS` in the server's environment to override the default.
 Invalid values produce the generic unhealthy response (503), rather than using the default.
 When increasing the budget, also allow sufficient time in any external health-check client
 and container healthcheck; the bundled Compose probe uses a separate 25-second HTTP timeout.
+
+The probe uses chat's required/forced LLM streaming selection and consumes returned streams,
+including unexpected streams, before reporting success. It does not require generated text
+or a particular finish reason. Chat and probe streams attempt `aclose()` on success, failure,
+or cancellation, with a bounded asynchronous wait controlled by
+`litellm.stream_close_timeout_seconds` (default: one second). Set a finite positive number;
+invalid values use the one-second fallback without replacing inference results.
+The environment override is `LITELLM__STREAM_CLOSE_TIMEOUT_SECONDS`.
+The health deadline can cancel an in-progress cleanup wait and report 503 even after the stream
+has been consumed. If cancellation occurs during consumption, cleanup still starts and can wait
+up to its own timeout before the probe returns. Allow for both the health timeout and this cleanup
+wait, plus a margin, in external health-check deadlines. More client time does not turn a timed-out
+probe into a healthy result.
+Synchronous blocking cleanup cannot be interrupted. Cleanup that exceeds the bounded wait
+continues in the background and may finish later. LLM streaming is separate from the A2A
+protocol streaming capability below.
 
 The advertised agent card carries the skills `review`, `improve`, `describe`, and `ask`, the
 name `"PR-Agent Solution Agent"`, a `version` derived from the running build (never

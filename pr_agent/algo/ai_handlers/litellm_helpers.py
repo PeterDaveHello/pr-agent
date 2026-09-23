@@ -15,6 +15,8 @@ DEFAULT_CALLBACK_TIMEOUT_SECONDS = 30
 MAX_DRAIN_ROUNDS = 5
 FLUSH_RESERVE_SECONDS = 1.0  # cap for each terminal phase reservation
 CANCELLATION_CLEANUP_SECONDS = 0.1
+STREAM_CLOSE_TIMEOUT_SECONDS = 1.0
+_stream_close_tasks = set()
 _LITELLM_CALLBACK_ATTRS = (
     "callbacks",
     "success_callback",
@@ -62,6 +64,63 @@ def _stream_usage(chunk):
     return None
 
 
+async def _close_stream(response):
+    """Bound cleanup while observing late failures without logging provider details."""
+    def warn(message):
+        try:
+            get_logger().warning(message)
+        except Exception:
+            pass
+
+    # Prevent invalid cleanup settings from blocking closure or replacing inference results.
+    try:
+        timeout = get_settings().get("LITELLM.STREAM_CLOSE_TIMEOUT_SECONDS", STREAM_CLOSE_TIMEOUT_SECONDS)
+        if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not isfinite(timeout) or timeout <= 0:
+            raise ValueError("Invalid stream cleanup timeout")
+    except Exception:
+        timeout = STREAM_CLOSE_TIMEOUT_SECONDS
+        warn("Invalid stream cleanup timeout; using the one-second safety fallback")
+
+    async def close():
+        closer = getattr(response, "aclose", None)
+        if callable(closer):
+            result = closer()
+            if inspect.isawaitable(result):
+                await result
+
+    def finished(task):
+        _stream_close_tasks.discard(task)
+        if not task.cancelled():
+            task.exception()
+
+    def restore_consumer_context():
+        restore = getattr(type(response), "_restore_consumer_correlation_context", None)
+        if callable(restore):
+            try:
+                restore(response)
+            except Exception:
+                pass
+
+    # Retain non-cooperative closers until they finish, even after the bounded wait.
+    close_coroutine = close()
+    try:
+        task = asyncio.create_task(close_coroutine)
+    except Exception:
+        close_coroutine.close()
+        warn("Unable to schedule stream cleanup")
+        task = None
+    if task is None:
+        restore_consumer_context()
+        return
+    _stream_close_tasks.add(task)
+    task.add_done_callback(finished)
+    try:
+        await asyncio.wait({task}, timeout=timeout)
+    finally:
+        # Restore LiteLLM correlation IDs in the consuming task, not only the close task.
+        restore_consumer_context()
+
+
 async def _handle_streaming_response(response, model=None):
     """
     Handle streaming response from acompletion and collect the full response.
@@ -92,6 +151,8 @@ async def _handle_streaming_response(response, model=None):
     except Exception as e:
         get_logger().error(f"Error handling streaming response: {e}")
         raise
+    finally:
+        await _close_stream(response)
 
     if not full_response and finish_reason is None:
         get_logger().warning("Streaming response resulted in empty content with no finish reason")

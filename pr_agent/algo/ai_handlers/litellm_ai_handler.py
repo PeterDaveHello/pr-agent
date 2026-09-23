@@ -124,6 +124,7 @@ from pr_agent.algo.ai_handlers.cloud_auth import (
     _vertex_request_default_adc,
 )
 from pr_agent.algo.ai_handlers.litellm_helpers import (
+    _close_stream,
     _get_azure_ad_credential,
     _get_azure_ad_token,
     _handle_streaming_response,
@@ -2884,8 +2885,21 @@ class LiteLLMAIHandler(BaseAiHandler):
                 kwargs["custom_llm_provider"] = custom_llm_provider
             if self._bedrock_model_id and request_provider == "bedrock":
                 kwargs["model_id"] = self._bedrock_model_id
+            # Match chat's streaming decision before normalizing the transport model.
+            streaming = self._requires_streaming(kwargs["model"]) or self._force_streaming_for_request(
+                custom_llm_provider, kwargs.get("api_base"),
+            )
+            if streaming:
+                kwargs["stream"] = True
+                kwargs["stream_options"] = {"include_usage": True}
             kwargs["model"] = normalize_litellm_model(kwargs["model"], custom_llm_provider)
-            await self._acompletion(_completion=_completion, **kwargs)
+            response = await self._acompletion(_completion=_completion, **kwargs)
+            if streaming or hasattr(response, "__aiter__"):
+                try:
+                    async for _ in response:
+                        pass
+                finally:
+                    await _close_stream(response)
 
     async def _get_completion(self, **kwargs):
         """

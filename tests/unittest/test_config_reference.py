@@ -30,6 +30,7 @@ def test_config_reference_covers_every_active_key():
         "enable_auto_approval",
         "reaction_on_start",
         "reaction_on_failure",
+        "stream_close_timeout_seconds",
     } <= set(keys)
     assert {"force_streaming_custom_llm_provider", "cache_control_injection_points"} <= set(keys)
 

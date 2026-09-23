@@ -143,9 +143,12 @@ Two outcomes:
   Set `MOSAICO__HEALTH_TIMEOUT_SECONDS` in the agent container's environment to override
   the default; with Compose, add it to the service's `environment` mapping.
   Invalid values make `/health` return the generic unhealthy response (503), not the default timeout.
-  The bundled Compose probe has its own 25-second HTTP timeout. For longer health budgets,
-  increase that HTTP timeout and Docker's `healthcheck.timeout` with sufficient margin;
+  The bundled Compose probe has its own 25-second HTTP timeout. Stream cleanup after cancellation
+  can add a wait of up to `litellm.stream_close_timeout_seconds` (default: one second;
+  environment override: `LITELLM__STREAM_CLOSE_TIMEOUT_SECONDS`). Allow for both budgets
+  plus a margin in that HTTP timeout and Docker's `healthcheck.timeout`;
   otherwise the container can remain unhealthy and registration will not run.
+  Increasing the client timeout does not make a timed-out LLM probe healthy.
   Check `API_BASE`/`API_KEY`/`MODEL_NAME`, not the compose file.
 - **Agent registers but the reference agent never reaches it.** The advertised card URL is
   `localhost`; see the `AGENT_CARD_HOST`/`AGENT_CARD_PORT` section above.

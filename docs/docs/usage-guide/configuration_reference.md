@@ -428,6 +428,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `custom_llm_provider` | "" | Optional: forward a fixed custom_llm_provider to LiteLLM, so a raw hosted model id (e.g. "claude-sonnet-4-5") reaches the provider unchanged instead of being rewritten by LiteLLM's prefix inference. Empty = let LiteLLM infer the provider from the model name. |
 | `force_streaming_custom_llm_provider` | "" | Force streaming when the request matches this provider AND its api_base contains one of the substrings below. Some OpenAI-compatible endpoints return a response that LiteLLM cannot normalize in non-streaming mode. Both must be set for the workaround to apply. |
 | `force_streaming_api_base_substrings` | [] |  |
+| `stream_close_timeout_seconds` | 1 | finite positive seconds for cooperative stream cleanup; invalid values use a one-second safety fallback |
 | `callback_timeout_seconds` | 30 | max seconds to wait for pending litellm callbacks to flush before exiting |
 | `cache_control_injection_points` | [] | Optional: enable Anthropic prompt caching via LiteLLM, e.g. [{location = "message", role = "system"}] (https://docs.litellm.ai/docs/tutorials/prompt_caching) |
 

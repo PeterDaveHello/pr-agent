@@ -452,6 +452,7 @@ custom_llm_provider = ""
 # normalize in non-streaming mode. Both must be set for the workaround to apply.
 force_streaming_custom_llm_provider = ""
 force_streaming_api_base_substrings = []
+stream_close_timeout_seconds = 1 # finite positive seconds for cooperative stream cleanup; invalid values use a one-second safety fallback
 callback_timeout_seconds = 30 # max seconds to wait for pending litellm callbacks to flush before exiting
 # Application inference profile ARN for classic `bedrock/` calls through the `bedrock-runtime` APIs.
 # Not used by `bedrock_mantle/`, which uses Projects for cost allocation.
