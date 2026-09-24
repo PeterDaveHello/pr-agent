@@ -1,0 +1,52 @@
+docs/docs/usage-guide/configuration_reference.md
+  s_1fe4a22cf21de7::t_c6635e3680d249 431
+tests/unittest/test_config_reference.py
+  s_1fe4a22cf21de7::t_694628ba72ced0 33
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 377-399
+  s_1fe4a22cf21de7::t_5a26179575a37e 512
+  s_1fe4a22cf21de7::t_c1d9a96c8b5cc6 418-422,511,513
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 517,540
+  s_1fe4a22cf21de7::t_fea8a15c276a05 417,423,429
+  s_1fe4a22cf21de7::t_0a0707a9557efc 11,19,316-376,400-416,424-428,430-510,514-516,518-539,541-581
+docker/mosaico/README.md
+  s_1fe4a22cf21de7::t_c5004601ae7b03 146
+  s_1fe4a22cf21de7::t_b4169e57ef9660 147-149
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1fe4a22cf21de7::t_277e90a84558ad 69-74,82,110
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 105-109,111-112,114
+  s_1fe4a22cf21de7::t_d20d3039561ed4 18-19,67-68,75-81,83-95,104,115-120,122-123,154-155
+  s_1fe4a22cf21de7::t_8fcf6b99cc360b 96-103,113,121
+docs/docs/installation/mosaico_server.md
+  s_1fe4a22cf21de7::t_b4169e57ef9660 36-40
+  s_1fe4a22cf21de7::t_da7f3b2627c124 41
+  s_1fe4a22cf21de7::t_0808807c6bc9a8 28-30
+tests/unittest/test_streaming_api_error_construction.py
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 181,194,209,239-240,246-293,295-298
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 122-155,310-333
+  s_1fe4a22cf21de7::t_277e90a84558ad 336-349
+  s_1fe4a22cf21de7::t_759ae7e98531fa 294
+  s_1fe4a22cf21de7::t_d113587a02e9be 3-5,9-10,12,14-15,66-121,156-180,182-193,195-208,210-238,241-245,303-309,334-335,350-417
+  s_1fe4a22cf21de7::t_519da191401f9e 299-302
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 2889,2891-2892,2897
+  s_1fe4a22cf21de7::t_505cfaf97585df 127,2888,2890,2893-2894,2896,2898-2902
+pr_agent/settings/configuration.toml
+  s_1fe4a22cf21de7::t_eaf48296d27334 455
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "87b93ab56ebfc5e0d27df79d856db4f1f57085b1",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
