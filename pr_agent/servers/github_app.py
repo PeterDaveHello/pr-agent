@@ -556,10 +556,18 @@ async def _perform_auto_commands_github(commands_conf: str, agent: PRAgent, body
         return
     get_settings().set("config.is_auto_command", True)
     provider = _check_run_provider(api_url)
+    try:
+        command_provider = get_git_provider_with_context(pr_url=api_url)
+    except Exception as e:
+        get_logger().warning(f"Cannot access the GitHub provider for cache reset, {api_url=}: {e}")
+        command_provider = None
     succeeded = True
     for command in commands:
         check_run = None
         command_succeeded = True
+        # Clear only completed empty diffs at each command boundary.
+        if getattr(command_provider, "diff_files", None) == []:
+            command_provider.diff_files = None
         try:
             new_command = prepare_command(command)
             get_logger().info(f"{commands_conf}. Performing auto command '{new_command}', for {api_url=}")

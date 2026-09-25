@@ -125,6 +125,9 @@ class GithubProvider(GitProvider):
 
     def get_incremental_commits(self, incremental: Optional[IncrementalPR] = None):
         # Constructed per call: a default in the signature is one object shared by every provider that omits it.
+        # Invalidate a completed empty diff when the file scope is being reconfigured.
+        if getattr(self, "diff_files", None) == []:
+            self.diff_files = None
         self.incremental = incremental if incremental is not None else IncrementalPR(False)
         if self.incremental.is_incremental:
             self.unreviewed_files_map = dict()
@@ -380,7 +383,7 @@ class GithubProvider(GitProvider):
                 # Skip the per-request cache outside a request cycle; fall through and compute the files.
                 pass
 
-            if self.diff_files:
+            if self.diff_files is not None:
                 return self.diff_files
 
             # filter files using [ignore] patterns
