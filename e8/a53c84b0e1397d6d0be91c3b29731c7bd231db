@@ -1,0 +1,64 @@
+docs/docs/usage-guide/configuration_reference.md
+  s_1fe4a22cf21de7::t_c6635e3680d249 433
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_1fe4a22cf21de7::t_505cfaf97585df 127,3004,3006,3009-3010,3012,3014-3018
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 3005,3007-3008,3013
+tests/unittest/test_streaming_api_error_construction.py
+  s_1fe4a22cf21de7::t_277e90a84558ad 343-356
+  s_1fe4a22cf21de7::t_c42d7ec5072996 195,205
+  s_1fe4a22cf21de7::t_5d88e009bba944 204,206-207
+  s_1fe4a22cf21de7::t_759ae7e98531fa 301
+  s_1fe4a22cf21de7::t_d113587a02e9be 3-5,9-10,12,14-15,66-121,156-166,168-181,183-190,192-194,196,198-203,208-215,217-245,248-252,310-316,341-342,357-424
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 182,197,216,246-247,253-300,302-305
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 122-155,317-340
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 167,191
+  s_1fe4a22cf21de7::t_519da191401f9e 306-309
+tests/unittest/test_config_reference.py
+  s_1fe4a22cf21de7::t_694628ba72ced0 33
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1fe4a22cf21de7::t_8fcf6b99cc360b 96-103,113,123
+  s_1fe4a22cf21de7::t_5d88e009bba944 93-94
+  s_1fe4a22cf21de7::t_c42d7ec5072996 104,120
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 118-119
+  s_1fe4a22cf21de7::t_277e90a84558ad 69-74,82,110
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 105-109,111-112,114
+  s_1fe4a22cf21de7::t_d20d3039561ed4 18-19,67-68,75-81,83-92,95,115-117,121-122,124-125,156-157
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_0a0707a9557efc 11,19,316-369,371,374-376,400-416,424-428,430-510,514-516,518-539,541-573,581-584
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 517,540
+  s_1fe4a22cf21de7::t_fea8a15c276a05 417,423,429
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 377-399
+  s_1fe4a22cf21de7::t_c1d9a96c8b5cc6 418-422,511,513
+  s_1fe4a22cf21de7::t_6bebc11fa7b9e0 370,372-373,579
+  s_1fe4a22cf21de7::t_2e889acdf08571 574-575,577-578,580
+  s_1fe4a22cf21de7::t_c42d7ec5072996 576
+  s_1fe4a22cf21de7::t_5a26179575a37e 512
+docker/mosaico/README.md
+  s_1fe4a22cf21de7::t_b4169e57ef9660 147-149
+  s_1fe4a22cf21de7::t_c5004601ae7b03 146
+pr_agent/settings/configuration.toml
+  s_1fe4a22cf21de7::t_eaf48296d27334 459
+docs/docs/installation/mosaico_server.md
+  s_1fe4a22cf21de7::t_5d88e009bba944 41
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 28-30
+  s_1fe4a22cf21de7::t_da7f3b2627c124 44
+  s_1fe4a22cf21de7::t_b4169e57ef9660 37-40
+  s_1fe4a22cf21de7::t_0808807c6bc9a8 31
+  s_1fe4a22cf21de7::t_c42d7ec5072996 42-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e8a53c84b0e1397d6d0be91c3b29731c7bd231db",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
