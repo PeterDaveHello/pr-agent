@@ -14,6 +14,7 @@ from urllib.parse import quote, unquote
 import html2text
 import yaml
 from pydantic import BaseModel
+from yaml.tokens import TagToken
 
 import pr_agent.algo.comment_identity as _ci
 from pr_agent.algo.git_patch_processing import (
@@ -27,6 +28,7 @@ from pr_agent.config_loader import get_settings, get_verbosity_level
 from pr_agent.log import get_logger
 
 _ENCODED_USER_TEXT_PREFIX = "__pr_agent_encoded_text__:"
+_YAML_C_SAFE_LOADER = getattr(yaml, "CSafeLoader", None)
 
 
 def encode_user_text_arg(value: str) -> str:
@@ -917,6 +919,32 @@ def drop_sign_off_after_wrapper_fence(text: str) -> str:
     return text
 
 
+
+def _has_non_specific_yaml_tag(response_text: str) -> bool:
+    """Detect non-specific ! tags whose C and Python loaders can resolve differently."""
+    if "!" not in response_text:
+        return False
+    try:
+        return any(
+            isinstance(token, TagToken) and token.value == (None, "!")
+            for token in yaml.scan(response_text, Loader=yaml.SafeLoader)
+        )
+    except yaml.YAMLError:
+        return False
+
+
+def _load_yaml_initial(response_text: str) -> Any:
+    """Parse initial YAML with LibYAML while preserving SafeLoader edge-case semantics."""
+    if _YAML_C_SAFE_LOADER is None or _has_non_specific_yaml_tag(response_text):
+        return yaml.safe_load(response_text)
+    try:
+        return yaml.load(response_text, Loader=_YAML_C_SAFE_LOADER)
+    except yaml.YAMLError:
+        # Keep the existing Python SafeLoader behavior as a compatibility fallback
+        # before handing malformed model output to the repair pipeline.
+        return yaml.safe_load(response_text)
+
+
 def load_yaml(response_text: str, keys_fix_yaml: List[str] | None = None, first_key="", last_key="") -> dict:
     if keys_fix_yaml is None:
         keys_fix_yaml = []
@@ -941,7 +969,7 @@ def load_yaml(response_text: str, keys_fix_yaml: List[str] | None = None, first_
         # through the same exception handling as a normal parse failure instead.
         if response_text_original.strip() and not response_text.strip():
             raise ValueError("Preprocessing/sanitization removed all content from a non-empty AI prediction")
-        data = yaml.safe_load(response_text)
+        data = _load_yaml_initial(response_text)
     except Exception as e:
         get_logger().warning(f"Initial failure to parse AI prediction: {e}")
         data = try_fix_yaml(response_text, keys_fix_yaml=keys_fix_yaml, first_key=first_key, last_key=last_key,

@@ -5,6 +5,7 @@ import pytest
 import yaml
 from yaml.scanner import ScannerError
 
+import pr_agent.algo.utils as utils
 from pr_agent.algo.utils import load_yaml
 from pr_agent.log import get_logger
 
@@ -15,6 +16,89 @@ class TestLoadYaml:
         yaml_str = 'name: John Smith\nage: 35'
         expected_output = {'name': 'John Smith', 'age': 35}
         assert load_yaml(yaml_str) == expected_output
+
+    def test_initial_parse_uses_c_safe_loader(self, monkeypatch):
+        loader = object()
+        calls = []
+
+        def fake_load(text, Loader):
+            calls.append((text, Loader))
+            return {"name": "John"}
+
+        def fail_safe_load(*args, **kwargs):
+            pytest.fail("Python SafeLoader should not run on the successful C-loader path")
+
+        monkeypatch.setattr(utils, "_YAML_C_SAFE_LOADER", loader)
+        monkeypatch.setattr(utils.yaml, "load", fake_load)
+        monkeypatch.setattr(utils.yaml, "safe_load", fail_safe_load)
+
+        assert load_yaml("name: John") == {"name": "John"}
+        assert calls == [("name: John", loader)]
+
+    def test_initial_parse_falls_back_to_python_safe_loader(self, monkeypatch):
+        loader = object()
+        calls = []
+
+        def fail_c_loader(text, Loader):
+            calls.append(("c", text, Loader))
+            raise yaml.YAMLError("forced C-loader failure")
+
+        def fake_safe_load(text):
+            calls.append(("python", text))
+            return {"name": "John"}
+
+        monkeypatch.setattr(utils, "_YAML_C_SAFE_LOADER", loader)
+        monkeypatch.setattr(utils.yaml, "load", fail_c_loader)
+        monkeypatch.setattr(utils.yaml, "safe_load", fake_safe_load)
+
+        assert load_yaml("name: John") == {"name": "John"}
+        assert calls == [
+            ("c", "name: John", loader),
+            ("python", "name: John"),
+        ]
+
+    def test_initial_parse_uses_python_safe_loader_without_c_extension(self, monkeypatch):
+        calls = []
+
+        def fake_safe_load(text):
+            calls.append(text)
+            return {"name": "John"}
+
+        monkeypatch.setattr(utils, "_YAML_C_SAFE_LOADER", None)
+        monkeypatch.setattr(utils.yaml, "safe_load", fake_safe_load)
+
+        assert load_yaml("name: John") == {"name": "John"}
+        assert calls == ["name: John"]
+
+    def test_non_specific_tag_detection_does_not_use_c_loader(self, monkeypatch):
+        monkeypatch.setattr(utils, "_YAML_C_SAFE_LOADER", object())
+
+        assert utils._has_non_specific_yaml_tag("a: !")
+
+    @pytest.mark.parametrize(
+        ("yaml_text", "expected"),
+        [
+            ("a: !", {"a": None}),
+            ("!", {}),
+            ("- !", [None]),
+            ("a: ! # comment", {"a": None}),
+            ("a: ! foo", {"a": "foo"}),
+        ],
+    )
+    def test_initial_parse_preserves_safe_loader_non_specific_tag_semantics(self, yaml_text, expected):
+        assert load_yaml(yaml_text) == expected
+
+    @pytest.mark.parametrize(
+        "yaml_text",
+        [
+            'a: "!"',
+            "a: '!'",
+            "a: wow!",
+            "a: !!str foo",
+        ],
+    )
+    def test_non_specific_tag_detection_ignores_scalar_exclamation_marks(self, yaml_text):
+        assert not utils._has_non_specific_yaml_tag(yaml_text)
 
     def test_load_invalid_yaml1(self):
         yaml_str = (
