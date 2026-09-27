@@ -1,0 +1,93 @@
+tests/unittest/test_litellm_retry_config.py
+  s_1fe4a22cf21de7::t_3d9a64df76dd84 20
+  s_1fe4a22cf21de7::t_8dffec4a9b43e9 63-64
+  s_1fe4a22cf21de7::t_e33b1c7f0578a4 65
+docker/mosaico/README.md
+  s_1fe4a22cf21de7::t_109a7ce0e92dc7 151-152
+  s_1fe4a22cf21de7::t_4b31370d106a45 147-148
+  s_1fe4a22cf21de7::t_c5004601ae7b03 146
+  s_1fe4a22cf21de7::t_e56400e570d5fb 149
+tests/unittest/test_config_reference.py
+  s_1fe4a22cf21de7::t_b5618d9e30c26a 26
+  s_1fe4a22cf21de7::t_694628ba72ced0 33
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 3010,3012-3013
+  s_1fe4a22cf21de7::t_43e0a500302372 127,133,277-278,2927-2928,3017-3031,3057-3064
+  s_1fe4a22cf21de7::t_505cfaf97585df 128,3009,3011,3014-3015
+tests/unittest/test_streaming_api_error_construction.py
+  s_1fe4a22cf21de7::t_9caabc2842acf7 4
+  s_1fe4a22cf21de7::t_277e90a84558ad 437-444,446-450
+  s_1fe4a22cf21de7::t_d113587a02e9be 3,6-7,12-13,15,18-19,70-125,173-183,185-198,200-207,209-211,213,215-220,225-232,234-262,265-269,390-391,406-410,435-436,454-472,474-498,501-516,518-520
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 184,208
+  s_1fe4a22cf21de7::t_c42d7ec5072996 212,222
+  s_1fe4a22cf21de7::t_0eb2628e0075dd 5,8,16,327-389
+  s_1fe4a22cf21de7::t_1990765f488c2f 451-453,473
+  s_1fe4a22cf21de7::t_584301ee9d2fe5 126-138
+  s_1fe4a22cf21de7::t_5d88e009bba944 221,223-224
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 139-172,411-434
+  s_1fe4a22cf21de7::t_9ef0e55af0251a 392-405
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 199,214,233,263-264,270-317,319-322
+  s_1fe4a22cf21de7::t_d2c618468ac60c 445,499-500,517
+  s_1fe4a22cf21de7::t_759ae7e98531fa 318
+  s_1fe4a22cf21de7::t_519da191401f9e 323-326
+docs/docs/usage-guide/configuration_reference.md
+  s_1fe4a22cf21de7::t_2a43a3db15c64a 436
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1fe4a22cf21de7::t_277e90a84558ad 94-97,99-100,109,141
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 151-152
+  s_1fe4a22cf21de7::t_1990765f488c2f 20,98,104-105,133
+  s_1fe4a22cf21de7::t_d20d3039561ed4 19,22,93,101-103,106-108,110-118,126,148-150,154-155,157-158,189
+  s_1fe4a22cf21de7::t_82bf31600ceda9 5,21,23,71-75,78-86,88-92,119-125,145-146,159,190
+  s_1fe4a22cf21de7::t_c42d7ec5072996 135,153
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 76-77,87
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 136-140,142-143,147
+  s_1fe4a22cf21de7::t_8fcf6b99cc360b 127-132,134,144,156
+docs/docs/installation/mosaico_server.md
+  s_1fe4a22cf21de7::t_109a7ce0e92dc7 48-49
+  s_1fe4a22cf21de7::t_da7f3b2627c124 50
+  s_1fe4a22cf21de7::t_1990765f488c2f 41-42
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 31-33
+  s_1fe4a22cf21de7::t_456c1dc31d9bdb 44-47
+  s_1fe4a22cf21de7::t_b4169e57ef9660 40,43
+  s_1fe4a22cf21de7::t_0808807c6bc9a8 34
+tests/unittest/test_litellm_custom_provider.py
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 330-334,366-370
+pr_agent/settings/configuration.toml
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 459-462
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 540,563
+  s_1fe4a22cf21de7::t_fea8a15c276a05 419,425,434
+  s_1fe4a22cf21de7::t_3f3ca3d7a79a86 11,451-463
+  s_1fe4a22cf21de7::t_6bebc11fa7b9e0 372,374-375,602
+  s_1fe4a22cf21de7::t_1990765f488c2f 485-486
+  s_1fe4a22cf21de7::t_fe5f3a6524c9b2 464-465
+  s_1fe4a22cf21de7::t_5a26179575a37e 535
+  s_1fe4a22cf21de7::t_2e889acdf08571 597-598,600-601,603
+  s_1fe4a22cf21de7::t_c42d7ec5072996 599
+  s_1fe4a22cf21de7::t_c1d9a96c8b5cc6 420-424,534,536
+  s_1fe4a22cf21de7::t_0a0707a9557efc 12,20,317-337,339-371,373,376-378,402-416,418,426,429-430,433,435-437,440-450,466-470,472-484,487-524,526-533,537-539,541-562,564-596,604-607
+  s_1fe4a22cf21de7::t_d2c618468ac60c 338,417,427-428,431-432,438-439,471
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 379-401
+  s_1fe4a22cf21de7::t_810afad8349ab5 525
+tests/unittest/test_litellm_chat_completion_core.py
+  s_1fe4a22cf21de7::t_1e6c2166c360cb 763-767,776-778
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 795-799
+  s_1fe4a22cf21de7::t_8dffec4a9b43e9 11,666-684
+  s_1fe4a22cf21de7::t_11a84b94224200 685-686
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ce34276907b1a2165bd097ab548e2d8b8d5cd069",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
