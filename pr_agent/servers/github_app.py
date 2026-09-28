@@ -565,10 +565,10 @@ async def _perform_auto_commands_github(commands_conf: str, agent: PRAgent, body
     for command in commands:
         check_run = None
         command_succeeded = True
-        # Clear only completed empty diffs at each command boundary.
-        if getattr(command_provider, "diff_files", None) == []:
-            command_provider.diff_files = None
         try:
+            reset_diff_cache = getattr(command_provider, "reset_diff_cache_for_command", None)
+            if callable(reset_diff_cache):
+                reset_diff_cache()
             new_command = prepare_command(command)
             get_logger().info(f"{commands_conf}. Performing auto command '{new_command}', for {api_url=}")
             check_run = _start_auto_command_check_run(provider, new_command)
