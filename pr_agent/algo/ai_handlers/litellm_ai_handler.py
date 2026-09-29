@@ -1529,8 +1529,8 @@ class LiteLLMAIHandler(BaseAiHandler):
         if provider == "bedrock" and "api_key" not in params and _has_live_provider_api_key_environment(provider):
             raise ValueError("Refusing process-wide Bedrock bearer token fallback")
         if provider in ("sagemaker_chat", "sagemaker_nova") and os.environ.get("AWS_BEARER_TOKEN_BEDROCK"):
-            # LiteLLM 1.103.0's SageMaker signer ignores its api_key argument and
-            # otherwise reads this Bedrock-only token directly from the environment.
+            # LiteLLM's SageMaker signer ignores api_key and can use
+            # AWS_BEARER_TOKEN_BEDROCK from the environment instead of SigV4.
             raise ValueError("Refusing Bedrock bearer token fallback for SageMaker")
         if provider == "azure" and getattr(self, "_azure_ad", False):
             if azure_ad_token is None:
@@ -1608,7 +1608,7 @@ class LiteLLMAIHandler(BaseAiHandler):
             )
             if not uses_bedrock_bearer:
                 if any(os.environ.get(variable) for variable in LITELLM_AWS_CREDENTIAL_SELECTOR_ENV_VARS):
-                    # LiteLLM 1.103.0 resolves these selectors ahead of explicit
+                    # LiteLLM resolves these selectors ahead of explicit
                     # request credentials, which would replace the isolated keys.
                     raise ValueError(f"Refusing ambient LiteLLM AWS credential selector for provider {provider}")
                 aws_request_credentials = dict(aws_request_credentials or {})
