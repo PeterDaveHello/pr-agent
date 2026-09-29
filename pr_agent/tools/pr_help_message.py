@@ -12,6 +12,7 @@ from litellm import token_counter
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
 from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
 from pr_agent.algo.pr_processing import FallbackEligibleError, retry_with_fallback_models
+from pr_agent.algo.run_details import record_command_failure
 from pr_agent.algo.token_budget import get_max_tokens
 from pr_agent.algo.token_handler import TokenEncoder
 from pr_agent.algo.utils import ModelType, load_yaml
@@ -31,18 +32,23 @@ HELP_DOCS_UNAVAILABLE_MESSAGE = (
 )
 HELP_DOCS_EXCLUDED_DIRECTORIES = {"finetuning_benchmark"}
 HELP_DOCS_EXCLUDED_FILENAMES = {"compression_strategy.md"}
+# Documentation pages that need a JSX component are stored as '.mdx'. Matching
+# only '.md' would drop them from the corpus with no error, just a worse answer.
+HELP_DOCS_SUFFIXES = (".md", ".mdx")
+# Suffix-free, so a page keeps its priority whichever suffix it uses.
 HELP_DOCS_PRIORITY_PATHS = (
     "/usage-guide/",
-    "/tools/describe.md",
-    "/tools/review.md",
-    "/tools/improve.md",
+    "/tools/describe.",
+    "/tools/review.",
+    "/tools/improve.",
     "/faq/",
 )
+HELP_DOCS_INDEX_NAMES = tuple(f"/index{suffix}" for suffix in HELP_DOCS_SUFFIXES)
 
 
 def _is_help_doc_included(relative_path: PurePosixPath) -> bool:
     return (
-        relative_path.suffix == ".md"
+        relative_path.suffix in HELP_DOCS_SUFFIXES
         and relative_path.name not in HELP_DOCS_EXCLUDED_FILENAMES
         and not any(part in HELP_DOCS_EXCLUDED_DIRECTORIES for part in relative_path.parts[:-1])
     )
@@ -100,7 +106,7 @@ def _iter_help_docs(root: Traversable) -> list[tuple[PurePosixPath, Traversable]
 
     def sort_key(document: tuple[PurePosixPath, Traversable]) -> tuple[int, str]:
         relative_name = f"/{document[0].as_posix()}"
-        priority_rank = 0 if relative_name == "/index.md" else 1
+        priority_rank = 0 if relative_name in HELP_DOCS_INDEX_NAMES else 1
         if priority_rank and not any(priority in relative_name for priority in HELP_DOCS_PRIORITY_PATHS):
             priority_rank = 2
         return priority_rank, relative_name
@@ -377,7 +383,9 @@ class PRHelpMessage:
             return ""
 
     def format_docs_url(self, file_name: str, header: str) -> str:
-        relative_path = file_name.strip().lstrip('/').removesuffix('.md')
+        # '.mdx' must be stripped before '.md', or the longer suffix survives and
+        # the emitted URL keeps it (e.g. '/tools/improve.mdx/').
+        relative_path = file_name.strip().lstrip('/').removesuffix('.mdx').removesuffix('.md')
         if relative_path == 'index':
             relative_path = ''
         elif relative_path.endswith('/index'):
@@ -584,6 +592,7 @@ class PRHelpMessage:
                     self.git_provider.publish_comment(pr_comment)
         except Exception as e:
             get_logger().exception(f"Error while running PRHelpMessage: {e}")
+            record_command_failure()
             if get_settings().config.get("propagate_tool_errors", False):
                 raise
         return ""

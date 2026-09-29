@@ -1,4 +1,7 @@
-# Configuration Reference
+---
+title: "Configuration Reference"
+sidebar_position: 4
+---
 
 > This page is **auto-generated** and should not be edited by hand.
 > Regenerate it from the [TOML source](https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml) with:
@@ -15,7 +18,7 @@ Rows with an empty **Description** are keys whose TOML entry carries no explanat
 They are listed deliberately rather than hidden, so the gaps double as the documentation
 to-do list.
 
-## `[config]`
+## `[config]` {#config}
 
 **models**
 
@@ -133,7 +136,7 @@ to-do list.
 | `description_issue_regex` | "" | Configure a regex replacing bare #N references, with exactly one capturing group for an ASCII issue number. Leave empty for default matching (up to six digits); fall back with a warning on invalid patterns. Set the custom digit limit in the pattern; use only integer-parseable captures. Keep full URLs and owner/repo#N references. Use TOML literal quotes to preserve backslashes, e.g. description_issue_regex = '(?i)(?:fixes\|closes\|resolves)\s+#(\d+)' |
 
 
-## `[pr_reviewer]` — /review
+## `[pr_reviewer]` — /review {#pr_reviewer-review}
 
 **enable/disable features**
 
@@ -183,7 +186,7 @@ to-do list.
 | `max_number_of_calls` | 3 | maximum number of chunk review calls, used only when enable_large_pr_chunking is true |
 
 
-## `[pr_description]` — /describe
+## `[pr_description]` — /describe {#pr_description-describe}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -224,7 +227,7 @@ to-do list.
 | `async_ai_calls` | true |  |
 
 
-## `[pr_questions]` — /ask
+## `[pr_questions]` — /ask {#pr_questions-ask}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -235,7 +238,7 @@ to-do list.
 | `extra_instructions` | "" |  |
 
 
-## `[pr_code_suggestions]` — /improve
+## `[pr_code_suggestions]` — /improve {#pr_code_suggestions-improve}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -278,7 +281,7 @@ to-do list.
 | `fold_suggestions_on_self_review` | true | if true, the code suggestions will be folded after the author clicks on the self-review checkbox |
 
 
-## `[pr_add_docs]` — /add_docs
+## `[pr_add_docs]` — /add_docs {#pr_add_docs-add_docs}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -286,7 +289,7 @@ to-do list.
 | `docs_style` | "Sphinx" | "Google Style with Args, Returns, Attributes...etc", "Numpy Style", "Sphinx Style", "PEP257", "reStructuredText" |
 
 
-## `[pr_update_changelog]` — /update_changelog
+## `[pr_update_changelog]` — /update_changelog {#pr_update_changelog-update_changelog}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -296,11 +299,11 @@ to-do list.
 | `skip_ci_on_push` | true |  |
 
 
-## `[pr_config]` — /config
+## `[pr_config]` — /config {#pr_config-config}
 
 _This section only documents commented-out examples; see the [TOML source](https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml) for details._
 
-## `[pr_help_docs]`
+## `[pr_help_docs]` {#pr_help_docs}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -312,7 +315,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `enable_help_text` | false |  |
 
 
-## `[github]`
+## `[github]` {#github}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -328,11 +331,11 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `publish_as_check_run` | false | when true, publish review/description/improve output as GitHub Checks instead of PR comments |
 
 
-## `[github_action_config]`
+## `[github_action_config]` {#github_action_config}
 
 _This section only documents commented-out examples; see the [TOML source](https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml) for details._
 
-## `[github_app]`
+## `[github_app]` {#github_app}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -355,7 +358,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `push_commands` | ["/describe", "/review"] |  |
 
 
-## `[gitlab]`
+## `[gitlab]` {#gitlab}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -374,7 +377,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `reviewer_commands` | ["/review"] |  |
 
 
-## `[gitea]`
+## `[gitea]` {#gitea}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -383,7 +386,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `push_commands` | ["/describe", "/review"] |  |
 
 
-## `[bitbucket_app]`
+## `[bitbucket_app]` {#bitbucket_app}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -391,11 +394,11 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `request_timeout` | 30 | positive seconds for connection and response-read inactivity timeouts |
 
 
-## `[local]`
+## `[local]` {#local}
 
 _This section only documents commented-out examples; see the [TOML source](https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml) for details._
 
-## `[gerrit]`
+## `[gerrit]` {#gerrit}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -403,14 +406,14 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `webhook_password` | "" |  |
 
 
-## `[bitbucket_server]`
+## `[bitbucket_server]` {#bitbucket_server}
 
 | Key | Default | Description |
 | --- | --- | --- |
 | `url` | "" | URL to the BitBucket Server instance |
 
 
-## `[jira]`
+## `[jira]` {#jira}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -418,7 +421,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `project_keys` | [] | Optional allowlist of Jira project keys, e.g. ["PROJ", "OPS"]. When non-empty, key-shaped text with another prefix ("SHA-256", "UTF-8", "ISO-8601") is dropped before any lookup, so it no longer costs an authenticated 404 each. Entries must be plain upper-case keys; a supplied list with no valid entry disables the lookup rather than widening it. Empty (default) looks up every key found. |
 
 
-## `[litellm]`
+## `[litellm]` {#litellm}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -434,7 +437,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `cache_control_injection_points` | [] | Optional: enable Anthropic prompt caching via LiteLLM, e.g. [{location = "message", role = "system"}] (https://docs.litellm.ai/docs/tutorials/prompt_caching). PR-Agent forwards these points only for models whose name contains "claude"; LiteLLM adds the cache_control blocks. LiteLLM's own default injection (`litellm.enable_anthropic_prompt_caching`, env `LITELLM_ENABLE_ANTHROPIC_PROMPT_CACHING`, off by default) applies only when no points are configured here, so the two never double-inject. A warning is logged once per process when the points cannot take effect (non-Anthropic model, no prompt-cache support, or a prefix below the model's minimum). |
 
 
-## `[openrouter]`
+## `[openrouter]` {#openrouter}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -446,7 +449,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `max_tokens` | 0 | hard cap on completion tokens for the request; 0 = unset |
 
 
-## `[model_routing]` — send a small pull request to a cheaper primary model (disabled by default)
+## `[model_routing]` — send a small pull request to a cheaper primary model (disabled by default) {#model_routing-send a small pull request to a cheaper primary model (disabled by default)}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -454,7 +457,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `rules` | [] | e.g. [{ max_hunks = 3, model = "gpt-5.6-luna" }, { max_hunks = 15, max_files = 6, model = "gpt-5.6-terra" }] |
 
 
-## `[otel]`
+## `[otel]` {#otel}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -469,7 +472,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `include_error_details` | false | set to true to attach exception messages and rejected-command text to spans (may expose PR URLs, repo names, or other request content) |
 
 
-## `[pr_similar_issue]`
+## `[pr_similar_issue]` {#pr_similar_issue}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -479,7 +482,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `vectordb` | "lancedb" | options: "pinecone", "lancedb", "qdrant" |
 
 
-## `[pinecone]`
+## `[pinecone]` {#pinecone}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -487,18 +490,18 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `region` | "us-east-1" |  |
 
 
-## `[lancedb]`
+## `[lancedb]` {#lancedb}
 
 | Key | Default | Description |
 | --- | --- | --- |
 | `uri` | "./lancedb" |  |
 
 
-## `[qdrant]`
+## `[qdrant]` {#qdrant}
 
 _This section only documents commented-out examples; see the [TOML source](https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml) for details._
 
-## `[skills]`
+## `[skills]` {#skills}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -507,7 +510,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `max_skills_tokens` | 8000 | token budget for the combined skills_context block |
 
 
-## `[artifacts]`
+## `[artifacts]` {#artifacts}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -519,7 +522,7 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `max_artifact_size` | 50000 | Max artifact size in characters (content is truncated if exceeded) |
 
 
-## `[mosaico]`
+## `[mosaico]` {#mosaico}
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -527,28 +530,28 @@ _This section only documents commented-out examples; see the [TOML source](https
 | `context_history_max_tasks` | 100 | maximum prior tasks considered for a context follow-up; set from 1 to 1000 |
 
 
-## `[asana]`
+## `[asana]` {#asana}
 
 | Key | Default | Description |
 | --- | --- | --- |
 | `request_timeout` | 10 | seconds allowed for each Asana task API request |
 
 
-## `[azure_devops]`
+## `[azure_devops]` {#azure_devops}
 
 | Key | Default | Description |
 | --- | --- | --- |
 | `default_comment_status` | "closed" |  |
 
 
-## `[azure_devops_server]`
+## `[azure_devops_server]` {#azure_devops_server}
 
 | Key | Default | Description |
 | --- | --- | --- |
 | `agent_identity` | "" | empty: discover the identity from earlier agent comments on the PR |
 
 
-## `[push_outputs]` — push tool outputs to external sinks without calling git-provider APIs (disabled by default)
+## `[push_outputs]` — push tool outputs to external sinks without calling git-provider APIs (disabled by default) {#push_outputs-push tool outputs to external sinks without calling git-provider APIs (disabled by default)}
 
 | Key | Default | Description |
 | --- | --- | --- |
