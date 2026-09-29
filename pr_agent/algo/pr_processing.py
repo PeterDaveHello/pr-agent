@@ -578,7 +578,7 @@ def pr_generate_compressed_diff(top_langs: list, token_handler: TokenHandler,
         NUMBER_OF_ALLOWED_ITERATIONS = get_settings().pr_description.get("max_ai_calls", 4) - 1
         # one more call is to summarize
         for _ in range(NUMBER_OF_ALLOWED_ITERATIONS-1):
-            if remaining_files_list:
+            if remaining_files_list and patches:
                 total_tokens, patches, remaining_files_list, files_in_patch_list = generate_full_patch(
                     convert_hunks_to_line_numbers, file_dict, soft_token_budget, remaining_files_list,
                     token_handler, hard_token_budget=hard_token_budget
