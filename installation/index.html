@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Installation | PR-Agent</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" property="og:url" content="https://docs.pr-agent.ai/installation/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Installation | PR-Agent"><meta data-rh="true" name="description" content="There are several ways to use PR-Agent:"><meta data-rh="true" property="og:description" content="There are several ways to use PR-Agent:"><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://docs.pr-agent.ai/installation/"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/installation/" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/installation/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Installation","item":"https://docs.pr-agent.ai/installation/"}]}</script><link rel="stylesheet" href="/assets/css/styles.928a3cd8.css">
-<script src="/assets/js/runtime~main.d4e133b6.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.15cd2c1d.js" defer="defer"></script>
 <script src="/assets/js/main.a7dd8eba.js" defer="defer"></script>
 </head>
 <body>
@@ -33,7 +33,7 @@ This does not change the other polling requests or the sequential notification
 scan. The fallback now follows the existing aiohttp session&#x27;s proxy and TLS
 behavior, not Requests-specific environment settings.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sizing-a-self-hosted-webhook-server">Sizing a self-hosted webhook server<a href="#sizing-a-self-hosted-webhook-server" class="hash-link" aria-label="Direct link to Sizing a self-hosted webhook server" title="Direct link to Sizing a self-hosted webhook server" translate="no">​</a></h2>
-<p>The GitHub, GitLab and Gitea webhook servers (the <code>github_app</code>, <code>gitlab_webhook</code> and <code>gitea_app</code> Docker targets) run under gunicorn with multiple worker processes, so that a worker busy handling a request cannot block the health check served by another. The other deployments — Bitbucket, Azure DevOps, GitHub polling, and the Lambda variants — do not use this gunicorn worker configuration.</p>
+<p>The GitHub, GitLab, Gitea and Bitbucket Server webhook servers (the <code>github_app</code>, <code>gitlab_webhook</code>, <code>gitea_app</code> and <code>bitbucket_server_webhook</code> Docker targets) run under gunicorn with multiple worker processes, so that a worker busy handling a request cannot block the health check served by another. The other deployments — Bitbucket Cloud, Azure DevOps, GitHub polling, and the Lambda variants — do not use this gunicorn worker configuration.</p>
 
 
 
@@ -54,7 +54,12 @@ behavior, not Requests-specific environment settings.</p>
 
 
 
-<table><thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>GUNICORN_WORKERS</code></td><td><em>(unset)</em></td><td>Pins the worker count exactly. Overrides everything below.</td></tr><tr><td><code>GUNICORN_MAX_WORKERS</code></td><td><code>4</code></td><td>Upper bound on the automatically derived worker count.</td></tr></tbody></table>
+
+
+
+
+
+<table><thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>GUNICORN_WORKERS</code></td><td><em>(unset)</em></td><td>Pins the worker count exactly. Overrides the derived count and <code>GUNICORN_MAX_WORKERS</code>.</td></tr><tr><td><code>GUNICORN_MAX_WORKERS</code></td><td><code>4</code></td><td>Upper bound on the automatically derived worker count.</td></tr><tr><td><code>PORT</code></td><td><code>3000</code></td><td>Port the server binds to.</td></tr></tbody></table>
 <p>When <code>GUNICORN_WORKERS</code> is unset, the worker count is derived from the CPUs actually available to the container (cgroup CPU limit, falling back to CPU affinity), clamped to between 2 and <code>GUNICORN_MAX_WORKERS</code>. Note that a CPU <em>request</em> without a <em>limit</em> leaves no cgroup quota to read, so the cap is what bounds the worker count there.</p>
 <p><strong>Sizing memory:</strong> importing the application costs roughly 250MB. The app is imported once in the gunicorn master and workers are forked from it, so they share most of that baseline copy-on-write rather than each paying it in full — total memory grows with worker count, but by noticeably less than 250MB per worker. Start from about 1Gi for the default of 4 workers and adjust against your own metrics.</p>
 <p>If the container is OOMKilled during startup, lower the worker count:</p>
