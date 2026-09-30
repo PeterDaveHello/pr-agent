@@ -1,0 +1,199 @@
+pr_agent/git_providers/git_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 21,231-235,517-567,1161-1165,1168-1189,1191-1193,1196
+pr_agent/servers/azuredevops_server_webhook.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 69-73,76-78
+docs/docs/usage-guide/changing_a_model.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 755
+pr_agent/config_security.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 70-73,76
+docs/docs/installation/github.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 64,66,96
+tests/unittest/test_comment_command_gating.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-217
+tests/unittest/test_git_provider_code_suggestions.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-64
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1333-1335,1543-1544,1622,2615-2620,2640-2641,2645-2647,2742-2743,2750-2751,2756,2768,2848-2852,3046
+tests/unittest/test_git_provider_method_contract.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 632,640,643
+tests/unittest/test_codecommit_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1156-1259,1480-1506
+  s_1fe4a22cf21de7::t_7169e5062f0f16 1507
+tests/unittest/test_prompt_attempt_initial_count.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-55
+tests/unittest/test_ticket_extraction_async.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 24-43,313-332,993-997,1001,1008,1010-1012
+tests/unittest/test_bitbucket_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1717-1718,1779-1780,1861-1862,1888-1889,1915-1916
+tests/unittest/test_gitea_e2e_branch_api.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 3,38-40,87,106-111,116,138,170-172,180,184,186
+docs/package.json
+  s_1fe4a22cf21de7::t_07e028120c50b8 47
+tests/unittest/test_large_diff_no_progress.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-71
+tests/unittest/test_gitlab_search_line.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-68
+pr_agent/git_providers/gitea_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 532,864-867
+tests/unittest/test_github_empty_diff_cache.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-2,4,9-10,12,16,26-32,47-50,52-54,56,78-83,85,87-94,97-110,113-121,124-191,198,200-203,206-207,217-226,231-232,234-269
+pyproject.toml
+  s_1fe4a22cf21de7::t_07e028120c50b8 53,72,74
+.github/workflows/pre-commit.yml
+  s_1fe4a22cf21de7::t_07e028120c50b8 17
+tests/unittest/test_get_max_tokens.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 885-891,900-903
+tests/unittest/test_github_app_timeout_core.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 249-276
+tests/unittest/test_litellm_openrouter_controls.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 452-537,563-584
+  s_1fe4a22cf21de7::t_573b55a093f596 585
+tests/unittest/test_gitlab_impossible_file_reads.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-122
+tests/unittest/test_silent_failure_fallbacks.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-190
+tests/unittest/test_cli_args_security.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 92-97
+pr_agent/algo/pr_processing.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 581
+pr_agent/algo/utils.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 25,1331,1333-1338,1524-1527,1529-1530
+pr_agent/servers/bitbucket_app.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 30,198-202,367-369
+pr_agent/algo/token_budget.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 305
+pr_agent/tools/pr_add_docs.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 62,81-85,91-92,171-172,195-198,201,203-217,238-245,248-253
+.github/workflows/docs-ci.yaml
+  s_1fe4a22cf21de7::t_07e028120c50b8 19,21,34
+pr_agent/servers/github_app.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 488-491,572-574
+pr_agent/servers/gunicorn_config.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 6,25,27,321
+tests/unittest/test_code_suggestions_history_cap.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-135
+AGENTS.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 70
+pr_agent/git_providers/gitlab_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1047-1056,1765-1771,1779
+tests/unittest/test_gerrit_ask_dispatch.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 65-106
+pr_agent/tools/ticket_pr_compliance_check.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 757-758,780-784
+tests/unittest/test_pr_command_profiles.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 388,425-428,435,470-486,490,492-493,497,508
+tests/unittest/test_azure_devops_webhook_comments.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 8-9,11,14,291-356
+tests/unittest/test_litellm_chat_completion_core.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 481-483,497-502,506-507
+pr_agent/git_providers/codecommit_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 334,347,780,784-785,793-839
+docs/docs/usage-guide/configuration_reference.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 123
+docs/docs/installation/bitbucket.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 92-93
+pr_agent/algo/ai_handlers/cloud_auth.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 87,211,511-513,985,1001,1071,1589,1616-1622,1641,1683-1687
+pr_agent/algo/token_handler.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 98-99,109,121
+tests/unittest/test_add_docs_missing_key.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 3,6,8-9,23-48,51,56-58,62-64,71,86,92,102-145,154-252
+  s_1fe4a22cf21de7::t_140c8a1ae8e496 253-254
+tests/unittest/test_github_action_runner_core.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 10,597-1008
+  s_1fe4a22cf21de7::t_05e99ba41b9b3a 1009
+tests/unittest/test_gunicorn_config.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1,16,96-100
+  s_1fe4a22cf21de7::t_2e0eed6a6e292d 101-102
+tests/unittest/test_language_detection_suffixes.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-100
+pr_agent/git_providers/azuredevops_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 954-968
+tests/unittest/test_pr_code_suggestions_core.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 250,256-286,761-763,773-776
+pr_agent/servers/gitlab_webhook.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 26,412-416
+docs/docs/tools/add_docs.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 70-77
+.github/workflows/codeql.yml
+  s_1fe4a22cf21de7::t_07e028120c50b8 36,42
+pr_agent/git_providers/github_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 126-131,134-137,1175,1177,1182-1204,1964
+tests/unittest/test_pr_agent_routing.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 100-116
+  s_1fe4a22cf21de7::t_cd035b70b4d2b9 99
+.github/workflows/provider-smoke.yaml
+  s_1fe4a22cf21de7::t_07e028120c50b8 24
+docs/docs/usage-guide/automations_and_usage.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 224-225
+tests/unittest/test_find_line_number_of_relevant_line_in_file.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 23-41
+pr_agent/algo/git_patch_processing.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 237-239,245-252
+pr_agent/tools/pr_code_suggestions.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 39,803-814,2063-2066
+pr_agent/servers/utils.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 41-51
+docs/docs/installation/index.md
+  s_1fe4a22cf21de7::t_07e028120c50b8 33,35-39
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_37e370d8f9d473 610-611
+  s_1fe4a22cf21de7::t_07e028120c50b8 75-77,612-658
+tests/unittest/test_gitea_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1490-1607
+tests/unittest/test_extract_issue_from_branch.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 2,8-26,32,39,46,53,58,63,70,83-84,97-98,111-112,119-121,124-128,130,132-134,149-151,167-169
+tests/unittest/test_litellm_reasoning_effort.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 57-61
+docker/Dockerfile
+  s_1fe4a22cf21de7::t_07e028120c50b8 32
+tests/unittest/test_command_hash_tokenization.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-106
+pr_agent/servers/bitbucket_server_webhook.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 25,164-173,247-250,252-269
+tests/unittest/test_azure_devops_incremental.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 330-422
+pr_agent/git_providers/bitbucket_server_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 162-207,332,341-342
+pr_agent/git_providers/bitbucket_provider.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 33-51,198-236,359-370,376-377
+.github/workflows/build-and-test.yaml
+  s_1fe4a22cf21de7::t_07e028120c50b8 20
+pr_agent/agent/pr_agent.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 326-329,415-419
+pr_agent/servers/github_action_runner.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 17,73-75,78-79,89,94-110,113-115,117,121-123
+tests/e2e_tests/test_gitea_app.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 3,54,90-91,103-104,122-123,137-138,164-165,172-173,189-190,200-201
+pr_agent/settings/configuration.toml
+  s_1fe4a22cf21de7::t_07e028120c50b8 319
+tests/unittest/test_add_docs_indent_anchor.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-111
+tests/unittest/test_bitbucket_diff_line_counts.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 1-276
+pr_agent/tools/pr_questions.py
+  s_1fe4a22cf21de7::t_07e028120c50b8 2,4,142,144-148,151-161
+  s_1fe4a22cf21de7::t_bf6eaf7214b4b3 162
+.github/workflows/publish.yml
+  s_1fe4a22cf21de7::t_07e028120c50b8 258
+docs/package-lock.json
+  s_1fe4a22cf21de7::t_407408333561ad 29,8960-8962,8984,8986,10215-10217,10223,15865-15867
+uv.lock
+  s_1fe4a22cf21de7::t_6ecf28fb451c3f 1775,1782,1793,1795-1801,2566
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "211ff14d61adcd9ad1758db9ab1878cf7a34dbd3",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
