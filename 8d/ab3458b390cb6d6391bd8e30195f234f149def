@@ -1,0 +1,24 @@
+docs/docs/installation/mosaico_server.md
+  s_1fe4a22cf21de7::t_9792feb423979c 31-32
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_1fe4a22cf21de7::t_89e18a5a76906c 3015-3020,3022-3025
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_9c786f7e7164b8 73-75,317-324,326-338,341-348,351-358,362-365
+  s_1fe4a22cf21de7::t_9792feb423979c 325,339-340,349-350,359-361
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8dab3458b390cb6d6391bd8e30195f234f149def",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
