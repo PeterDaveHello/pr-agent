@@ -1,0 +1,30 @@
+pr_agent/git_providers/azuredevops_provider.py
+  s_693a99f0d97318::t_97ce0f2df42f19 745-758,1315-1317
+  s_cff110e4bbc21e::t_59d60f9628b2d8 1283-1286
+pr_agent/git_providers/bitbucket_server_provider.py
+  s_693a99f0d97318::t_7239477df94e0f 206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8ca247ebee35d3142b59e9b018a08dee11f9be3d",
+  "prompts": {},
+  "sessions": {
+    "s_693a99f0d97318": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f587ff8ffevXlsEACbKCkjyi",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_cff110e4bbc21e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cd376d2ffeMhsDAX69Mt98tz",
+        "model": "muse-spark-1.3-contributor-free"
+      },
+      "human_author": null
+    }
+  }
+}
