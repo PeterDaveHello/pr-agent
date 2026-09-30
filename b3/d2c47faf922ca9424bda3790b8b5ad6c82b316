@@ -1,0 +1,21 @@
+pr_agent/git_providers/azuredevops_provider.py
+  s_693a99f0d97318::t_97ce0f2df42f19 745-758,1283-1286,1316-1318
+pr_agent/git_providers/bitbucket_server_provider.py
+  s_693a99f0d97318::t_7239477df94e0f 206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b3d2c47faf922ca9424bda3790b8b5ad6c82b316",
+  "prompts": {},
+  "sessions": {
+    "s_693a99f0d97318": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f587ff8ffevXlsEACbKCkjyi",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
