@@ -1,0 +1,31 @@
+tests/unittest/test_bitbucket_app_offload.py
+  s_437502f668ee51::t_571a2fcd42e602 1-4,45-91
+uv.lock
+  s_786083355cb96e::t_081c59c121f23a 2580,2969,2971,2973
+pyproject.toml
+  s_786083355cb96e::t_7da81652443c99 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b39889fdff84d52c9c65f4f7f473aeb2556e4d81",
+  "prompts": {},
+  "sessions": {
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_786083355cb96e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f811-c3c3-7472-ad82-40aeb749d488",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
