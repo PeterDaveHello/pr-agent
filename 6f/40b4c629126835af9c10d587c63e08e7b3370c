@@ -1,0 +1,73 @@
+pr_agent/settings/code_suggestions/pr_code_suggestions_prompts_not_decoupled.toml
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 160-162
+docs/docusaurus.config.js
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 68-83
+pr_agent/git_providers/git_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 79-93
+docs/static/img/favicon-white.svg
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 1
+pr_agent/git_providers/bitbucket_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 20,673-691,701-704
+pr_agent/settings/code_suggestions/pr_code_suggestions_prompts.toml
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 131-133
+pr_agent/git_providers/github_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 50-51,812-820,826,828,833-835,1774,1776,1780-1792,1797,1800-1814,1846-1850,1858,1863,1871,1876
+tests/unittest/test_github_provider_exception_narrowing.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 88-94,96-110,264-268,271,278
+pr_agent/tools/pr_generate_labels.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 99-109
+pr_agent/git_providers/azuredevops_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 980-981,1001,1056,1063,1086-1107,1126
+tests/unittest/test_verified_silent_corruption.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 1-454
+pr_agent/tools/pr_code_suggestions.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 2212-2218
+pr_agent/git_providers/gitlab_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 46-47,64-68,140-161,983,985-1005,1014-1018,1026-1042,1249-1250,1264-1267,1273-1287
+  s_1fe4a22cf21de7::t_536d303c3443fd 1288
+pr_agent/algo/pr_processing.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 474-489,504-511,567-576
+pr_agent/tools/pr_update_changelog.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 23,59-60,290-291,297,348,351-352,354-357,363
+tests/unittest/test_github_provider_comments.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 33,37-45,139-140,150-166,168,170-176,178-180,194,197-215
+tests/unittest/test_pr_update_changelog.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 5,8,60-61,176,178,192-251,257,271-272,288,319,349,381,421,449-452,460-465,470,480-481,540,618,795,905,975-976
+pr_agent/tools/pr_reviewer.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 1537-1543
+tests/unittest/test_changelog_code_fence_stripping.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 12,100
+pr_agent/algo/file_filter.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 71-74
+tests/unittest/test_bitbucket_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 19,162-200,220-221,230-233,248-249,267-268
+tests/unittest/test_file_filter.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 453-474
+tests/unittest/test_github_provider_file_content.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 7,66,70,97,129,155,176,182-255
+docs/docs/tools/improve.mdx
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 270-276
+pr_agent/tools/pr_description.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 225-230,232-240
+pr_agent/algo/types.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 28-31
+tests/unittest/test_gitlab_provider.py
+  s_1fe4a22cf21de7::t_b1dc5a1fec3b90 7,12-17,132,231-357,359,367-368,382,389-390,395,404-405,418,420-421,1272,1299-1360
+  s_1fe4a22cf21de7::t_ed4fab6431a677 1361
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6f40b4c629126835af9c10d587c63e08e7b3370c",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
