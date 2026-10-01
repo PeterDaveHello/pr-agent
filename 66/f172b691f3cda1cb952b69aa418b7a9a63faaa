@@ -1,0 +1,19 @@
+docs/package-lock.json
+  s_ebb9ec8ccd326f::t_23393ee488b27e 6836-6838,9094-9096
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "66f172b691f3cda1cb952b69aa418b7a9a63faaa",
+  "prompts": {},
+  "sessions": {
+    "s_ebb9ec8ccd326f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_ebb9ec8ccd326f",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
