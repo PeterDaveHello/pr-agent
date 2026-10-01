@@ -1,0 +1,21 @@
+pyproject.toml
+  s_786083355cb96e::t_7da81652443c99 58
+uv.lock
+  s_786083355cb96e::t_081c59c121f23a 2580,2969,2971,2973
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ddb1014179ba2471936dd4878a073c110d1607ea",
+  "prompts": {},
+  "sessions": {
+    "s_786083355cb96e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f811-c3c3-7472-ad82-40aeb749d488",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
