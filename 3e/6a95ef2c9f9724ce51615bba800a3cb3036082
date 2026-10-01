@@ -1,0 +1,29 @@
+pr_agent/algo/file_filter.py
+  s_b31091f2165027::t_60bdba654d1179 7-11,52-58,99-101
+tests/unittest/test_file_filter.py
+  s_02a40483b89894::t_3bad43ce8d6ee7 1-5,10-44,61-67,521-711
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3e6a95ef2c9f9724ce51615bba800a3cb3036082",
+  "prompts": {},
+  "sessions": {
+    "s_02a40483b89894": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f811-c557-7a50-9e2b-3b88ce2302dd",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_b31091f2165027": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f9e7452ffe1qT6FyDjGSAjBY",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
