@@ -1,0 +1,19 @@
+uv.lock
+  s_786083355cb96e::t_f3b1188dd0c785 3086,3091,3093,3731,3733,3735,3818,3823,3827,3829
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "64910b347dd5fa0444c84c27a11e77fab28f5763",
+  "prompts": {},
+  "sessions": {
+    "s_786083355cb96e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f811-c3c3-7472-ad82-40aeb749d488",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
