@@ -6,7 +6,6 @@ import html
 import json
 import re
 import textwrap
-from datetime import datetime
 from enum import Enum
 from typing import Any, List, Tuple, TypedDict
 from urllib.parse import quote, unquote
@@ -746,24 +745,6 @@ def fix_json_escape_char(json_message=None):
         new_message = ''.join(json_message)
         return fix_json_escape_char(json_message=new_message)
     return result
-
-
-def convert_str_to_datetime(date_str):
-    """
-    Convert a string representation of a date and time into a datetime object.
-
-    Args:
-        date_str (str): A string representation of a date and time in the format '%a, %d %b %Y %H:%M:%S %Z'
-
-    Returns:
-        datetime: A datetime object representing the input date and time.
-
-    Example:
-        >>> convert_str_to_datetime('Mon, 01 Jan 2022 12:00:00 UTC')
-        datetime.datetime(2022, 1, 1, 12, 0, 0)
-    """
-    datetime_format = '%a, %d %b %Y %H:%M:%S %Z'
-    return datetime.strptime(date_str, datetime_format)
 
 
 def load_large_diff(filename, new_file_content_str: str,

@@ -7,7 +7,6 @@ import os
 import re
 import time
 import traceback
-from datetime import datetime
 from typing import Optional, Tuple
 from urllib.parse import quote, urlparse
 
@@ -1290,15 +1289,6 @@ class GithubProvider(GitProvider):
             except (KeyError, TypeError, AttributeError) as e:
                 get_logger().warning(f"Could not read the login from the user payload: {e}")
         return self.github_user_id
-
-    def get_notifications(self, since: datetime):
-        deployment_type = get_settings().get("GITHUB.DEPLOYMENT_TYPE", "user")
-
-        if deployment_type != 'user':
-            raise ValueError("Deployment mode must be set to 'user' to get notifications")
-
-        notifications = self.github_client.get_user().get_notifications(since=since)
-        return notifications
 
     def get_issue_comments(self):
         return self.pr.get_issue_comments()
