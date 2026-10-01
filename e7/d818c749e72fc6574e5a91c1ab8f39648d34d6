@@ -1,0 +1,115 @@
+tests/unittest/test_config_reference.py
+  s_1fe4a22cf21de7::t_44aa5a0578cb92 26
+  s_1fe4a22cf21de7::t_694628ba72ced0 33
+tests/unittest/test_litellm_chat_completion_core.py
+  s_1fe4a22cf21de7::t_8dffec4a9b43e9 11,676-694
+  s_1fe4a22cf21de7::t_1e6c2166c360cb 773-777,786-788
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 805-809
+  s_1fe4a22cf21de7::t_11a84b94224200 695-696
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_1fe4a22cf21de7::t_98c1d42bbba675 1217
+  s_1fe4a22cf21de7::t_fc3ea2e8511437 1209-1210
+  s_1fe4a22cf21de7::t_eb26b8d305144e 2959
+  s_1fe4a22cf21de7::t_62eac28ff27006 2986-2991
+  s_1fe4a22cf21de7::t_33c8ccca18e5e7 2593-2594,2972,2984-2985,3018-3019,3021,3061-3064,3099-3100
+  s_1fe4a22cf21de7::t_11be17c0ce7834 3101-3103
+  s_1fe4a22cf21de7::t_de7a9b183a5a68 1200,1202-1208,1211-1216,1218-1219,2595,2946-2948,3020,3022,3071
+  s_1fe4a22cf21de7::t_505cfaf97585df 128
+  s_1fe4a22cf21de7::t_ae51f84d2f59d1 2992
+  s_1fe4a22cf21de7::t_43e0a500302372 127,133,277-278,2950-2951,3052-3060,3065-3069,3095-3098,3104-3106
+tests/unittest/test_litellm_custom_provider.py
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 330-334,366-370
+tests/unittest/test_litellm_imds.py
+  s_1fe4a22cf21de7::t_3d9c510af4f2ad 1779,1784
+  s_1fe4a22cf21de7::t_f32f3d2e886992 2127-2129,2138-2139,2146,2152-2157
+  s_1fe4a22cf21de7::t_73faab818c29e9 1730-1731,1733,1735-1737,1780,1782,1789-1790
+  s_1fe4a22cf21de7::t_622599423f65ee 2147-2149
+  s_1fe4a22cf21de7::t_8c45a320b50577 1831
+  s_1fe4a22cf21de7::t_55b5ec246a48a7 6,1795-1830,1832-1850
+  s_1fe4a22cf21de7::t_e6153a1398798c 1853-1867,1870-1899,1902-1908,1910-1914,2125
+  s_1fe4a22cf21de7::t_fe545fd0cecf4c 2126,2130-2137,2150-2151
+  s_1fe4a22cf21de7::t_cc2f05735a7fda 1725-1729,1732,1738-1776,1778,1781,1783,1785-1787,1791,1793-1794,1851-1852
+  s_1fe4a22cf21de7::t_c504797354dcdc 1777,1788,1792,1868-1869,1900-1901,1909
+  s_1fe4a22cf21de7::t_793bad66c5c081 18,1734
+  s_1fe4a22cf21de7::t_b349ea344bcfaf 2140-2145
+tests/unittest/test_streaming_api_error_construction.py
+  s_1fe4a22cf21de7::t_277e90a84558ad 437-444,446-450
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 184,208
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 139-172,411-434
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 199,214,233,263-264,270-317,319-322
+  s_1fe4a22cf21de7::t_0eb2628e0075dd 5,8,16,327-389
+  s_1fe4a22cf21de7::t_d2c618468ac60c 445,499-500,517
+  s_1fe4a22cf21de7::t_9caabc2842acf7 4
+  s_1fe4a22cf21de7::t_584301ee9d2fe5 126-138
+  s_1fe4a22cf21de7::t_c42d7ec5072996 212,222
+  s_1fe4a22cf21de7::t_519da191401f9e 323-326
+  s_1fe4a22cf21de7::t_1990765f488c2f 451-453,473
+  s_1fe4a22cf21de7::t_9ef0e55af0251a 392-405
+  s_1fe4a22cf21de7::t_d113587a02e9be 3,6-7,12-13,15,18-19,70-125,173-183,185-198,200-207,209-211,213,215-220,225-232,234-262,265-269,390-391,406-410,435-436,454-472,474-498,501-516,518-520
+  s_1fe4a22cf21de7::t_5d88e009bba944 221,223-224
+  s_1fe4a22cf21de7::t_759ae7e98531fa 318
+docs/docs/installation/mosaico_server.md
+  s_1fe4a22cf21de7::t_1990765f488c2f 41-42
+  s_1fe4a22cf21de7::t_456c1dc31d9bdb 44-47
+  s_1fe4a22cf21de7::t_109a7ce0e92dc7 48-49
+  s_1fe4a22cf21de7::t_da7f3b2627c124 50
+  s_1fe4a22cf21de7::t_b4169e57ef9660 40,43
+  s_1fe4a22cf21de7::t_0808807c6bc9a8 34
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 31-33
+pr_agent/algo/ai_handlers/litellm_helpers.py
+  s_1fe4a22cf21de7::t_8fcf6b99cc360b 127-132,134,144,156
+  s_1fe4a22cf21de7::t_c2beaa5fee96cf 136-140,142-143,147
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 76-77,87
+  s_1fe4a22cf21de7::t_de7a9b183a5a68 159,190-193
+  s_1fe4a22cf21de7::t_d20d3039561ed4 19,22,93,101-103,106-108,110-118,126,148-150,154-155,157-158,189
+  s_1fe4a22cf21de7::t_1990765f488c2f 20,98,104-105,133
+  s_1fe4a22cf21de7::t_c42d7ec5072996 135,153
+  s_1fe4a22cf21de7::t_277e90a84558ad 94-97,99-100,109,141
+  s_1fe4a22cf21de7::t_876a186d3eb0f7 151-152
+  s_1fe4a22cf21de7::t_82bf31600ceda9 5,21,23,71-75,78-86,88-92,119-125,145-146
+tests/unittest/test_litellm_retry_config.py
+  s_1fe4a22cf21de7::t_3d9a64df76dd84 20
+  s_1fe4a22cf21de7::t_8dffec4a9b43e9 63-64
+  s_1fe4a22cf21de7::t_e33b1c7f0578a4 65
+tests/unittest/test_mosaico_health.py
+  s_1fe4a22cf21de7::t_fe5f3a6524c9b2 466-467
+  s_1fe4a22cf21de7::t_810afad8349ab5 527
+  s_1fe4a22cf21de7::t_88afbd7b1dd229 542,565
+  s_1fe4a22cf21de7::t_1990765f488c2f 487-488
+  s_1fe4a22cf21de7::t_3f3ca3d7a79a86 11,453-465
+  s_1fe4a22cf21de7::t_2e889acdf08571 599-600,602-603,605
+  s_1fe4a22cf21de7::t_6bebc11fa7b9e0 374,376-377,604
+  s_1fe4a22cf21de7::t_98b0528fd4b3d1 610-611
+  s_1fe4a22cf21de7::t_c42d7ec5072996 601
+  s_1fe4a22cf21de7::t_5a26179575a37e 537
+  s_1fe4a22cf21de7::t_c1d9a96c8b5cc6 422-426,536,538
+  s_1fe4a22cf21de7::t_fea8a15c276a05 421,427,436
+  s_1fe4a22cf21de7::t_0a0707a9557efc 12,20,321-339,341-373,375,378-380,404-418,420,428,431-432,435,437-439,442-452,468-472,474-486,489-526,528-535,539-541,543-564,566-598,606-609
+  s_1fe4a22cf21de7::t_bd0968fb8b89b6 381-403
+  s_1fe4a22cf21de7::t_d2c618468ac60c 340,419,429-430,433-434,440-441,473
+pr_agent/settings/configuration.toml
+  s_1fe4a22cf21de7::t_d7de4bfce4336b 464-467
+docker/mosaico/README.md
+  s_1fe4a22cf21de7::t_c5004601ae7b03 146
+  s_1fe4a22cf21de7::t_109a7ce0e92dc7 151-152
+  s_1fe4a22cf21de7::t_4b31370d106a45 147-148
+  s_1fe4a22cf21de7::t_e56400e570d5fb 149
+docs/docs/usage-guide/configuration_reference.md
+  s_1fe4a22cf21de7::t_2a43a3db15c64a 443
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e7d818c749e72fc6574e5a91c1ab8f39648d34d6",
+  "prompts": {},
+  "sessions": {
+    "s_1fe4a22cf21de7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0baf2-39f9-7312-a415-cc841076ed50",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": null
+    }
+  }
+}
