@@ -2507,6 +2507,7 @@ dependencies = [
     { name = "tiktoken" },
     { name = "ujson" },
     { name = "unidiff" },
+    { name = "urllib3" },
     { name = "uvicorn" },
 ]
 
@@ -2587,6 +2588,7 @@ requires-dist = [
     { name = "tiktoken", specifier = "==0.14.0" },
     { name = "ujson", specifier = ">=5.13.0,<6" },
     { name = "unidiff", specifier = "==0.7.5" },
+    { name = "urllib3", specifier = ">=2.8.0,<3" },
     { name = "uvicorn", specifier = ">=0.31.1,<1" },
 ]
 provides-extras = ["lambda", "otel-grpc", "langchain"]

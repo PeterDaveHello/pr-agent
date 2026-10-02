@@ -63,6 +63,9 @@ dependencies = [
   "tiktoken==0.14.0",
   "ujson>=5.13.0,<6",
   "unidiff==0.7.5",
+  # Declare urllib3 directly because gerrit_provider.py imports urllib3.util; the >=2.8.0
+  # floor is a security requirement and follows the >=patched,<next-major convention above.
+  "urllib3>=2.8.0,<3",
   "uvicorn>=0.31.1,<1",
   "tenacity==8.2.3",
   "a2a-sdk[http-server]==1.0.3",
