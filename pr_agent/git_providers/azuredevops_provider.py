@@ -1311,7 +1311,6 @@ class AzureDevopsProvider(GitProvider):
                     comment_body = comment["body"]
                     thread_context = None
                     if comment.get("path"):
-                        relevant_file = comment["path"]
                         thread_context = {"filePath": relevant_file}
                         if comment.get("subject_type", "LINE") == "LINE":
                             thread_context["rightFileStart"] = {
