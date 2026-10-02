@@ -1,0 +1,43 @@
+pr_agent/git_providers/bitbucket_server_provider.py
+  s_693a99f0d97318::t_7239477df94e0f 206
+pr_agent/git_providers/azuredevops_provider.py
+  s_786083355cb96e::t_3ad695d4cbeb75 1310
+  s_693a99f0d97318::t_97ce0f2df42f19 745-758,1337-1339
+  s_cff110e4bbc21e::t_59d60f9628b2d8 1307-1308
+tests/unittest/test_azure_devops_provider.py
+  s_786083355cb96e::t_12f658a19ba3f1 11,21-40,414,2418-2649
+tests/unittest/test_git_provider_code_suggestions.py
+  s_786083355cb96e::t_fd74b16e161186 1,6,11,68-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4e162b38483fab2c538413b5965fad9143c86238",
+  "prompts": {},
+  "sessions": {
+    "s_693a99f0d97318": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f587ff8ffevXlsEACbKCkjyi",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_786083355cb96e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f811-c3c3-7472-ad82-40aeb749d488",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_cff110e4bbc21e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cd376d2ffeMhsDAX69Mt98tz",
+        "model": "muse-spark-1.3-contributor-free"
+      },
+      "human_author": null
+    }
+  }
+}
