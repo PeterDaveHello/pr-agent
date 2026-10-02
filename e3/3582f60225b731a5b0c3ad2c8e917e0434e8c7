@@ -1,0 +1,16 @@
+pyproject.toml
+  h_91c03fe45fa613 66-69
+uv.lock
+  h_91c03fe45fa613 2510,2591
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e33582f60225b731a5b0c3ad2c8e917e0434e8c7",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
