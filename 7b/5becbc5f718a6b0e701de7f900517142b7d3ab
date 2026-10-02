@@ -1,0 +1,23 @@
+pr_agent/algo/git_patch_processing.py
+  s_786083355cb96e::t_e8e0d7462eaeae 410,412,455,457
+pr_agent/tools/pr_code_suggestions.py
+  s_786083355cb96e::t_798695ea765fe3 2178
+pr_agent/tools/pr_help_docs.py
+  s_786083355cb96e::t_41c37c43bd65be 686-687
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7b5becbc5f718a6b0e701de7f900517142b7d3ab",
+  "prompts": {},
+  "sessions": {
+    "s_786083355cb96e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f811-c3c3-7472-ad82-40aeb749d488",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
