@@ -2175,12 +2175,11 @@ class PRCodeSuggestions:
 
             # sort suggestions_labels by the suggestion with the highest score
             suggestions_labels = dict(
-                sorted(suggestions_labels.items(), key=lambda x: max([s['score'] for s in x[1]]), reverse=True))
+                sorted(suggestions_labels.items(), key=lambda x: max(s['score'] for s in x[1]), reverse=True))
             # sort the suggestions inside each label group by score
             for label, suggestions in suggestions_labels.items():
                 suggestions_labels[label] = sorted(suggestions, key=lambda x: x['score'], reverse=True)
 
-            counter_suggestions = 0
             for label, suggestions in suggestions_labels.items():
                 num_suggestions = len(suggestions)
                 pr_body += f"""<tr><td rowspan={num_suggestions}>{label.capitalize()}</td>\n"""
@@ -2189,7 +2188,6 @@ class PRCodeSuggestions:
                     relevant_file = suggestion['relevant_file'].strip()
                     relevant_lines_start = int(suggestion['relevant_lines_start'])
                     relevant_lines_end = int(suggestion['relevant_lines_end'])
-                    range_str = ""
                     if relevant_lines_start == relevant_lines_end:
                         range_str = f"[{relevant_lines_start}]"
                     else:
@@ -2258,7 +2256,6 @@ class PRCodeSuggestions:
                     pr_body += f"</td><td align=center>{score_str}\n\n"
 
                     pr_body += "</td></tr>"
-                    counter_suggestions += 1
 
                 # pr_body += "</details>"
                 # pr_body += """</td></tr>"""
