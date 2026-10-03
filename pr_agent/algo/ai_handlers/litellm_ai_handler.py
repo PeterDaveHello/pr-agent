@@ -40,6 +40,8 @@ except ImportError:
 
 from pr_agent.algo import (
     CLAUDE_EXTENDED_THINKING_MODELS,
+    GPT6_MODELS,
+    GPT6_OPENROUTER_ROUTING_SUFFIXES,
     GROK_REASONING_EFFORT_LEVELS,
     STREAMING_REQUIRED_MODELS,
     USER_MESSAGE_ONLY_MODELS,
@@ -183,7 +185,6 @@ AZURE_OIDC_AUTH_ENV_VARS = ("AZURE_CLIENT_SECRET", "AZURE_USERNAME", "AZURE_PASS
 AWS_PROVIDER_CALL_FALLBACK_MESSAGE = (
     "AWS provider call failed with ambient credentials; retrying with static credentials"
 )
-
 
 def _first_environment_value(environment_variables):
     """Return the first non-empty value among the environment variables, if any."""
@@ -1318,10 +1319,31 @@ class LiteLLMAIHandler(BaseAiHandler):
         return model if model.startswith("openrouter/") else f"openrouter/{model}"
 
     @staticmethod
-    def _is_gpt6_astra_model(model: str) -> bool:
-        """Recognize Astra models through routed provider prefixes."""
-        model_base = _strip_openai_azure_prefixes(model.removeprefix("openrouter/"))
-        return model_base.removesuffix("_thinking") == "gpt-6-astra"
+    def _gpt6_model_name(model: str) -> str | None:
+        """Return the supported native GPT-6 model name without changing gateway model IDs."""
+        if model.startswith(("azure_ai/", "aiohttp_openai/")):
+            provider_model = model.split("/", 1)[1].removesuffix("_thinking")
+            return provider_model if provider_model in ("gpt-6-sol", "gpt-6-luna") else None
+        model = _strip_openai_azure_prefixes(model).removesuffix("_thinking")
+        return model if model in GPT6_MODELS else None
+
+    @classmethod
+    def _output_token_limit_param(cls, model: str, provider: str | None = None) -> str:
+        """Return the completion-limit parameter used by the normalized request model."""
+        if provider in ("azure_text", "text-completion-openai"):
+            return "max_tokens"
+        if (
+            provider not in (None, "openai", "azure", "azure_ai", "openrouter")
+            and cls._gpt6_model_name(model) in ("gpt-6-sol", "gpt-6-luna")
+        ):
+            return "max_tokens"
+        if model.startswith("openrouter/"):
+            return (
+                "max_completion_tokens"
+                if cls._gpt6_model_name(model.removeprefix("openrouter/")) == "gpt-6-astra"
+                else "max_tokens"
+            )
+        return "max_completion_tokens" if cls._gpt6_model_name(model) else "max_tokens"
 
     @staticmethod
     def _is_gpt5_model(model: str) -> bool:
@@ -1330,9 +1352,32 @@ class LiteLLMAIHandler(BaseAiHandler):
         return model_base.startswith("gpt-5")
 
     def _normalize_gpt5_model_for_request(self, model: str, user_model: str, custom_llm_provider: str) -> str:
-        """Normalize GPT-5/Astra suffixes and prefixes before request parameters are selected."""
+        """Normalize GPT-5/GPT-6 suffixes and prefixes before request parameters are selected."""
+        if model.startswith("openrouter/") or custom_llm_provider == "openrouter":
+            routed_model = model.removeprefix("openrouter/")
+            if routed_model.endswith(GPT6_OPENROUTER_ROUTING_SUFFIXES):
+                routed_model = routed_model.rsplit(":", 1)[0]
+            gpt6_model = self._gpt6_model_name(routed_model)
+            if gpt6_model:
+                if custom_llm_provider not in ("", "openrouter") and gpt6_model in ("gpt-6-sol", "gpt-6-luna"):
+                    return model
+                return model.replace("_thinking", "", 1)
+            if model.startswith("openrouter/"):
+                return model
+        if custom_llm_provider and (
+            custom_llm_provider in ("azure_text", "text-completion-openai")
+            or self._resolve_configured_request_provider(model, custom_llm_provider) not in (
+                "openai", "azure", "azure_ai"
+            )
+        ) and self._gpt6_model_name(model) in ("gpt-6-sol", "gpt-6-luna"):
+            return model
+        if (
+            model.startswith(("azure_ai/", "aiohttp_openai/"))
+            and self._gpt6_model_name(model) in ("gpt-6-sol", "gpt-6-luna")
+        ):
+            return model.replace("_thinking", "")
         model_base = _strip_openai_azure_prefixes(model)
-        if not model_base.startswith("gpt-5") and model_base.removesuffix("_thinking") != "gpt-6-astra":
+        if not model_base.startswith("gpt-5") and model_base.removesuffix("_thinking") not in GPT6_MODELS:
             return model
         if custom_llm_provider:
             return model.replace("_thinking", "")
@@ -2032,6 +2077,12 @@ class LiteLLMAIHandler(BaseAiHandler):
                 effective_reasoning_effort = inherited_reasoning_effort or ""
 
         if effective_reasoning_effort:
+            if effective_reasoning_effort == ReasoningEffort.MINIMAL.value and reasoning_max_tokens <= 0:
+                gpt6_model = model.removeprefix("openrouter/")
+                if gpt6_model.endswith(GPT6_OPENROUTER_ROUTING_SUFFIXES):
+                    gpt6_model = gpt6_model.rsplit(":", 1)[0]
+                if self._gpt6_model_name(gpt6_model) in ("gpt-6-sol", "gpt-6-luna"):
+                    effective_reasoning_effort = ReasoningEffort.LOW.value
             clamped_effort = self._clamp_grok_reasoning_effort(model, effective_reasoning_effort)
             if clamped_effort != effective_reasoning_effort:
                 get_logger().info(
@@ -2630,24 +2681,48 @@ class LiteLLMAIHandler(BaseAiHandler):
                 # and Azure mode auto-prepends "azure/", which together can produce stacked prefixes
                 # like "azure/openai/gpt-5...". Without normalization the GPT-5 path is skipped and
                 # litellm rejects the request with UnsupportedParamsError for temperature=0.2.
-                is_gpt6_astra = self._is_gpt6_astra_model(family_model)
+                gpt6_model = self._gpt6_model_name(family_model.removeprefix("openrouter/"))
+                preserved_gpt6_alias = (
+                    bool(openrouter_model) and family_model.endswith("_thinking")
+                    and gpt6_model in ("gpt-6-sol", "gpt-6-luna")
+                )
+                non_native_gpt6_model = (
+                    (request_provider not in ("openai", "azure", "azure_ai", "openrouter")
+                     or custom_llm_provider in ("azure_text", "text-completion-openai")
+                     or family_model.startswith(("azure_text/", "text-completion-openai/")))
+                    and (gpt6_model or family_model.rsplit("/", 1)[-1].removesuffix("_thinking"))
+                    in ("gpt-6-sol", "gpt-6-luna")
+                )
+                if non_native_gpt6_model or preserved_gpt6_alias:
+                    gpt6_model = None
+                is_gpt6_model = gpt6_model is not None
                 is_gpt5_model = self._is_gpt5_model(family_model)
-                if is_gpt5_model or is_gpt6_astra:
+                if is_gpt5_model or is_gpt6_model:
                     # Use configured reasoning_effort or default to MEDIUM.
                     effort = self._validate_reasoning_effort(self._default_reasoning_effort)
                     lookup_model = _strip_openai_azure_prefixes(
                         family_model.removeprefix("openrouter/")
                     ).removesuffix("_thinking")
 
-                    if is_gpt6_astra and effort in (ReasoningEffort.NONE.value, ReasoningEffort.MINIMAL.value):
-                        get_logger().info(f"GPT-6 Astra does not support reasoning_effort='{effort}'; using 'low'")
+                    if is_gpt6_model and (
+                        effort == ReasoningEffort.MINIMAL.value
+                        or (gpt6_model == "gpt-6-astra" and effort == ReasoningEffort.NONE.value)
+                    ):
+                        get_logger().info(
+                            f"{gpt6_model} does not support reasoning_effort='{effort}'; using 'low'"
+                        )
                         effort = ReasoningEffort.LOW.value
-                    elif not is_gpt6_astra and effort == ReasoningEffort.MAX.value:
+                    elif gpt6_model in ("gpt-6-sol", "gpt-6-luna") and request_provider in ("azure", "azure_ai") and (
+                        effort == ReasoningEffort.MAX.value
+                    ):
+                        get_logger().info(f"{gpt6_model} on Azure Chat Completions uses 'xhigh' instead of 'max'")
+                        effort = ReasoningEffort.XHIGH.value
+                    elif not is_gpt6_model and effort == ReasoningEffort.MAX.value:
                         # 'max' is this project's own alias for "the most reasoning available",
                         # already translated on the Grok and OpenRouter paths. GPT-5.2 and later
                         # name that level 'xhigh'; litellm reports supports_xhigh_reasoning_effort
                         # false for gpt-5 and gpt-5.1, so those are clamped to 'high' instead.
-                        # GPT-6 Astra accepts 'max' natively and is left untouched.
+                        # Supported GPT-6 models accept 'max' natively and are handled above.
                         try:
                             supports_xhigh = litellm.get_model_info(lookup_model).get(
                                 "supports_xhigh_reasoning_effort"
@@ -2670,7 +2745,7 @@ class LiteLLMAIHandler(BaseAiHandler):
                                 "GPT-5 models name their top reasoning level 'xhigh'; "
                                 "using 'xhigh' for reasoning_effort='max'"
                             )
-                    elif not is_gpt6_astra and effort == ReasoningEffort.MINIMAL.value:
+                    elif not is_gpt6_model and effort == ReasoningEffort.MINIMAL.value:
                         # From LiteLLM 1.102.0 the bundled model map marks 'minimal' unsupported
                         # for gpt-5.1, gpt-5.2, gpt-5.4 and newer base models (bare gpt-5 still
                         # takes it), and litellm raises UnsupportedParamsError for that value. Clamp
@@ -2694,12 +2769,18 @@ class LiteLLMAIHandler(BaseAiHandler):
 
                     if openrouter_model:
                         openrouter_reasoning_effort = effort
+                    elif gpt6_model in ("gpt-6-sol", "gpt-6-luna") and (
+                        effort == ReasoningEffort.XHIGH.value
+                        or (request_provider in ("azure", "azure_ai") and effort == ReasoningEffort.NONE.value)
+                    ):
+                        # LiteLLM's bundled fallback map lacks these models and rejects xhigh/azure-none.
+                        thinking_kwargs_gpt5 = {"extra_body": {"reasoning_effort": effort}}
                     else:
                         thinking_kwargs_gpt5 = {
                             "reasoning_effort": effort,
                             "allowed_openai_params": ["reasoning_effort"],
                         }
-                    model_family = "GPT-6 Astra" if is_gpt6_astra else "GPT-5"
+                    model_family = "GPT-6" if is_gpt6_model else "GPT-5"
                     get_logger().info(f"Using reasoning_effort='{effort}' for {model_family} model")
                 # Currently, some models do not support a separate system and user prompts
                 if self._uses_user_message_only(model) or get_settings().config.custom_reasoning_model:
@@ -2755,10 +2836,10 @@ class LiteLLMAIHandler(BaseAiHandler):
 
                 if thinking_kwargs_gpt5:
                     kwargs.update(thinking_kwargs_gpt5)
-                if is_gpt5_model or is_gpt6_astra:
+                if is_gpt5_model or is_gpt6_model:
                     kwargs.pop('temperature', None)
 
-                reasoning_model = family_model
+                reasoning_model = openrouter_model if preserved_gpt6_alias else family_model
                 # Add reasoning_effort if the model supports it. Support comes from
                 # litellm's bundled model metadata (probed over suffix forms so bare,
                 # provider-prefixed, and OpenRouter :nitro/:floor variants all resolve),
@@ -2767,16 +2848,22 @@ class LiteLLMAIHandler(BaseAiHandler):
                 # config.additional_reasoning_effort_models as the operator escape hatch
                 # for endpoints litellm does not know. Claude models are excluded because
                 # their reasoning is driven by the dedicated
-                # enable_claude_extended/adaptive_thinking settings. Skip GPT-5/GPT-6
-                # Astra here so a config-registered model cannot overwrite the
+                # enable_claude_extended/adaptive_thinking settings. Skip supported GPT-5/GPT-6
+                # models here so a config-registered model cannot overwrite the
                 # reasoning_effort normalization of its dedicated branch.
-                if not (is_gpt5_model or is_gpt6_astra) and (
+                reasoning_aliases = (
+                    (reasoning_model, reasoning_model.removesuffix("_thinking"))
+                    if non_native_gpt6_model and not preserved_gpt6_alias else (reasoning_model,)
+                )
+                if not (is_gpt5_model or is_gpt6_model) and (
                     self._grok_reasoning_levels_for(reasoning_model) is not None
-                    or not self._is_claude_family_model(reasoning_model)
+                    or not non_native_gpt6_model
+                    and not preserved_gpt6_alias
+                    and not self._is_claude_family_model(reasoning_model)
                     and self._litellm_supports_reasoning(reasoning_model)
                     or any(
-                        reasoning_model == m or reasoning_model.endswith("/" + m)
-                        for m in self.additional_reasoning_effort_models
+                        candidate == m or candidate.endswith("/" + m)
+                        for candidate in reasoning_aliases for m in self.additional_reasoning_effort_models
                     )
                 ):
                     config_effort = self._default_reasoning_effort
@@ -2838,12 +2925,14 @@ class LiteLLMAIHandler(BaseAiHandler):
                 # setdefault keeps the extended-thinking limit authoritative.
                 max_output_tokens = self._resolve_output_token_limit(model, openrouter_model)
                 if max_output_tokens > 0:
-                    output_limit_param = (
-                        "max_completion_tokens"
-                        if self._is_gpt6_astra_model(capability_model)
-                        else "max_tokens"
+                    output_limit_provider = (
+                        custom_llm_provider
+                        if custom_llm_provider in ("azure_text", "text-completion-openai")
+                        else request_provider
                     )
-                    kwargs.setdefault(output_limit_param, max_output_tokens)
+                    kwargs.setdefault(
+                        self._output_token_limit_param(capability_model, output_limit_provider), max_output_tokens
+                    )
 
                 if get_settings().litellm.get("enable_callbacks", False):
                     kwargs = self.add_litellm_callbacks(kwargs)
@@ -2999,10 +3088,22 @@ class LiteLLMAIHandler(BaseAiHandler):
             aws_request_credentials,
             _,
         ):
+            completion_model = self._normalize_gpt5_model_for_request(
+                routed_model, model, custom_llm_provider
+            )
+            capability_model = self._canonical_openrouter_model(completion_model, request_provider) or completion_model
+            if request_provider == "openrouter" and capability_model.endswith((":nitro", ":floor")):
+                capability_model = capability_model.rsplit(":", 1)[0]
+            output_limit_param = self._output_token_limit_param(
+                capability_model,
+                custom_llm_provider
+                if custom_llm_provider in ("azure_text", "text-completion-openai")
+                else request_provider,
+            )
             kwargs = {
-                "model": self._normalize_gpt5_model_for_request(routed_model, model, custom_llm_provider),
+                "model": completion_model,
                 "messages": [{"role": "system", "content": "Say ping"}],
-                "max_tokens": max_tokens,
+                output_limit_param: max_tokens,
                 "timeout": timeout,
             }
             if deployment_id:
