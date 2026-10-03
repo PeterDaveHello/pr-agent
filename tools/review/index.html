@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Review | PR-Agent</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" property="og:url" content="https://docs.pr-agent.ai/tools/review/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Review | PR-Agent"><meta data-rh="true" name="description" content="Overview"><meta data-rh="true" property="og:description" content="Overview"><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://docs.pr-agent.ai/tools/review/"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/tools/review/" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/tools/review/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Review","item":"https://docs.pr-agent.ai/tools/review"}]}</script><script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="5c89c0b1-b2ee-43c9-8c6f-43ed762b3c1e" data-project-name="PR-Agent" data-project-color="#2459db" data-project-logo="/img/favicon.svg" data-launcher-button-image="/img/favicon-white.svg" data-color-scheme-selector="[data-theme=&#39;dark&#39;]" async></script><link rel="stylesheet" href="/assets/css/styles.928a3cd8.css">
-<script src="/assets/js/runtime~main.53c1dbc8.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9334a1b5.js" defer="defer"></script>
 <script src="/assets/js/main.ec1a8257.js" defer="defer"></script>
 </head>
 <body>
@@ -67,6 +67,10 @@ for the authoritative default values.</p>
   <tr>
     <td><b>persistent_finding_state</b></td>
     <td>If set to true, PR-Agent persists structured review finding state across complete review runs, so findings can be resolved and reopened. Resolved findings retain the original Markdown formatting of their description. Incremental and partial reviews do not resolve absent findings. Default is true.</td></tr>
+  <tr>
+    <td><b>max_previous_findings_chars</b></td>
+    <td>Character budget for the findings stored by earlier reviews (requires <code>persistent_finding_state</code>). They are given to the model so it repeats a still-valid finding with its earlier wording instead of re-raising it reworded, and does not re-raise a resolved one unless the code reintroduces it. Set to 0 to disable. Default is 8000.</td>
+  </tr>
   <tr>
   <td><b>final_update_message</b></td>
   <td>When set to true, updating a persistent review comment during online commenting will automatically add a short comment with a link to the updated review in the pull request.</td>
@@ -191,7 +195,13 @@ until the diff fits, and lists the dropped files in the review coverage footer.<
 to <code>max_number_of_calls</code> chunks, each chunk is reviewed on its own, and the answers are merged
 into a single review that says how many chunks it was built from. Files that do not fit even
 after chunking are still listed in the coverage footer. Every chunk is a separate model call,
-so a chunked review costs roughly <code>max_number_of_calls</code> times a normal one.</p><p>If a chunk fails or returns malformed output, successful chunks are retained and fallback
+so a chunked review costs roughly <code>max_number_of_calls</code> times a normal one.</p><p>While the chunks run, the temporary <code>Preparing review...</code> comment is rewritten in place with the
+number of chunks already analyzed, for example <code>Preparing review... analyzed 2 of 3 chunks</code>, plus
+<code>... 1 chunk failed</code> when a chunk gives up. The updates require
+<code>config.publish_output_progress</code> and a provider that supports both editing and removing a
+comment, so plain-diff runs and automatic commands keep the frozen placeholder. The comment stays
+temporary and is still removed before the merged review is published. A fallback model restores
+the placeholder before it starts, so the visible count never moves backward.</p><p>If a chunk fails or returns malformed output, successful chunks are retained and fallback
 models retry only the pending work. Pending chunks can be split for a smaller model, within
 the call limit; a larger model can also include previously omitted files. Chunks that still
 exceed the model&#x27;s budget are not sent to it.</p><p>If every fallback is exhausted, successful chunks are published as a partial review with a
