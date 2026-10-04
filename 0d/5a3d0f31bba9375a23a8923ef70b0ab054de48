@@ -1,0 +1,20 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 872,890
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 2143-2146
+pr_agent/algo/token_budget.py
+  h_91c03fe45fa613 85
+tests/unittest/test_litellm_reasoning_effort.py
+  h_91c03fe45fa613 1270-1272,1275
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0d5a3d0f31bba9375a23a8923ef70b0ab054de48",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

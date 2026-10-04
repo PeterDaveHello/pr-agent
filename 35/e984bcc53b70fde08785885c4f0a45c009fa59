@@ -1,0 +1,34 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 860,893-916,982-983
+docs/docs/usage-guide/configuration_reference.md
+  h_91c03fe45fa613 76,124
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 229,231-243,277
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 44,46,1349,1360,1385,1395,1399,2123,2748,2755,2770,2776,2833
+pr_agent/algo/token_budget.py
+  h_91c03fe45fa613 9-15,61
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 50,52,113
+tests/unittest/test_attempt_token_budget.py
+  h_91c03fe45fa613 179,208,252
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 28,150,168,183,200,219,248,263,290
+tests/unittest/test_litellm_openrouter_controls.py
+  h_91c03fe45fa613 22,111,488,509,540,561,590,672,693,699-701,724-729,732,900,927
+tests/unittest/test_litellm_reasoning_effort.py
+  h_91c03fe45fa613 10-17,19,1045,1050,1070-1075,1096,1124,1137,1143-1150,1162-1169,1172,1196,1212,1244-1337
+tests/unittest/test_pr_help_message_fallback.py
+  h_91c03fe45fa613 302
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "35e984bcc53b70fde08785885c4f0a45c009fa59",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
