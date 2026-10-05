@@ -1,0 +1,29 @@
+pr_agent/algo/__init__.py
+  s_437502f668ee51::t_597d74ed455556 240-242
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_437502f668ee51::t_4eab46f5bc4814 1371-1382,2131,2136-2146,2304-2310
+tests/unittest/test_get_max_tokens.py
+  s_437502f668ee51::t_b8ad56cdbb6dbc 47,58
+tests/unittest/test_litellm_max_output_tokens.py
+  s_437502f668ee51::t_02760c9197f3a7 279-315
+tests/unittest/test_litellm_openrouter_controls.py
+  s_437502f668ee51::t_007b294d2c8c54 22-26,114-158
+tests/unittest/test_litellm_reasoning_effort.py
+  s_437502f668ee51::t_bef48c9e655a83 1072,1265-1272,1280-1281,1287,1358,1361,1367-1368,1370,1377,1389-1400
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d30f0648fef30f05ea723f4f297a13e5e746c1bd",
+  "prompts": {},
+  "sessions": {
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 874-880,884-886
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f8a6395eeb55e125426be2f503c1ece9760e9b8e",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
