@@ -1,0 +1,57 @@
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 44,46,1345,1356,1381,1391,1395,2744,2751,2766,2772,2829
+  s_437502f668ee51::t_4eab46f5bc4814 2119
+tests/unittest/test_litellm_reasoning_effort.py
+  s_a7886a5a4fc5e5::t_4d87eae9a5bfa2 1242-1245
+  h_91c03fe45fa613 10-15,17,1043,1048,1068-1069,1071-1073,1094,1122,1135,1141-1148,1160-1167,1170,1194,1210,1238-1241,1250-1261,1267-1319
+  s_437502f668ee51::t_bef48c9e655a83 1070,1262-1266
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 229,231-240,274
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 860,872,874-880,884-886,893,896-920,986-987
+tests/unittest/test_get_max_tokens.py
+  s_437502f668ee51::t_b8ad56cdbb6dbc 47,58
+  h_91c03fe45fa613 28,150,168,183,200,219,248,263,290
+tests/unittest/test_attempt_token_budget.py
+  h_91c03fe45fa613 179,208,252
+pr_agent/algo/token_budget.py
+  h_91c03fe45fa613 9-15,61,85
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 51,53,114
+docs/docs/usage-guide/configuration_reference.md
+  h_91c03fe45fa613 79,127
+tests/unittest/test_litellm_openrouter_controls.py
+  s_437502f668ee51::t_007b294d2c8c54 22-25
+  h_91c03fe45fa613 114,491,512,543,564,593,675,696,702-704,727-732,735,903,930
+tests/unittest/test_pr_help_message_fallback.py
+  h_91c03fe45fa613 302
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4adb399ba1fdae37ac1d4143960c9027059febec",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_a7886a5a4fc5e5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a10cf7-dc90-7e61-a1ac-d2dc0310e9b2",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
