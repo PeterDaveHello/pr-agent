@@ -1,0 +1,51 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 860,872,874-880,884-886,893,896-935,1001-1002
+tests/unittest/test_attempt_token_budget.py
+  h_91c03fe45fa613 179,208,252
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_437502f668ee51::t_4eab46f5bc4814 1371,1374,1377-1380,1391,2140,2142-2148,2153-2156,2314-2320
+  h_91c03fe45fa613 44,46,1349,1360,1372-1373,1375-1376,1381-1390,1406,1416,1420,2141,2149-2152,2788,2795,2810,2816,2873
+tests/unittest/test_pr_help_message_fallback.py
+  h_91c03fe45fa613 302
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 50,52,113
+tests/unittest/test_get_max_tokens.py
+  h_91c03fe45fa613 28,150,168,183,200,219,248,263,290
+  s_437502f668ee51::t_b8ad56cdbb6dbc 47,58
+pr_agent/algo/__init__.py
+  h_91c03fe45fa613 229,231-239,243-244,278
+  s_437502f668ee51::t_597d74ed455556 240-242
+pr_agent/algo/token_budget.py
+  h_91c03fe45fa613 9-15,61,85
+tests/unittest/test_litellm_reasoning_effort.py
+  h_91c03fe45fa613 10-17,19,1045,1050,1070-1071,1073-1075,1096,1124,1137,1143-1150,1162-1169,1172,1196,1212,1240-1248,1253-1264,1270-1272,1275,1277-1283,1286-1290,1292-1356,1358-1359,1361-1365,1368,1370-1375,1377-1387,1400
+  s_437502f668ee51::t_bef48c9e655a83 1072,1265-1269,1273-1274,1276,1284-1285,1291,1357,1360,1366-1367,1369,1376,1388-1399
+docs/docs/usage-guide/configuration_reference.md
+  h_91c03fe45fa613 76,124
+tests/unittest/test_litellm_openrouter_controls.py
+  s_437502f668ee51::t_007b294d2c8c54 22-26,115-158
+  h_91c03fe45fa613 159-160,537,558,589,610,639,721,742,748-750,773-778,781,949,976
+tests/unittest/test_litellm_max_output_tokens.py
+  s_437502f668ee51::t_02760c9197f3a7 279-315
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c604a88e032517f09821b80abf81cfdf771ce050",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
