@@ -52,6 +52,7 @@ from .git_provider import (
     GitProvider,
     IncompletePullRequestFilesError,
     IncrementalPR,
+    cache_languages,
     get_config_branch,
     redact_credentials,
 )
@@ -241,6 +242,7 @@ class GithubProvider(GitProvider):
         if (self.repo, self.pr_num) != (repo, pr_num):
             self._published_inline_comment_bodies = []
             self._inline_comment_store = None
+            self._languages = None
         self.repo, self.pr_num = repo, pr_num
         self.pr = self._get_pr()
 
@@ -1274,6 +1276,7 @@ class GithubProvider(GitProvider):
     def get_title(self):
         return self.pr.title
 
+    @cache_languages
     def get_languages(self):
         languages = self._get_repo().get_languages()
         return languages

@@ -22,6 +22,7 @@ from .git_provider import (
     FileContentSnapshot,
     GitProvider,
     IncompleteBitbucketPullRequestFilesError,
+    cache_languages,
     redact_credentials,
 )
 
@@ -577,6 +578,7 @@ class BitbucketProvider(GitProvider):
     def get_title(self):
         return self.pr.title
 
+    @cache_languages
     def get_languages(self):
         language = self._get_repo().get_data("language")
         return {language: 0} if language else {}

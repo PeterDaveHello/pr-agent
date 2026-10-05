@@ -19,6 +19,7 @@ from pr_agent.git_providers.git_provider import (
     GitProvider,
     IncompleteProviderPullRequestFilesError,
     IncrementalPR,
+    cache_languages,
     redact_credentials,
 )
 from pr_agent.log import get_logger
@@ -718,6 +719,7 @@ class GiteaProvider(GitProvider):
 
         return comments
 
+    @cache_languages
     def get_languages(self) -> Set[str]:
         """Get programming languages used in the repository"""
         languages = self.repo_api.get_languages(
