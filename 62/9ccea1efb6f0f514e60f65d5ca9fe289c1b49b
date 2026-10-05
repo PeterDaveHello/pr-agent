@@ -1,0 +1,43 @@
+docs/docs/usage-guide/configuration_reference.md
+  s_437502f668ee51::t_f2a6a49067d989 125
+tests/unittest/test_get_max_tokens.py
+  s_437502f668ee51::t_844e352f164311 578
+tests/unittest/test_litellm_reasoning_effort.py
+  s_437502f668ee51::t_2c734e798771cb 544
+tests/unittest/test_litellm_temperature_probe.py
+  s_adb238c6b3447e::t_aa2eb6ee2c1a3b 59,65
+docs/docs/installation/github.md
+  s_1bc3db2901fba9::t_6fa3f0b20d4bbb 333-334,340-341,349-350
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "629ccea1efb6f0f514e60f65d5ca9fe289c1b49b",
+  "prompts": {},
+  "sessions": {
+    "s_1bc3db2901fba9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "49b6d471-9074-452f-8788-6aa6c2c76270",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_adb238c6b3447e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "7b8ecafa-2c01-4ddf-9b7b-286012bd5256",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
