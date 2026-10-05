@@ -1,0 +1,16 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 922-923,928-932
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 1372-1373,1375-1376,1381-1390,2141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "757c3d686bbd0fc22643d0d0fbc8bc92d0db1cc8",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
