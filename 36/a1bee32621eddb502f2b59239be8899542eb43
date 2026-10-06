@@ -1,0 +1,76 @@
+tests/unittest/test_get_max_tokens.py
+  s_437502f668ee51::t_e942ec607e10c4 534-536
+  s_437502f668ee51::t_844e352f164311 580
+  s_a319448c0408a4::t_bf44bb8be092b4 1281-1367
+  s_a319448c0408a4::t_8c33c9279c7e25 1368-1370
+docs/docs/usage-guide/configuration_reference.md
+  s_437502f668ee51::t_f2a6a49067d989 128
+tests/unittest/test_litellm_chat_completion_core.py
+  s_437502f668ee51::t_fb1c805a30da3e 199,223,230
+tests/unittest/test_pr_line_questions_context_budget.py
+  s_437502f668ee51::t_351d58a588c138 215,231-232
+pr_agent/settings/configuration.toml
+  s_437502f668ee51::t_4a097efb6dfff0 131-134,493
+tests/unittest/test_pr_help_message_rendering.py
+  s_437502f668ee51::t_3ad6f24c4877d3 116,140,163
+tests/unittest/test_litellm_temperature_probe.py
+  s_adb238c6b3447e::t_aa2eb6ee2c1a3b 59,65
+docs/docs/installation/github.md
+  s_1bc3db2901fba9::t_6fa3f0b20d4bbb 333-334,340-341,349-350
+pr_agent/algo/__init__.py
+  s_883b1db077e897::t_04225fe38eb322 434-436
+  s_437502f668ee51::t_ab0443375c894a 11-74,310-312,330-334,337-341,348-370,372-374,392-393,405-416,419-423,433,440-442,469-477
+  s_883b1db077e897::t_5add4703712087 437-439
+docs/docs/usage-guide/changing_a_model.md
+  s_437502f668ee51::t_043e92c31fbc91 10,19-24,170-171,179,183,187-189,194,200,204-205,210-211,251,255-256,260,263-266,317-318,326-327,427,431-474,478-514,523-524,543,764
+tests/unittest/test_litellm_reasoning_effort.py
+  s_437502f668ee51::t_2c734e798771cb 544
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "36a1bee32621eddb502f2b59239be8899542eb43",
+  "prompts": {},
+  "sessions": {
+    "s_1bc3db2901fba9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "49b6d471-9074-452f-8788-6aa6c2c76270",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_883b1db077e897": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a10da3-6214-7251-8cce-0747b11462a1",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": null
+    },
+    "s_a319448c0408a4": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "2ceb1739-9275-4572-ab3f-c2db6c014912",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_adb238c6b3447e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "7b8ecafa-2c01-4ddf-9b7b-286012bd5256",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
