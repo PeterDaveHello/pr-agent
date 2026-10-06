@@ -1,0 +1,51 @@
+tests/unittest/test_litellm_max_output_tokens.py
+  s_437502f668ee51::t_6c92e538b228e1 279-306
+pr_agent/settings/configuration.toml
+  s_22a45a90a53d92::t_08b6b16858cd10 522-524
+tests/unittest/test_litellm_openrouter_controls.py
+  s_c79205caf65b97::t_eaf3a061643048 968-1009
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  s_e6ad132806e9a4::t_ef307bbfebd026 2022-2072,2166-2168,2309-2315
+docs/docs/usage-guide/changing_a_model.md
+  s_e6ad132806e9a4::t_4ab1692c0a090d 709,908-910
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "821dcf781fb99d985f3820b60804a79568a467d2",
+  "prompts": {},
+  "sessions": {
+    "s_22a45a90a53d92": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a10f84-948a-7282-aa40-5a7174d427f0",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_c79205caf65b97": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a10c47-73ce-7da3-8f1c-d89d5c609e5d",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_e6ad132806e9a4": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "531d0dbe-c0d4-4119-ad61-03e2bab26462",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
