@@ -1,0 +1,19 @@
+pr_agent/algo/__init__.py
+  s_2a90d7473aa103::t_d13d2ff16be664 46,49,60,64-68,327
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c13f3e6367b9a6996d8d9cbd7ab5304eb24196c0",
+  "prompts": {},
+  "sessions": {
+    "s_2a90d7473aa103": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1127f-a12b-7891-933c-0a5016115881",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
