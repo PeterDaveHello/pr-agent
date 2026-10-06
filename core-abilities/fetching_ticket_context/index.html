@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Fetching Ticket Context for PRs | PR-Agent</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" property="og:url" content="https://docs.pr-agent.ai/core-abilities/fetching_ticket_context/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Fetching Ticket Context for PRs | PR-Agent"><meta data-rh="true" name="description" content="Supported Git Platforms: GitHub, GitLab, Bitbucket, Azure DevOps, Gitea"><meta data-rh="true" property="og:description" content="Supported Git Platforms: GitHub, GitLab, Bitbucket, Azure DevOps, Gitea"><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://docs.pr-agent.ai/core-abilities/fetching_ticket_context/"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/core-abilities/fetching_ticket_context/" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/core-abilities/fetching_ticket_context/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Fetching ticket context","item":"https://docs.pr-agent.ai/core-abilities/fetching_ticket_context"}]}</script><script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="5c89c0b1-b2ee-43c9-8c6f-43ed762b3c1e" data-project-name="PR-Agent" data-project-color="#2459db" data-project-logo="/img/favicon.svg" data-launcher-button-image="/img/favicon-white.svg" data-color-scheme-selector="[data-theme=&#39;dark&#39;]" async></script><link rel="stylesheet" href="/assets/css/styles.928a3cd8.css">
-<script src="/assets/js/runtime~main.5eb795ef.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.80e95eb5.js" defer="defer"></script>
 <script src="/assets/js/main.ec1a8257.js" defer="defer"></script>
 </head>
 <body>
@@ -70,12 +70,23 @@ Examples of valid GitHub/GitLab issue references:</p>
 <li class=""><code>#&lt;ISSUE_NUMBER&gt;</code></li>
 <li class=""><code>&lt;ORG_NAME&gt;/&lt;REPO_NAME&gt;#&lt;ISSUE_NUMBER&gt;</code></li>
 </ul>
+<p>Full GitHub issue URLs are recognized on the configured instance&#x27;s HTTPS web origin, including GitHub Enterprise URLs such as <code>https://github.example.com/&lt;ORG_NAME&gt;/&lt;REPO_NAME&gt;/issues/&lt;ISSUE_NUMBER&gt;</code>.
+Full GitHub issue URLs on other origins are ignored.</p>
 <p>Branch names can also be used to link issues, for example:</p>
 <ul>
 <li class=""><code>123-fix-bug</code> (where <code>123</code> is the issue number)</li>
 </ul>
 <p>This branch-name detection applies <strong>only when the git provider is GitHub</strong>. Support for other platforms is planned for later.</p>
-<p>Since PR-Agent is integrated with GitHub, it doesn&#x27;t require any additional configuration to fetch GitHub issues.</p>
+<p>By default, GitHub ticket context is limited to the PR&#x27;s own repository. Issues and sub-issues in another
+repository require explicit host approval through <code>config.repo_context_sibling_repos</code>:</p>
+<div class="language-toml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d5d9e1;--prism-background-color:#11141a"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-toml codeBlock_bY9V thin-scrollbar" style="color:#d5d9e1;background-color:#11141a"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d5d9e1"><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token table class-name" style="color:hsl(29, 54%, 61%)">config</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#d5d9e1"><span class="token plain"></span><span class="token key property" style="color:hsl(355, 65%, 65%)">repo_context_sibling_repos</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;myorg/shared-tickets&quot;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><br></div></code></pre></div></div>
+<p>Only canonical repositories under the PR repository&#x27;s resolved owner are accepted. For private or internal
+repositories, the command requester must also have read access; CLI runs use the PR author when no command actor
+is available. Repository settings and comment arguments cannot change this allowlist. An empty list disables
+cross-repository ticket reads, including public repositories. Approve only content that may be included in the
+consuming PR&#x27;s review or description. Ticket lookup limits are separate from the sibling-file limit.
+PyGithub may follow an issue transfer, but results from a different repository are discarded before prompt use.
+Reference a transferred issue by its current repository and number.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="asana-integration">Asana Integration<a href="#asana-integration" class="hash-link" aria-label="Direct link to Asana Integration" title="Direct link to Asana Integration" translate="no">​</a></h2>
 <p>PR-Agent can detect Asana task references in PR descriptions, fetch the referenced tasks through the
 <a href="https://developers.asana.com/reference/gettask" target="_blank" rel="noopener noreferrer" class="">Asana API</a>, and include their titles, descriptions, and tags in the
