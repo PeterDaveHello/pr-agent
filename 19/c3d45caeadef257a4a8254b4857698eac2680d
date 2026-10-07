@@ -1,0 +1,32 @@
+pr_agent/algo/__init__.py
+  s_437502f668ee51::t_ab0443375c894a 15
+  s_437502f668ee51::t_fb63279a171629 14
+  s_437502f668ee51::t_884a3724d45d37 16-18
+  s_304ad34455cc3f::t_b93f7458ea3540 19-20
+tests/unittest/test_pr_help_message_rendering.py
+  s_437502f668ee51::t_3ad6f24c4877d3 116,140,163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "19c3d45caeadef257a4a8254b4857698eac2680d",
+  "prompts": {},
+  "sessions": {
+    "s_304ad34455cc3f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "c222ea70-8e91-49e0-bd11-fc0a3511c334",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
