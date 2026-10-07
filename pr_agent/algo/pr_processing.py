@@ -676,6 +676,9 @@ def pr_generate_compressed_diff(top_langs: list, token_handler: TokenHandler,
         new_patch_tokens = token_handler.count_tokens(patch)
         file_dict[file.filename] = {'patch': patch, 'tokens': new_patch_tokens, 'edit_type': file.edit_type}
 
+    # Keep rendered-patch counts request-scoped while reusing them across packing rounds.
+    rendered_patch_token_cache = {}
+
     # first iteration
     files_in_patches_list = []
     remaining_files_list =  [file.filename for file in sorted_files]
@@ -683,7 +686,7 @@ def pr_generate_compressed_diff(top_langs: list, token_handler: TokenHandler,
     total_tokens_list = []
     total_tokens, patches, remaining_files_list, files_in_patch_list = generate_full_patch(
         convert_hunks_to_line_numbers, file_dict, soft_token_budget, remaining_files_list, token_handler,
-        hard_token_budget=hard_token_budget
+        hard_token_budget=hard_token_budget, rendered_patch_token_cache=rendered_patch_token_cache
     )
     patches_list.append(patches)
     total_tokens_list.append(total_tokens)
@@ -697,7 +700,8 @@ def pr_generate_compressed_diff(top_langs: list, token_handler: TokenHandler,
             if remaining_files_list and patches:
                 total_tokens, patches, remaining_files_list, files_in_patch_list = generate_full_patch(
                     convert_hunks_to_line_numbers, file_dict, soft_token_budget, remaining_files_list,
-                    token_handler, hard_token_budget=hard_token_budget
+                    token_handler, hard_token_budget=hard_token_budget,
+                    rendered_patch_token_cache=rendered_patch_token_cache
                 )
                 if patches:
                     patches_list.append(patches)
@@ -710,7 +714,8 @@ def pr_generate_compressed_diff(top_langs: list, token_handler: TokenHandler,
 
 
 def generate_full_patch(convert_hunks_to_line_numbers, file_dict, soft_token_budget, remaining_files_list_prev,
-                        token_handler, *, hard_token_budget: int):
+                        token_handler, *, hard_token_budget: int,
+                        rendered_patch_token_cache: dict[str, int] | None = None):
     """Admit rendered patches using diff-only budgets; return prompt-inclusive totals."""
     total_tokens = token_handler.prompt_tokens # initial tokens
     patches = []
@@ -733,7 +738,12 @@ def generate_full_patch(convert_hunks_to_line_numbers, file_dict, soft_token_bud
                 patch_final = f"\n\n## File: '{filename.strip()}'\n\n{patch.strip("\r\n")}\n"
             else:
                 patch_final = "\n\n" + patch.strip("\r\n")
-            new_patch_tokens = token_handler.count_tokens(patch_final)
+            if rendered_patch_token_cache is not None and filename in rendered_patch_token_cache:
+                new_patch_tokens = rendered_patch_token_cache[filename]
+            else:
+                new_patch_tokens = token_handler.count_tokens(patch_final)
+                if rendered_patch_token_cache is not None:
+                    rendered_patch_token_cache[filename] = new_patch_tokens
             if patches and separator_tokens is None:
                 separator_tokens = token_handler.count_tokens("\n")
             rendered_patch_tokens = new_patch_tokens + (separator_tokens or 0)
