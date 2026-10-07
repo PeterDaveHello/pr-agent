@@ -1,0 +1,19 @@
+tests/unittest/test_pr_help_message_rendering.py
+  s_437502f668ee51::t_3ad6f24c4877d3 116,140,163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31a199e31dccb64dd2ca6c9a6b95e41517ddbaa9",
+  "prompts": {},
+  "sessions": {
+    "s_437502f668ee51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f08696a8cffeCWLkYbj1vF49QB",
+        "model": "space-bunny-free"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
