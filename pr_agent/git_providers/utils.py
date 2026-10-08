@@ -11,7 +11,9 @@ from urllib.parse import urlparse
 from urllib.request import Request, url2pathname, urlopen
 
 from dynaconf import Dynaconf
+from dynaconf.base import UPPER_DEFAULT_SETTINGS
 from dynaconf.loaders import env_loader
+from dynaconf.utils import to_dict
 from starlette_context import context
 
 from pr_agent.config_loader import get_settings
@@ -358,6 +360,17 @@ def _write_settings_temp(settings_content, repo_settings_files: list) -> str:
     return repo_settings_file
 
 
+def _snapshot_settings_section(settings, section: str):
+    """Copy only the requested settings section without converting unrelated ones.
+
+    Preserve Dynaconf's recursive conversion and exclusion of internal keys.
+    """
+    section = section.upper()
+    if section in UPPER_DEFAULT_SETTINGS:
+        return {}
+    return copy.deepcopy(to_dict(settings.store.get(section, {})))
+
+
 def _apply_repo_settings_file(repo_settings_file, repo_settings_scope="repo"):
     """Load a single repo settings file and merge its allowed keys into the global settings.
 
@@ -501,7 +514,7 @@ def _apply_repo_settings_file(repo_settings_file, repo_settings_scope="repo"):
                 contents = {k: v for k, v in contents.items() if not is_repo_host_only_key(section, k)}
                 if not contents:
                     continue
-        section_dict = copy.deepcopy(get_settings().as_dict().get(section.upper(), {}))
+        section_dict = _snapshot_settings_section(get_settings(), section)
         if repo_settings_scope == "per_directory":
             previous = vars(get_settings()).setdefault("_per_directory_original_values", {})
             original_values = previous.setdefault(section.upper(), {})
