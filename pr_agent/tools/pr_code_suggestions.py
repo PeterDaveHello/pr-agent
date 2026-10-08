@@ -245,6 +245,7 @@ class PRCodeSuggestions:
         self.args = args
         self.incremental = self._parse_incremental(args)
         self._incremental_empty_scope = False
+        self._validated_python_sources: Dict[str, str] = {}
         # When invoked as `/improve -i`, narrow `git_provider.get_diff_files()` to the files
         # changed since the previous suggestions pass. Falls back to full when the provider
         # doesn't support incremental scope or no prior suggestion comment exists.
@@ -1569,15 +1570,22 @@ class PRCodeSuggestions:
                 or not getattr(diff_file, "head_file_is_complete", True)):
             return None
 
-        try:
-            compile(diff_file.head_file, relevant_file, "exec", dont_inherit=True)
-        except (SyntaxError, ValueError):
-            return None
-        except Exception as e:
-            get_logger().warning(f"Could not validate Python suggestion syntax: {e}")
-            return None
+        # Cache successful baselines per tool instance and compile every replacement.
+        source = diff_file.head_file
+        checked_sources = getattr(self, "_validated_python_sources", None)
+        if checked_sources is None:
+            checked_sources = self._validated_python_sources = {}
+        if checked_sources.get(relevant_file) is not source:
+            try:
+                compile(source, relevant_file, "exec", dont_inherit=True)
+            except (SyntaxError, ValueError):
+                return None
+            except Exception as e:
+                get_logger().warning(f"Could not validate Python suggestion syntax: {e}")
+                return None
+            checked_sources[relevant_file] = source
 
-        file_lines = diff_file.head_file.splitlines()
+        file_lines = source.splitlines()
         if (relevant_lines_start < 1
                 or relevant_lines_end < relevant_lines_start
                 or relevant_lines_end > len(file_lines)):
