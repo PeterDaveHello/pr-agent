@@ -33,7 +33,7 @@ _PLAIN_DIFF_MARKDOWN_COMMANDS = frozenset({
 })
 _PLAIN_DIFF_JSON_COMMANDS = frozenset({"review", "review_pr"})
 _OUTPUT_OPTIONS = ("--output", "--json-output")
-_CLI_CONTEXT_CACHES = ("git_provider", "repo_settings", "git_files", "diff_files")
+_CLI_CONTEXT_CACHES = ("git_provider", "repo_settings", "git_files", "diff_files", "authenticated_provider_settings")
 
 
 @contextmanager

@@ -148,6 +148,17 @@ def _resolve_extra_config_to_file(source):
         return None, False
 
 
+def _restore_authenticated_provider_settings():
+    """Keep verified request credentials authoritative over host and repository layers."""
+    if context.exists():
+        for key, value in context.get("authenticated_provider_settings", {}).items():
+            section, name = key.split(".")
+            section_settings = get_settings().get(section, {})
+            for shadow in [k for k in section_settings if k.lower() == name and k != name]:
+                del section_settings[shadow]
+            get_settings().set(key, value)
+
+
 def _reapply_env_overrides():
     """
     Re-run dynaconf's env_loader against the global settings so env-sourced
@@ -165,6 +176,8 @@ def _reapply_env_overrides():
         # Never let a precedence-restoration error block apply_repo_settings;
         # log and continue with whatever state the merge left.
         get_logger().warning(f"Failed to re-apply env-var overrides: {e}")
+    finally:
+        _restore_authenticated_provider_settings()
 
 
 def _apply_settings_from_file(path: str, label: str):
@@ -239,37 +252,33 @@ def _apply_settings_from_file(path: str, label: str):
         get_logger().warning(f"Failed to apply {label} settings from {path}: {e}")
 
 
+def apply_host_settings():
+    """Merge CONFIG.EXTRA_CONFIG_URL before provider initializers read connection settings."""
+    os.environ["AUTO_CAST_FOR_DYNACONF"] = "false"
+    extra_source = get_settings().get("CONFIG.EXTRA_CONFIG_URL", None)
+    try:
+        if isinstance(extra_source, str) and extra_source.strip():
+            extra_path, extra_is_temp = _resolve_extra_config_to_file(extra_source)
+            if extra_path:
+                try:
+                    _apply_settings_from_file(extra_path, label="extra")
+                finally:
+                    if extra_is_temp:
+                        try:
+                            os.remove(extra_path)
+                        except Exception as error:
+                            get_logger().error(f"Failed to remove temp extra config {extra_path}: {error}")
+        elif extra_source is not None and not isinstance(extra_source, str):
+            get_logger().warning(f"Ignoring CONFIG.EXTRA_CONFIG_URL: expected str, got {type(extra_source).__name__}")
+    finally:
+        _restore_authenticated_provider_settings()
+
+
 def apply_repo_settings(pr_url):
     os.environ["AUTO_CAST_FOR_DYNACONF"] = "false"
     _restore_per_directory_settings()
 
-    # Apply external/shared config FIRST, before constructing the git provider:
-    # provider initialisers (e.g. GitLabProvider reads GITLAB.PERSONAL_ACCESS_TOKEN
-    # at __init__) need to see any provider-critical settings that come from the
-    # extra file. Repo-local .pr_agent.toml is still applied later and overrides
-    # the extra file on conflicting keys.
-    extra_source = get_settings().get("CONFIG.EXTRA_CONFIG_URL", None)
-    if isinstance(extra_source, str) and extra_source.strip():
-        extra_path, extra_is_temp = _resolve_extra_config_to_file(extra_source)
-        if extra_path:
-            try:
-                # _apply_settings_from_file() re-applies env-var overrides
-                # itself, so env precedence is restored before the provider
-                # is constructed below.
-                _apply_settings_from_file(extra_path, label="extra")
-            finally:
-                if extra_is_temp:
-                    try:
-                        os.remove(extra_path)
-                    except Exception as e:
-                        get_logger().error(
-                            f"Failed to remove temp extra config {extra_path}: {e}"
-                        )
-    elif extra_source is not None and not isinstance(extra_source, str):
-        get_logger().warning(
-            "Ignoring CONFIG.EXTRA_CONFIG_URL: expected str, got "
-            f"{type(extra_source).__name__}"
-        )
+    apply_host_settings()
 
     git_provider = get_git_provider_with_context(pr_url)
 

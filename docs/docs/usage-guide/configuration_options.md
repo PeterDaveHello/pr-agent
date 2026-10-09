@@ -149,6 +149,10 @@ Accepted values:
 - `file:///path/to/shared.toml` — read from the local filesystem
 - A bare filesystem path — same as `file://`
 
+GitLab comment webhooks apply this host layer before their first provider lookup; repository and per-directory settings remain part of normal command dispatch.
+
+GitLab tokens obtained from a secret provider during webhook authentication remain bound to that request. External files and environment reapplication cannot replace those authenticated credentials.
+
 ### Authentication for private endpoints
 
 For private endpoints (e.g. a GitLab API URL pointing at a private `pr-agent-settings` file), provide a single header via the `PR_AGENT_EXTRA_CONFIG_AUTH_HEADER` environment variable, formatted as `<HeaderName>: <value>`:
