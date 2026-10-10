@@ -1,0 +1,14 @@
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 2647,2651-2657
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "05d8c792d4c9950ca6bfa39bc63839c0f6342fb3",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
