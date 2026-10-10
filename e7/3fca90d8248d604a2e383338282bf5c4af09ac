@@ -1,0 +1,23 @@
+docs/docs/usage-guide/changing_a_model.md
+  s_4c30820c6f76ea::t_5767c69fab9e94 1020-1025
+pr_agent/settings/configuration.toml
+  s_4c30820c6f76ea::t_6e9817c3aeb605 543-545
+tests/unittest/test_per_directory_settings.py
+  s_4c30820c6f76ea::t_fd0d8e4d8107ec 20,912-915
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e73fca90d8248d604a2e383338282bf5c4af09ac",
+  "prompts": {},
+  "sessions": {
+    "s_4c30820c6f76ea": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a124be-2c0b-74b1-b3d8-7803d8244a1f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
