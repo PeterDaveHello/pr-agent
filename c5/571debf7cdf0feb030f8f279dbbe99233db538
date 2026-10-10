@@ -1,0 +1,21 @@
+docs/docs/usage-guide/configuration_reference.md
+  s_4c30820c6f76ea::t_68a29de776b749 30-31,483
+tests/unittest/test_per_directory_settings.py
+  s_4c30820c6f76ea::t_58b83394b49024 912
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c5571debf7cdf0feb030f8f279dbbe99233db538",
+  "prompts": {},
+  "sessions": {
+    "s_4c30820c6f76ea": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a124be-2c0b-74b1-b3d8-7803d8244a1f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
