@@ -1,0 +1,31 @@
+pr_agent/algo/__init__.py
+  s_2a90d7473aa103::t_d13d2ff16be664 46,49,60,64-68
+tests/unittest/test_get_max_tokens.py
+  s_4c30820c6f76ea::t_86a69783d8ae19 777,852,1132,1279-1300
+docs/docs/usage-guide/changing_a_model.md
+  s_4c30820c6f76ea::t_16aa0cd05f755a 936-937
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2082ceefac82c8ceaa3286102474110264385e47",
+  "prompts": {},
+  "sessions": {
+    "s_2a90d7473aa103": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1127f-a12b-7891-933c-0a5016115881",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_4c30820c6f76ea": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a124be-2c0b-74b1-b3d8-7803d8244a1f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
