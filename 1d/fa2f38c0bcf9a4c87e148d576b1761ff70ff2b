@@ -1,0 +1,25 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 1009-1010,1032-1047
+  h_91c03fe45fa613 1011,1048-1050
+tests/unittest/test_suggestion_chunk_recovery.py
+  h_91c03fe45fa613 506-515,587-612
+pr_agent/algo/pr_processing.py
+  h_91c03fe45fa613 836-846,868,870
+tests/unittest/test_model_routing.py
+  h_91c03fe45fa613 10-14,19,114-254
+docs/docs/usage-guide/configuration_reference.md
+  h_91c03fe45fa613 483
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 543
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1dfa2f38c0bcf9a4c87e148d576b1761ff70ff2b",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
