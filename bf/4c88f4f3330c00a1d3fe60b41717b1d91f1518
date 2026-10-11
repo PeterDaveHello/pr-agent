@@ -1,0 +1,22 @@
+tests/unittest/test_config_reference.py
+  h_91c03fe45fa613 1,11,53-96,124-125
+  h_91c03fe45fa613 6-7,97-123
+docker/Dockerfile
+  h_91c03fe45fa613 90
+scripts/generate_config_reference.py
+  h_91c03fe45fa613 55-73,199,203,238-244,249-258
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 192-193
+  h_91c03fe45fa613 46,180,523
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bf4c88f4f3330c00a1d3fe60b41717b1d91f1518",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
