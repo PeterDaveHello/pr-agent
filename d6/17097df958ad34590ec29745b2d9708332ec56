@@ -1,0 +1,38 @@
+tests/unittest/test_suggestion_chunk_recovery.py
+  h_91c03fe45fa613 506-515,587-610
+pr_agent/algo/pr_processing.py
+  h_91c03fe45fa613 836-844,866,868
+tests/unittest/test_per_directory_settings.py
+  s_4c30820c6f76ea::t_fd0d8e4d8107ec 20,912-915
+docs/docs/usage-guide/changing_a_model.md
+  s_4c30820c6f76ea::t_5767c69fab9e94 1032-1033
+  h_91c03fe45fa613 865,1009-1011,1019,1024,1034-1050
+docs/docs/usage-guide/configuration_reference.md
+  s_4c30820c6f76ea::t_68a29de776b749 30-31
+  h_91c03fe45fa613 483
+tests/unittest/test_model_routing.py
+  h_91c03fe45fa613 10-14,114-175
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 8-11,543
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d617097df958ad34590ec29745b2d9708332ec56",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  },
+  "sessions": {
+    "s_4c30820c6f76ea": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a124be-2c0b-74b1-b3d8-7803d8244a1f",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
