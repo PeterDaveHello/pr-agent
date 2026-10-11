@@ -1,0 +1,14 @@
+docker/Dockerfile
+  h_91c03fe45fa613 90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "94206ecccd2c6a6f9ca1c60ff09b934e7759c585",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
