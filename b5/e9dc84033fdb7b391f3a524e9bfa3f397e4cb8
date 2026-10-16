@@ -1,0 +1,22 @@
+docs/docs/usage-guide/changing_a_model.md
+  h_91c03fe45fa613 18-47,1058,1202-1211,1219,1224
+docs/docs/usage-guide/configuration_reference.md
+  h_91c03fe45fa613 30-31,483
+tests/unittest/test_per_directory_settings.py
+  h_91c03fe45fa613 20,912-915
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 8-12,545-548
+tests/unittest/test_config_reference.py
+  h_91c03fe45fa613 113-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5e9dc84033fdb7b391f3a524e9bfa3f397e4cb8",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
