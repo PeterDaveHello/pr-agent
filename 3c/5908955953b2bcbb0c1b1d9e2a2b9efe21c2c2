@@ -1,0 +1,14 @@
+pyproject.toml
+  h_91c03fe45fa613 160-162
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3c5908955953b2bcbb0c1b1d9e2a2b9efe21c2c2",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
