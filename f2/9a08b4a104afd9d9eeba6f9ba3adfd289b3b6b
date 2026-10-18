@@ -1,0 +1,16 @@
+pr_agent/algo/ai_handlers/litellm_ai_handler.py
+  h_91c03fe45fa613 2033-2038,2042
+tests/unittest/test_litellm_reasoning_effort.py
+  h_91c03fe45fa613 1369-1398,1406-1409,1421,1655-1661
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f29a08b4a104afd9d9eeba6f9ba3adfd289b3b6b",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
