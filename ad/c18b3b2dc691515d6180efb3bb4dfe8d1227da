@@ -1,0 +1,16 @@
+docker/Dockerfile.lambda
+  h_91c03fe45fa613 2-4
+tests/unittest/test_ci_python_version_coverage.py
+  h_91c03fe45fa613 108-110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "adc18b3b2dc691515d6180efb3bb4dfe8d1227da",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
