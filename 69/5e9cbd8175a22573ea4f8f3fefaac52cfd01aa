@@ -1,0 +1,20 @@
+docker/mosaico/README.md
+  h_91c03fe45fa613 20-25,32,37
+docker/mosaico/docker-compose.pr-agent.yml
+  h_91c03fe45fa613 13
+docs/docs/installation/mosaico_server.md
+  h_91c03fe45fa613 97,102
+docker/mosaico/smoke_test.sh
+  h_91c03fe45fa613 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "695e9cbd8175a22573ea4f8f3fefaac52cfd01aa",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
