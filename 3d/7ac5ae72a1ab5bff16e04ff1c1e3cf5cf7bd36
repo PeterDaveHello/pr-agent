@@ -1,0 +1,20 @@
+docker/Dockerfile
+  h_91c03fe45fa613 2
+docker/Dockerfile.lambda
+  h_91c03fe45fa613 5
+pyproject.toml
+  h_91c03fe45fa613 159-164
+.github/workflows/build-and-test.yaml
+  h_91c03fe45fa613 125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d7ac5ae72a1ab5bff16e04ff1c1e3cf5cf7bd36",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
