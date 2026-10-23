@@ -1,0 +1,14 @@
+docker/Dockerfile.lambda
+  h_91c03fe45fa613 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "683c566bee56af7ee95fcb43f8171be06ab8fcfe",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
