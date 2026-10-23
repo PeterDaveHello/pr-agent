@@ -1,0 +1,19 @@
+docker/Dockerfile.lambda
+  s_7e5c93ae9807c0::t_802ff844c3714c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a26f1ab7967c9a9a963e950290040f4c0deff65b",
+  "prompts": {},
+  "sessions": {
+    "s_7e5c93ae9807c0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a145f9-a185-7d51-b6ea-d044b019dbd4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
