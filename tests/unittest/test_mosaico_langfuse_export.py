@@ -18,7 +18,7 @@ def test_langfuse_exports_existing_spans_and_preserves_trace_context(monkeypatch
     provider = TracerProvider(sampler=ALWAYS_ON, shutdown_on_exit=False)
     real_langfuse = langfuse.Langfuse
     clients = []
-    # Langfuse caches clients by public key; keep this local provider out of other tests.
+    # Keep this local provider isolated; Langfuse caches clients by public key.
     monkeypatch.setattr(LangfuseResourceManager, "_instances", {})
     monkeypatch.setattr(server, "langfuse_env_present", lambda: True)
 
