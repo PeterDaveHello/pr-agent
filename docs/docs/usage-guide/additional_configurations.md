@@ -285,7 +285,7 @@ success_callback = ["langfuse_otel"]
 failure_callback = ["langfuse_otel"]
 ```
 
-> Note: use `langfuse_otel` (the OpenTelemetry-based integration), not the legacy `langfuse` callback — the legacy callback is incompatible with the Langfuse 3.x SDK this project pins.
+> Note: use `langfuse_otel`, the OpenTelemetry-based integration also used by MOSAICO.
 
 Then set the following environment variables:
 
