@@ -1,0 +1,15 @@
+docs/docs/installation/mosaico_server.md
+  h_91c03fe45fa613 97,102
+  h_91c03fe45fa613 108-109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f646c70ca2b7a0decafd5dc9d10a90ca9a4329c7",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
