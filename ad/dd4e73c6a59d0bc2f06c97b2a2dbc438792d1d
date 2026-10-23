@@ -1,0 +1,19 @@
+docs/docs/installation/index.md
+  s_7e5c93ae9807c0::t_ee17445f1b6813 87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "addd4e73c6a59d0bc2f06c97b2a2dbc438792d1d",
+  "prompts": {},
+  "sessions": {
+    "s_7e5c93ae9807c0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a145f9-a185-7d51-b6ea-d044b019dbd4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
