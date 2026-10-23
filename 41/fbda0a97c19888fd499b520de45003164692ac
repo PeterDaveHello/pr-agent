@@ -1,0 +1,14 @@
+CONTRIBUTING.md
+  h_91c03fe45fa613 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "41fbda0a97c19888fd499b520de45003164692ac",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
