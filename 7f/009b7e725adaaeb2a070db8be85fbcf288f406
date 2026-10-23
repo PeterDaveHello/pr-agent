@@ -1,0 +1,19 @@
+docker/Dockerfile
+  s_7e5c93ae9807c0::t_508affdf739239 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7f009b7e725adaaeb2a070db8be85fbcf288f406",
+  "prompts": {},
+  "sessions": {
+    "s_7e5c93ae9807c0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a145f9-a185-7d51-b6ea-d044b019dbd4",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
