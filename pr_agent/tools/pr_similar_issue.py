@@ -520,15 +520,15 @@ class PRSimilarIssue:
             elif vectordb == "qdrant":
                 from qdrant_client.models import FieldCondition, Filter, MatchValue
 
-                res = self.qdrant.search(
+                res = self.qdrant.query_points(
                     collection_name=self.qdrant_collection_name,
-                    query_vector=embeds[0],
+                    query=embeds[0],
                     limit=limit,
                     query_filter=Filter(
                         must=[FieldCondition(key="metadata.repo", match=MatchValue(value=self.repo_name_for_index))]
                     ),
                     with_payload=True,
-                )
+                ).points
                 hits = ((r.payload["id"], r.score) for r in res)
             else:
                 break
