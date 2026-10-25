@@ -330,16 +330,23 @@ def _expand_glob_entries(git_provider, context_files: list, from_default_branch:
 
 
 class _RepoContextLoadState:
-    def __init__(self):
+    def __init__(self, context_files: list | None = None):
         self.had_fetch_error = False
         self.had_content = False
+        needs_shared_reuse = (
+            isinstance(context_files, list)
+            and len(context_files) > 1
+            and any(isinstance(entry, list) for entry in context_files)
+        )
+        self.successful_local_paths = set() if needs_shared_reuse else None
+        self.local_matches = 0
 
 
 def _iter_repo_context_files(
     git_provider, context_files: list, from_default_branch: bool | None = None, *, state=None
 ):
     if state is None:
-        state = _RepoContextLoadState()
+        state = _RepoContextLoadState(context_files)
     if from_default_branch is None:
         from_default_branch = _read_bool_setting("repo_context_from_default_branch", default=True)
     context_files = _expand_glob_entries(git_provider, context_files, from_default_branch, state=state)
@@ -359,6 +366,8 @@ def _iter_repo_context_files(
                     )
                     continue
                 found_content = False
+                # Count reused local files as matches without yielding duplicate content.
+                previous_local_matches = state.local_matches
                 for label, content in _iter_repo_context_files(
                     git_provider, [alternative], from_default_branch, state=state
                 ):
@@ -366,7 +375,7 @@ def _iter_repo_context_files(
                     if label not in seen_local_paths:
                         seen_local_paths.add(label)
                         yield label, content
-                if found_content:
+                if found_content or state.local_matches > previous_local_matches:
                     break
             continue
         repo_id, file_path = _parse_repo_context_file_entry(entry)
@@ -414,6 +423,9 @@ def _iter_repo_context_files(
             # Render the file under its sibling path so the model sees where it came from.
             label = f"{repo_id}/{file_path}"
         else:
+            if state.successful_local_paths is not None and file_path in state.successful_local_paths:
+                state.local_matches += 1
+                continue
             if file_path in seen_local_paths:
                 get_logger().debug(f"Skipping duplicate local repo context file: {file_path}")
                 continue
@@ -434,6 +446,8 @@ def _iter_repo_context_files(
                 state.had_fetch_error = True
                 get_logger().warning(f"Failed to load repo context file: {file_path}", artifact={"error": str(e)})
                 continue
+            if content and state.successful_local_paths is not None:
+                state.successful_local_paths.add(file_path)
             label = file_path
 
         if not content:
@@ -451,7 +465,7 @@ def _load_repo_context_files(
     git_provider, context_files: list, from_default_branch: bool | None = None
 ) -> tuple[list[tuple[str, str]], bool]:
     """Load every configured file for compatibility callers."""
-    state = _RepoContextLoadState()
+    state = _RepoContextLoadState(context_files)
     files = list(
         _iter_repo_context_files(
             git_provider, context_files, from_default_branch, state=state
@@ -586,7 +600,7 @@ def build_repo_context(git_provider) -> str:
         if cached_repo_context is not _REPO_CONTEXT_CACHE_MISS:
             return cached_repo_context
 
-    load_state = _RepoContextLoadState()
+    load_state = _RepoContextLoadState(context_files)
     files = _iter_repo_context_files(
         git_provider, context_files, from_default_branch, state=load_state
     )
