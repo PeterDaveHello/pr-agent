@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Usage and Automation | PR-Agent</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" property="og:url" content="https://docs.pr-agent.ai/usage-guide/automations_and_usage/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Usage and Automation | PR-Agent"><meta data-rh="true" name="description" content="Local repo (CLI)"><meta data-rh="true" property="og:description" content="Local repo (CLI)"><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://docs.pr-agent.ai/usage-guide/automations_and_usage/"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/usage-guide/automations_and_usage/" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/usage-guide/automations_and_usage/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Usage and automation","item":"https://docs.pr-agent.ai/usage-guide/automations_and_usage"}]}</script><script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="5c89c0b1-b2ee-43c9-8c6f-43ed762b3c1e" data-project-name="PR-Agent" data-project-color="#2459db" data-project-logo="/img/favicon.svg" data-launcher-button-image="/img/favicon-white.svg" data-color-scheme-selector="[data-theme=&#39;dark&#39;]" async></script><link rel="stylesheet" href="/assets/css/styles.928a3cd8.css">
-<script src="/assets/js/runtime~main.a4eb7dd6.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.c0438a6c.js" defer="defer"></script>
 <script src="/assets/js/main.8693b73f.js" defer="defer"></script>
 </head>
 <body>
@@ -25,27 +25,27 @@ Examples of invoking the different tools via the CLI:</p>
 <p><code>&lt;pr_url&gt;</code> is the url of the relevant PR (for example: <a href="https://github.com/the-pr-agent/pr-agent/pull/50" target="_blank" rel="noopener noreferrer" class="">#50</a>).</p>
 <p><strong>Notes:</strong></p>
 <ol>
-<li class="">In addition to editing your local configuration file, you can also change repository-configurable values by adding them to the command line:</li>
-</ol>
+<li class="">
+<p>In addition to editing your local configuration file, you can also change repository-configurable values by adding them to the command line:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d5d9e1;--prism-background-color:#11141a"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#d5d9e1;background-color:#11141a"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d5d9e1"><span class="token plain">python -m pr_agent.cli --pr_url=&lt;pr_url&gt;  /review --pr_reviewer.extra_instructions=&quot;focus on the file: ...&quot;</span><br></div></code></pre></div></div>
 <p>Host-controlled values, including provider authentication, TLS, and endpoint settings, are rejected in command arguments. See <a class="" href="/usage-guide/configuration_options/#local-configuration-file">Configuration Options</a> for details.</p>
-<ol start="2">
-<li class="">You can print results locally, without publishing them, by setting in <code>configuration.toml</code>:</li>
-</ol>
+</li>
+<li class="">
+<p>You can print results locally, without publishing them, by setting in <code>configuration.toml</code>:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d5d9e1;--prism-background-color:#11141a"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#d5d9e1;background-color:#11141a"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d5d9e1"><span class="token plain">[config]</span><br></div><div class="token-line" style="color:#d5d9e1"><span class="token plain">publish_output=false</span><br></div><div class="token-line" style="color:#d5d9e1"><span class="token plain">verbosity_level=2</span><br></div></code></pre></div></div>
 <p>This is useful for debugging or experimenting with different tools.</p>
-<ol start="3">
+</li>
 <li class="">
 <p><strong>git provider</strong>: The <a href="https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml" target="_blank" rel="noopener noreferrer" class="">git_provider</a> field in a configuration file determines the GIT provider that will be used by PR-Agent. Currently, the following providers are supported:
 <code>github</code> <strong>(default)</strong>, <code>gitlab</code>, <code>bitbucket</code>, <code>azure</code>, <code>codecommit</code>, <code>local</code>, and <code>gitea</code>.</p>
 </li>
 <li class="">
 <p>For scripts that need a failed request to return a non-zero process status, enable tool error propagation:</p>
-</li>
-</ol>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d5d9e1;--prism-background-color:#11141a"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#d5d9e1;background-color:#11141a"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d5d9e1"><span class="token plain">python </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-m</span><span class="token plain"> pr_agent.cli </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">--pr_url</span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token plain">pr_url</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;</span><span class="token plain"> review </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">--config.propagate_tool_errors</span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain">true</span><br></div></code></pre></div></div>
 <p>With <code>config.propagate_tool_errors=true</code>, the installed <code>pr-agent</code> command, <code>python -m pr_agent.cli</code>, and the customizable pip script exit with status 1 when a propagated tool error makes the request fail or a tool records a failure even though it returns successfully. In the latter case, the CLI logs a warning explaining the non-zero exit.</p>
 <p>Tool error propagation is disabled by default, preserving the existing status 0 behavior for these tool failures. Argparse parse and usage errors continue to exit with status 2.</p>
+</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cli-health-check">CLI Health Check<a href="#cli-health-check" class="hash-link" aria-label="Direct link to CLI Health Check" title="Direct link to CLI Health Check" translate="no">​</a></h3>
 <p>For a quick preflight that needs no token and no PR, run:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d5d9e1;--prism-background-color:#11141a"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#d5d9e1;background-color:#11141a"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d5d9e1"><span class="token plain">pr-agent doctor</span><br></div></code></pre></div></div>
