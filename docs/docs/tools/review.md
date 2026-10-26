@@ -364,6 +364,9 @@ merged field by field:
 | `contribution_time_cost_estimate` | The sum over the chunks, per case |
 | `ticket_compliance_check` | One entry per ticket, with its bullet lists unioned across chunks |
 
+When `require_todo_scan` is enabled, the TODO union includes both located findings and prose
+summaries. Prose without a file location is shown as text without a source link.
+
 The merged verdict is deliberately never less alarming than the worst chunk: a clean chunk
 cannot raise a score, clear a security concern, or soften a risk level set by another chunk.
 :::
