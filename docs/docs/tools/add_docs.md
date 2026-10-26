@@ -81,6 +81,10 @@ attempts to post **Failed to generate code documentation for this PR.**
 
 ### Publication failures
 
+Suggestions are skipped if their original source line cannot be reliably retained,
+including when file content is unavailable or incomplete. Valid suggestions in the
+same response can still be published.
+
 With `CONFIG.PUBLISH_OUTPUT` enabled, PR-Agent retries unsuccessful batch
 publication one suggestion at a time. If the batch and every individual retry
 explicitly report failure, it attempts to post **Failed to publish code

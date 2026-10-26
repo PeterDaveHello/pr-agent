@@ -59,7 +59,9 @@ class FakeGitProvider:
         self.comments = []
         self.suggestions = []
         self.initial_comment_removed = False
-        self.diff_files = []
+        self.diff_files = [FilePatchInfo(
+            base_file="", head_file="def f():\n    return 1", patch="", filename="src/app.py"
+        )]
         self.suggestion_results = list(suggestion_results or [])
         self.comment_error = comment_error
         self.comment_result = comment_result
@@ -158,6 +160,27 @@ def test_publish_the_documented_response(publish_output, monkeypatch):
 
     assert provider.suggestions and provider.suggestions[0]
     assert provider.initial_comment_removed
+
+
+@pytest.mark.parametrize("include_valid", [False, True])
+def test_missing_head_content_is_filtered_before_publication(include_valid):
+    provider = FakeGitProvider()
+    provider.diff_files.append(FilePatchInfo(
+        base_file="", head_file="", patch="@@ -0,0 +1,2 @@\n+def g():\n+    return 2",
+        filename="src/unloaded.py"
+    ))
+    tool = PRAddDocs.__new__(PRAddDocs)
+    tool.git_provider = provider
+    missing = {"relevant file": "src/unloaded.py", "relevant line": 1,
+               "doc placement": "after", "documentation": '"""Return a value."""'}
+    docs = [missing, {**missing, "relevant file": "src/app.py"}] if include_valid else [missing]
+
+    tool.push_inline_docs({"Code Documentation": docs})
+
+    published = [suggestion for batch in provider.suggestions for suggestion in batch]
+    assert [suggestion["relevant_file"] for suggestion in published] == (["src/app.py"] if include_valid else [])
+    if include_valid:
+        assert 'def f():\n    """Return a value."""' in published[0]["body"]
 
 
 @pytest.mark.parametrize(

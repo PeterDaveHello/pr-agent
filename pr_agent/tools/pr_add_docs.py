@@ -272,6 +272,8 @@ class PRAddDocs:
             file_lines = []
             for file in self.diff_files:
                 if file.filename.strip() == relevant_file:
+                    if add_original_line and not getattr(file, "head_file_is_complete", True):
+                        return None
                     file_lines = file.head_file.splitlines() if file.head_file else []
                     if not 1 <= relevant_lines_start <= len(file_lines):
                         get_logger().warning(
@@ -279,7 +281,7 @@ class PRAddDocs:
                             artifact={'filename': file.filename,
                                       'relevant_lines_start': relevant_lines_start,
                                       'num_lines': len(file_lines)})
-                        return new_code_snippet
+                        return None if add_original_line else new_code_snippet
                     original_initial_line = file_lines[relevant_lines_start - 1]
                     break
             if original_initial_line is not None:
@@ -295,13 +297,13 @@ class PRAddDocs:
                 if line is None:
                     line = self._indent_reference_line(file_lines, relevant_lines_start - 1, -1)
                 if line is None:
-                    return new_code_snippet
+                    return None if add_original_line else new_code_snippet
             else:
-                return new_code_snippet
+                return None if add_original_line else new_code_snippet
         except Exception as e:
             if get_verbosity_level() >= 2:
                 get_logger().info(f"Could not dedent code snippet for file {relevant_file}, error: {e}")
-            return new_code_snippet
+            return None if add_original_line else new_code_snippet
 
         try:
             snippet_lines = new_code_snippet.replace('\r\n', '\n').replace('\r', '\n').split('\n')
