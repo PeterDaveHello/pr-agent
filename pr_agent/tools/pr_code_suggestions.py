@@ -1095,17 +1095,17 @@ class PRCodeSuggestions:
 
         return data
 
-    async def _self_reflect_with_fallback(self, suggestion_list: list, patches_diff: str, model: str) -> str:
-        """Reflect over the reasoning models, returning the first non-empty response.
+    async def _self_reflect_with_fallback(self, suggestion_list: list, patches_diff: str, model: str) -> dict:
+        """Reflect over the reasoning models, returning the first usable parsed response.
 
-        self_reflect_on_suggestions swallows its errors and returns "", so an empty response is
-        treated as a failure. This walks the chain itself rather than nesting
+        Treat empty or unusable feedback as a failure, preserving the initial suggestions.
+        This walks the chain itself rather than nesting
         retry_with_fallback_models, which sets the global openai.deployment_id without restoring
         it - nested, that would leak the reflection's deployment into the rest of the run and race
         the other chunk calls, since parallel_calls is on by default.
         """
         if not suggestion_list:
-            return ""
+            return {}
 
         models = _get_all_models(ModelType.REASONING)
         if get_model('model_reasoning') == get_settings().config.model:
@@ -1126,12 +1126,48 @@ class PRCodeSuggestions:
             response = await self.self_reflect_on_suggestions(suggestion_list, patches_diff,
                                                               model=reflection_model)
             if response:
-                return response
-            get_logger().warning(f"Empty self-reflection response from {reflection_model}")
-        return ""
+                parsed_response = load_yaml(response)
+                if self._has_usable_reflection_feedback(parsed_response, suggestion_list):
+                    return parsed_response
+            get_logger().warning(f"No usable self-reflection feedback from {reflection_model}")
+        return {}
+
+    def _has_usable_reflection_feedback(self, response, suggestion_list: list) -> bool:
+        feedback = response.get("code_suggestions") if isinstance(response, dict) else None
+        if not isinstance(feedback, list) or not feedback or len(feedback) != len(suggestion_list):
+            return False
+        has_usable_entry = False
+        for i, (suggestion, entry) in enumerate(zip(suggestion_list, feedback, strict=True)):
+            if not isinstance(entry, dict) or "why" not in entry:
+                continue
+            score = self._parse_line_number(entry.get("suggestion_score"))
+            if score is None or not 0 <= score <= 10:
+                feedback[i] = None
+                continue
+            # Only use reflection anchors when the original suggestion has none.
+            if "relevant_lines_start" not in suggestion:
+                start = self._parse_line_number(entry.get("relevant_lines_start"))
+                end = self._parse_line_number(entry.get("relevant_lines_end"))
+                if score > 0 and (start is None or end is None or start < 1 or end < start):
+                    feedback[i] = None
+                    continue
+                # Keep the consumer's comparisons safe for both positive and zero scores.
+                if start is not None:
+                    entry["relevant_lines_start"] = start
+                else:
+                    entry.pop("relevant_lines_start", None)
+                if end is not None:
+                    entry["relevant_lines_end"] = end
+                else:
+                    entry.pop("relevant_lines_end", None)
+            # Keep accepted scores numeric for downstream filtering and summary sorting.
+            entry["suggestion_score"] = score
+            # Preserve partial feedback while checking every usable entry's anchors.
+            has_usable_entry = True
+        return has_usable_entry
 
     async def analyze_self_reflection_response(self, data, response_reflect):
-        response_reflect_yaml = load_yaml(response_reflect)
+        response_reflect_yaml = response_reflect if isinstance(response_reflect, dict) else load_yaml(response_reflect)
         if not isinstance(response_reflect_yaml, dict):
             get_logger().warning(
                 "Self-reflection feedback was not a mapping; applying the reflection-failure score"
