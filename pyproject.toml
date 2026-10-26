@@ -99,7 +99,7 @@ azure = [
   "azure-identity==1.26.0",
   "msrest==0.7.1",
 ]
-codecommit = ["boto3==1.43.114"]
+codecommit = ["boto3==1.43.118"]
 gitea = ["giteapy==1.0.8"]
 google = [
   "google-cloud-aiplatform==2.5.0",
