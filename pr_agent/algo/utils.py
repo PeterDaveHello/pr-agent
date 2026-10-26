@@ -1436,15 +1436,13 @@ def find_line_number_of_relevant_line_in_file(diff_files: list[FilePatchInfo],
                             continue
                     elif skip_hunk:
                         continue
+                    elif line.startswith((' ', '+')):
+                        delta += 1
+                        if start2 + delta - 1 == absolute_position:
+                            position = i
+                            break
                     elif not line.startswith('-'):
                         delta += 1
-
-                    #
-                    absolute_position_curr = start2 + delta - 1
-
-                    if absolute_position_curr == absolute_position:
-                        position = i
-                        break
             elif not relevant_line_in_file:
                 get_logger().warning("Cannot locate an empty relevant line in a patch",
                                      artifact={"relevant_file": relevant_file})
@@ -1473,7 +1471,7 @@ def find_line_number_of_relevant_line_in_file(diff_files: list[FilePatchInfo],
                         elif not line.startswith('-'):
                             scan_delta += 1
 
-                        if not line.startswith('-') and is_match(line):
+                        if line.startswith((' ', '+')) and is_match(line):
                             return i, scan_start2 + scan_delta - 1
                     return -1, absolute_position
 
@@ -1481,7 +1479,7 @@ def find_line_number_of_relevant_line_in_file(diff_files: list[FilePatchInfo],
                 position, absolute_position = scan_patch_lines(
                     lambda line, rl=relevant_line_in_file: line == rl or line[1:] == rl)
                 if position == -1:
-                    fuzzy_match_candidates = [line for line in patch_lines if line != NO_NEWLINE_AT_EOF_MARKER]
+                    fuzzy_match_candidates = [line for line in patch_lines if line.startswith((' ', '+'))]
                     if relevant_line_in_file not in fuzzy_match_candidates:
                         matches_difflib: list[str | Any] = difflib.get_close_matches(
                             relevant_line_in_file, fuzzy_match_candidates, n=3, cutoff=0.93
@@ -1516,7 +1514,7 @@ def find_line_number_of_relevant_line_in_file(diff_files: list[FilePatchInfo],
                         elif not line.startswith('-'):
                             delta += 1
 
-                        if no_plus_line in line and line[0] != '-':
+                        if line.startswith((' ', '+')) and no_plus_line in line:
                             # The model might add a '+' to the beginning of the relevant_line_in_file even if originally
                             # it's a context line
                             position = i
