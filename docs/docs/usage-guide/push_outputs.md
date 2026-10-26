@@ -34,6 +34,11 @@ A record is a JSON object:
 - `payload` — the structured tool result
 - `markdown` — the rendered comment text; present when the tool produces one
 
+For `/describe`, `payload.title` is the selected title, including the original PR title read when the
+command starts if `pr_description.generate_ai_title` is disabled. When the model output contains a
+`labels` field, `payload.labels` contains only labels allowed by the configured vocabulary. This field
+remains present when `pr_description.publish_labels` is disabled.
+
 ## Configuration
 
 The defaults are defined at the end of the

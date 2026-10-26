@@ -185,6 +185,8 @@ class PRDescription:
             else:
                 get_logger().debug("Publishing labels disabled")
 
+            # Preserve labels before rendering can remove them from model data.
+            label_data = {"labels": self.data["labels"]} if "labels" in (self.data or {}) else {}
             if get_settings().pr_description.use_description_markers:
                 pr_title, pr_body = self._prepare_pr_answer_with_markers()
             else:
@@ -235,7 +237,9 @@ class PRDescription:
             if get_settings().config.publish_output:
                 # Emit to the optional external sinks before touching the provider, so a sink
                 # still receives the description if publishing it to the PR fails.
-                await push_outputs_async("describe", payload=self._prepare_output_payload(), markdown=pr_body)
+                await push_outputs_async(
+                    "describe", payload=self._prepare_output_payload(pr_title, label_data), markdown=pr_body
+                )
 
                 # publish labels
                 if (
@@ -856,9 +860,9 @@ class PRDescription:
             return False
         return True
 
-    def _prepare_output_payload(self) -> dict:
-        """Filter generated label fields for external sinks without mutating model data."""
-        payload = dict(self.data or {})
+    def _prepare_output_payload(self, title: str, label_data: dict) -> dict:
+        """Restore the selected title and labels, keeping rendered field omissions and label filtering."""
+        payload = {**(self.data or {}), **label_data, "title": title}
         for field in ("labels", "type"):
             if field not in payload:
                 continue
