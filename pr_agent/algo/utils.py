@@ -753,11 +753,20 @@ def load_large_diff(filename, new_file_content_str: str,
             new_file_content_str += "\n"
         if original_file_content_str == new_file_content_str:
             return ""
+        if get_verbosity_level() >= 2 and show_warning:
+            get_logger().info(f"File was modified, but no patch was found. Manually creating patch: {filename}.")
+        if not original_file_content_str or not new_file_content_str:
+            content = new_file_content_str or original_file_content_str
+            line_count = content.count("\n")
+            line_range = "1" if line_count == 1 else f"1,{line_count}"
+            if new_file_content_str:
+                header, prefix = f"@@ -0,0 +{line_range} @@\n", "+"
+            else:
+                header, prefix = f"@@ -{line_range} +0,0 @@\n", "-"
+            return header + prefix + content.replace("\n", "\n" + prefix)[:-1]
         original_lines = list(StringIO(original_file_content_str, newline="\n"))
         new_lines = list(StringIO(new_file_content_str, newline="\n"))
         diff = difflib.unified_diff(original_lines, new_lines)
-        if get_verbosity_level() >= 2 and show_warning:
-            get_logger().info(f"File was modified, but no patch was found. Manually creating patch: {filename}.")
         return to_hunk_only_patch(''.join(diff))
     except Exception:
         get_logger().exception(f"Failed to generate patch for file: {filename}")
