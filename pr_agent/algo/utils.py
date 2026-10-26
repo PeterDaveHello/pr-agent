@@ -641,7 +641,10 @@ def ticket_markdown_logic(emoji, markdown_text, value, gfm_supported) -> str:
                 compliance_emoji = '✅'
             elif any(level == 'Not compliant' for level in all_compliance_levels):
                 # If there's a mix of compliant and non-compliant tickets
-                if any(level in ['Fully compliant', 'PR Code Verified'] for level in all_compliance_levels):
+                if any(
+                    level in ['Fully compliant', 'PR Code Verified', 'Partially compliant']
+                    for level in all_compliance_levels
+                ):
                     compliance_level = 'Partially compliant'
                     compliance_emoji = '🔶'
                 else:
