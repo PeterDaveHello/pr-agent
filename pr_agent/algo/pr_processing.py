@@ -432,7 +432,7 @@ def _pack_pr_multi_diffs(file_dict: dict,
                          return_remaining_files: bool,
                          token_budget: int,
                          *, return_coverage: bool = False):
-    """Pack diffs additively, then verify each rendered group against the input budget."""
+    """Pack diffs lazily, then verify each rendered group against the input budget."""
     final_diff_list = []
     files_in_patches = set()
     clipped_files = set()
@@ -464,37 +464,38 @@ def _pack_pr_multi_diffs(file_dict: dict,
             get_logger().info(f"Clipped large patch for file: {filename}")
         return filename, patch_clipped, clipped_tokens
 
-    packable = []
-    for filename, data in file_dict.items():
-        patch = data["patch"]
-        new_patch_tokens = data["tokens"]
-        if not patch:
-            continue
-
-        if new_patch_tokens > token_budget:
-            clipped_item = clip_single_patch(filename, patch)
-            if not clipped_item:
-                continue
-            filename, patch, new_patch_tokens = clipped_item
-
-        packable.append((filename, patch, new_patch_tokens))
-
+    packable_count = 0
+    source_exhausted = False
     separator_tokens = token_handler.count_tokens("\n")
-    additive_groups = []
-    current_group = []
-    current_tokens = 0
-    for item in packable:
-        item_tokens = item[2]
-        item_cost = item_tokens + (separator_tokens if current_group else 0)
-        if current_group and current_tokens + item_cost > token_budget:
-            additive_groups.append(current_group)
-            current_group = []
-            current_tokens = 0
-            item_cost = item_tokens
-        current_group.append(item)
-        current_tokens += item_cost
-    if current_group:
-        additive_groups.append(current_group)
+
+    def iter_additive_groups():
+        nonlocal packable_count, source_exhausted
+        current_group = []
+        current_tokens = 0
+        for filename, data in file_dict.items():
+            patch = data["patch"]
+            new_patch_tokens = data["tokens"]
+            if not patch:
+                continue
+            if new_patch_tokens > token_budget:
+                clipped_item = clip_single_patch(filename, patch)
+                if not clipped_item:
+                    continue
+                filename, patch, new_patch_tokens = clipped_item
+            item = (filename, patch, new_patch_tokens)
+            packable_count += 1
+            item_cost = new_patch_tokens + (separator_tokens if current_group else 0)
+            if current_group and current_tokens + item_cost > token_budget:
+                # Count the lookahead item so an omitted file keeps the final chunk untrimmed.
+                yield current_group
+                current_group = []
+                current_tokens = 0
+                item_cost = new_patch_tokens
+            current_group.append(item)
+            current_tokens += item_cost
+        source_exhausted = True
+        if current_group:
+            yield current_group
 
     packed_groups = []
 
@@ -505,8 +506,10 @@ def _pack_pr_multi_diffs(file_dict: dict,
         files_in_patches.update(filename for filename, _, _ in group)
         return True
 
-    for group in additive_groups:
-        if len(packed_groups) >= max_calls:
+    additive_groups = iter_additive_groups()
+    while len(packed_groups) < max_calls:
+        group = next(additive_groups, None)
+        if group is None:
             break
 
         pending_group = group
@@ -532,14 +535,14 @@ def _pack_pr_multi_diffs(file_dict: dict,
                 append_group([clipped_item])
             pending_group = pending_group[1:]
 
-    packed_all = len(files_in_patches) == len(packable)
+    packed_all = source_exhausted and len(files_in_patches) == packable_count
     for index, group in enumerate(packed_groups):
         rendered_chunk = "\n".join(patch for _, patch, _ in group)
         if packed_all and index == len(packed_groups) - 1:
             rendered_chunk = rendered_chunk.strip("\r\n")
         final_diff_list.append(rendered_chunk)
 
-    if len(files_in_patches) < len(packable) and get_verbosity_level() >= 2:
+    if len(files_in_patches) < packable_count and get_verbosity_level() >= 2:
         get_logger().info(f"Reached max calls ({max_calls})")
 
     if not return_remaining_files and not return_coverage:

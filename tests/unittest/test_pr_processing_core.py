@@ -471,6 +471,41 @@ def test_multi_diff_packing_preserves_trailing_whitespace_when_all_files_fit():
     assert chunks == ["rendered  "]
 
 
+@pytest.mark.parametrize(
+    ("tail_kind", "expected_last_chunk", "expected_remaining"),
+    [
+        ("none", "B", []),
+        ("unpackable", "B", ["empty.py", "oversized.py", "unreadable.py"]),
+        ("packable", "\nB\n", ["c.py"]),
+    ],
+)
+def test_multi_packing_preserves_last_chunk_boundary_at_call_limit(
+    monkeypatch, tail_kind, expected_last_chunk, expected_remaining,
+):
+    monkeypatch.setitem(get_settings().config, "large_patch_policy", "clip")
+    monkeypatch.setattr(pr_processing, "clip_tokens", lambda *args, **kwargs: "")
+    file_dict = {
+        "a.py": {"patch": "\r\nA\n", "tokens": 4},
+        "b.py": {"patch": "\nB\n", "tokens": 3},
+    }
+    if tail_kind == "unpackable":
+        file_dict.update({
+            "empty.py": {"patch": "", "tokens": 0},
+            "oversized.py": {"patch": "too large", "tokens": 9},
+            "unreadable.py": {"patch": "unreadable notice", "tokens": 17, "content_fetch_failed": True},
+        })
+    elif tail_kind == "packable":
+        file_dict["c.py"] = {"patch": "\nC\n", "tokens": 3}
+
+    result = pr_processing._pack_pr_multi_diffs(
+        file_dict, CharacterTokenHandler(), 2, False, 4, return_coverage=True,
+    )
+
+    assert result.chunks == ["\r\nA\n", expected_last_chunk]
+    assert result.remaining_files_list == expected_remaining
+    assert result.partial_files_list == []
+
+
 @pytest.mark.parametrize("packing_path", ["single", "multi"])
 @pytest.mark.parametrize("add_line_numbers", [False, True])
 def test_fast_path_rejects_a_join_that_exceeds_the_reserved_limit(
@@ -586,8 +621,15 @@ def test_compressed_packing_counts_join_before_admitting_file(convert_line_numbe
 
 @pytest.mark.parametrize("overflow", [0, 1])
 @pytest.mark.parametrize("max_calls", [1, 2])
+@pytest.mark.parametrize(
+    ("patches", "full_chunk", "first_chunk"),
+    [
+        (("A", "B"), "A\nB", "A"),
+        (("\nA\n", "\nB\n"), "A\n\n\nB", "\nA\n"),
+    ],
+)
 def test_multi_packing_recounts_non_additive_join_and_preserves_remaining(
-    monkeypatch, overflow, max_calls,
+    monkeypatch, overflow, max_calls, patches, full_chunk, first_chunk,
 ):
     class NonAdditiveHandler(CharacterTokenHandler):
         def count_tokens(self, patch):
@@ -595,15 +637,18 @@ def test_multi_packing_recounts_non_additive_join_and_preserves_remaining(
 
     handler = NonAdditiveHandler(prompt_tokens=11)
     reserve = 1_500
-    limit = handler.prompt_tokens + handler.count_tokens("A\nB") + reserve - overflow
-    file_dict = {name: {"patch": patch, "tokens": 1} for name, patch in [("a.py", "A"), ("b.py", "B")]}
+    limit = handler.prompt_tokens + handler.count_tokens("\n".join(patches)) + reserve - overflow
+    file_dict = {
+        name: {"patch": patch, "tokens": 1}
+        for name, patch in zip(("a.py", "b.py"), patches, strict=True)
+    }
 
     chunks, remaining = pr_processing._pack_pr_multi_diffs(
         file_dict, handler, max_calls, True, limit - reserve - handler.prompt_tokens,
     )
 
     assert all(handler.prompt_tokens + handler.count_tokens(chunk) + reserve <= limit for chunk in chunks)
-    assert chunks == (["A\nB"] if overflow == 0 else ["A", "B"][:max_calls])
+    assert chunks == ([full_chunk] if overflow == 0 else [first_chunk, "B"][:max_calls])
     assert remaining == (["b.py"] if overflow and max_calls == 1 else [])
 
 
@@ -753,19 +798,34 @@ def test_multi_packing_clips_with_exact_single_patch_count(monkeypatch, stored_t
 def test_multi_packing_reports_only_emitted_clipped_files_in_source_order(monkeypatch):
     settings = get_settings()
     monkeypatch.setitem(settings.config, "large_patch_policy", "clip")
-    monkeypatch.setattr(pr_processing, "clip_tokens", lambda patch, *args, **kwargs: patch[:1])
+    counted_patches = []
+    clipped_patches = []
+
+    class RecordingHandler(CharacterTokenHandler):
+        def count_tokens(self, patch):
+            counted_patches.append(patch)
+            return super().count_tokens(patch)
+
+    def clip_patch(patch, *args, **kwargs):
+        clipped_patches.append(patch)
+        return patch[:1]
+
+    monkeypatch.setattr(pr_processing, "clip_tokens", clip_patch)
     file_dict = {
         name: {"patch": f"{index} UNSEEN_TAIL_SENTINEL", "tokens": 100}
         for index, name in enumerate(["z.py", "b.py", "a.py"])
     }
+    file_dict["unused.py"] = {"patch": "3 UNUSED_TAIL_SENTINEL", "tokens": 100}
 
     result = pr_processing._pack_pr_multi_diffs(
-        file_dict, CharacterTokenHandler(), 2, False, 1, return_coverage=True,
+        file_dict, RecordingHandler(), 2, False, 1, return_coverage=True,
     )
 
     assert result.chunks == ["0", "1"]
-    assert result.remaining_files_list == ["a.py"]
+    assert result.remaining_files_list == ["a.py", "unused.py"]
     assert result.partial_files_list == ["z.py", "b.py"]
+    assert all("UNUSED_TAIL_SENTINEL" not in patch for patch in counted_patches)
+    assert all("UNUSED_TAIL_SENTINEL" not in patch for patch in clipped_patches)
 
 
 @pytest.mark.parametrize("exact_fits", [True, False])
