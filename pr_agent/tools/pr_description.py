@@ -1011,6 +1011,8 @@ class PRDescription:
                 changes_walkthrough += f"{changes_walkthrough_table}\n\n"
                 changes_walkthrough += "</details>\n\n"
             elif key.lower().strip() == 'description':
+                if value is None:
+                    value = ''
                 if isinstance(value, list):
                     value = ', '.join(v.rstrip() for v in value)
                 # Makes the bullet points more readable by adding double space
