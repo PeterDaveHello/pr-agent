@@ -72,6 +72,7 @@ async def test_repository_settings_are_applied_before_key_gate(monkeypatch, acti
             "issue_comment",
             {
                 "action": "created",
+                "comment": {"body": "/review"},
                 "issue": {"number": 1, "pull_request": {
                     "html_url": "https://github.com/owner/repo/pull/1",
                     "url": "https://api.github.com/repos/owner/repo/pulls/1",
@@ -157,3 +158,79 @@ async def test_events_without_a_pr_skip_the_gate(
     # No PR, no repo settings: the run decides, as on main.
     await github_action_runner.run_action()
     assert calls == []
+
+
+@pytest.mark.parametrize(
+    "event_name, action, sender_type, body",
+    [
+        ("issue_comment", "created", "User", "Thanks, this looks good."),
+        ("pull_request_review_comment", "created", "User", "Thanks!"),
+        ("issue_comment", "edited", "User", "  "),
+        ("issue_comment", "created", "User", ""),
+        ("pull_request_review_comment", "created", "User", None),
+        ("issue_comment", "created", "Bot", "/review"),
+        ("pull_request_review_comment", "deleted", "User", "/review"),
+    ],
+)
+async def test_ignored_pr_comments_skip_repository_settings_and_key_gate(
+    monkeypatch, action_env_factory, event_name, action, sender_type, body
+):
+    calls = []
+
+    async def handle_request(url, command, notify=None):
+        calls.append("dispatch")
+
+    monkeypatch.setattr(github_action_runner, "_handle_request", handle_request)
+    monkeypatch.setattr(github_action_runner, "apply_repo_settings", lambda url: calls.append("repo_settings"))
+    monkeypatch.setattr(
+        github_action_runner, "missing_provider_key_env_vars",
+        lambda: calls.append("gate") or ("openai", ("OPENAI_API_KEY",)),
+    )
+    pr = {"html_url": "https://github.com/owner/repo/pull/1", "url": "https://api.github.com/repos/owner/repo/pulls/1"}
+    event = {"action": action, "sender": {"type": sender_type}, "comment": {"body": body}}
+    if event_name == "issue_comment":
+        event["issue"] = {"pull_request": pr}
+    else:
+        event["pull_request"] = pr
+    action_env_factory(event, event_name)
+
+    await github_action_runner.run_action()
+
+    assert calls == []
+
+
+@pytest.mark.parametrize("body", ["/ask Why?", "/unknown"])
+async def test_inline_command_comments_keep_setup_before_line_conversion(monkeypatch, action_env_factory, body):
+    order = []
+    converted = ["/ask_line", "Why?"]
+    monkeypatch.setattr(github_action_runner, "apply_repo_settings", lambda url: order.append("repo_settings"))
+    monkeypatch.setattr(github_action_runner, "missing_provider_key_env_vars", lambda: order.append("gate"))
+    monkeypatch.setattr(github_action_runner, "_inject_artifact_context", lambda: None)
+
+    def convert_line_comment(event, comment_body):
+        assert order == ["repo_settings", "gate"]
+        assert comment_body == "/ask Why?"
+        order.append("line_conversion")
+        return converted
+
+    async def handle_request(url, command, notify=None):
+        order.append(("dispatch", command))
+
+    monkeypatch.setattr(github_action_runner, "handle_line_comments", convert_line_comment)
+    monkeypatch.setattr(github_action_runner, "_handle_request", handle_request)
+    pr = {"html_url": "https://github.com/owner/repo/pull/1", "url": "https://api.github.com/repos/owner/repo/pulls/1"}
+    action_env_factory({
+        "action": "created",
+        "pull_request": pr,
+        "comment": {"body": body, "pull_request_url": pr["url"], "id": 123},
+        "sender": {"type": "User"},
+    }, "pull_request_review_comment")
+
+    await github_action_runner.run_action()
+
+    expected = ["repo_settings", "gate"]
+    if body.startswith("/ask"):
+        expected += ["line_conversion", ("dispatch", converted)]
+    else:
+        expected.append(("dispatch", body))
+    assert order == expected

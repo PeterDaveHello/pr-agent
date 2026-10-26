@@ -261,6 +261,33 @@ async def run_action():
         print(f"Failed to parse JSON: {e}")
         return
 
+    # Skip ignored comments before loading repository settings or checking a model API key.
+    if GITHUB_EVENT_NAME in ("issue_comment", "pull_request_review_comment"):
+        if event_payload.get("action") not in ("created", "edited"):
+            return
+        # Skip comments authored by bots (including pr-agent's own
+        # "Preparing review..." messages), which would otherwise re-fire
+        # the action and be parsed as a command, causing a feedback loop.
+        # Mirrors the `if: github.event.sender.type != 'Bot'` workflow
+        # guard so users don't have to add it themselves. See issue #2398.
+        if event_payload.get("sender", {}).get("type") == "Bot":
+            get_logger().info("Skipping comment event from a bot sender to avoid a feedback loop")
+            return
+        comment_body = event_payload.get("comment", {}).get("body")
+        if not comment_body:
+            return
+        # Skip comments that are not commands, mirroring the webhook guard
+        # in github_app.py. Otherwise a plain comment is lexed as an unknown
+        # command, PRAgent.handle_request returns False and the action exits 1.
+        if isinstance(comment_body, str) and not comment_body.lstrip().startswith("/"):
+            reformatted = _reformat_quote_ask_command(comment_body) if '/ask' in comment_body else None
+            if reformatted is not None:
+                comment_body = reformatted
+                get_logger().info(f"Reformatting comment_body so command is at the beginning: {comment_body}")
+            else:
+                get_logger().info("Ignoring comment not starting with /")
+                return
+
     pr_url = _settings_pr_url(event_payload, GITHUB_EVENT_NAME)
     try:
         get_logger().info("Applying repo settings")
@@ -414,26 +441,6 @@ async def run_action():
     elif GITHUB_EVENT_NAME == "issue_comment" or GITHUB_EVENT_NAME == "pull_request_review_comment":
         action = event_payload.get("action")
         if action in ["created", "edited"]:
-            # Skip comments authored by bots (including pr-agent's own
-            # "Preparing review..." messages), which would otherwise re-fire
-            # the action and be parsed as a command, causing a feedback loop.
-            # Mirrors the `if: github.event.sender.type != 'Bot'` workflow
-            # guard so users don't have to add it themselves. See issue #2398.
-            if event_payload.get("sender", {}).get("type") == "Bot":
-                get_logger().info("Skipping comment event from a bot sender to avoid a feedback loop")
-                return
-            comment_body = event_payload.get("comment", {}).get("body")
-            # Skip comments that are not commands, mirroring the webhook guard
-            # in github_app.py. Otherwise a plain comment is lexed as an unknown
-            # command, PRAgent.handle_request returns False and the action exits 1.
-            if comment_body and isinstance(comment_body, str) and not comment_body.lstrip().startswith("/"):
-                reformatted = _reformat_quote_ask_command(comment_body) if '/ask' in comment_body else None
-                if reformatted is not None:
-                    comment_body = reformatted
-                    get_logger().info(f"Reformatting comment_body so command is at the beginning: {comment_body}")
-                else:
-                    get_logger().info("Ignoring comment not starting with /")
-                    return
             try:
                 if GITHUB_EVENT_NAME == "pull_request_review_comment":
                     if is_ask_command_comment(comment_body):
