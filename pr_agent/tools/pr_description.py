@@ -649,6 +649,11 @@ class PRDescription:
             # extend the prediction with additional files not included in the original prediction
             pr_files = self.git_provider.get_diff_files()
             prediction_extra = "pr_files:"
+            extra_file_summary = ""
+            overflow_summary = ""
+            if self.vars.get("include_file_summary_changes", True):
+                extra_file_summary = "  changes_summary: |\n    No detailed description available."
+                overflow_summary = "  changes_summary: |\n    Additional changed files are omitted from this table."
             MAX_EXTRA_FILES_TO_OUTPUT = 100
             counter_extra_files = 0
             for file in pr_files:
@@ -658,13 +663,14 @@ class PRDescription:
                 # add up to MAX_EXTRA_FILES_TO_OUTPUT files
                 counter_extra_files += 1
                 if counter_extra_files > MAX_EXTRA_FILES_TO_OUTPUT:
-                    extra_file_yaml = """\
+                    extra_file_yaml = f"""\
 - filename: |
     Additional files not shown
   changes_title: |
     ...
   label: |
     additional files
+{overflow_summary}
 """
                     prediction_extra = prediction_extra + "\n" + extra_file_yaml.strip()
                     get_logger().debug(f"Too many remaining files, clipping to {MAX_EXTRA_FILES_TO_OUTPUT}")
@@ -677,6 +683,7 @@ class PRDescription:
     ...
   label: |
     additional files
+{extra_file_summary}
 """
                 prediction_extra = prediction_extra + "\n" + extra_file_yaml.strip()
 

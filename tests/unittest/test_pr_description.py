@@ -600,26 +600,52 @@ class TestPRDescriptionCore:
         assert "```mermaid" in body
 
     @pytest.mark.asyncio
-    async def test_extend_uncovered_files_adds_missing_diff_files_to_prediction(self):
-        obj = _make_instance("")
-        obj.pr_id = "1"
-        obj.git_provider = MagicMock()
-        obj.git_provider.get_diff_files.return_value = [
-            FilePatchInfo("", "", "", "shown.py"),
-            FilePatchInfo("", "", "", "missing.py"),
-        ]
-        prediction = """
-pr_files:
-  - filename: shown.py
-    changes_title: Existing summary
-    label: backend
-"""
+    @pytest.mark.parametrize(("missing_count", "include_summaries"), [(0, True), (1, True), (5, True), (6, False)])
+    async def test_extend_uncovered_files_keeps_missing_files_in_file_labels(self, missing_count, include_summaries):
+        filenames = ["shown.py", *(f"missing_{index}.py" for index in range(missing_count))]
+        obj = _make_large_pr_instance([FilePatchInfo("", "", "", filename) for filename in filenames])
+        obj.vars["include_file_summary_changes"] = include_summaries
+        prediction = _file_prediction("shown.py")
 
         extended = await obj.extend_uncovered_files(prediction)
-        loaded = yaml.safe_load(extended)
+        obj.data = yaml.safe_load(extended)
+        labels = obj._prepare_file_labels()
 
-        assert [file["filename"].strip() for file in loaded["pr_files"]] == ["shown.py", "missing.py"]
-        assert loaded["pr_files"][1]["label"].strip() == "additional files"
+        assert [file["filename"].strip() for file in obj.data["pr_files"]] == filenames
+        assert [filename.strip() for files in labels.values() for filename, _, _ in files] == filenames
+        assert obj.data["pr_files"][0] == yaml.safe_load(prediction)["pr_files"][0]
+        expected_summary = "No detailed description available." if include_summaries else ""
+        assert [summary for _, _, summary in labels.get("additional files", [])] == [expected_summary] * missing_count
+        if not include_summaries:
+            assert all("changes_summary" not in file for file in obj.data["pr_files"][1:])
+        if not missing_count:
+            assert extended == prediction
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("missing_count", [100, 101])
+    @pytest.mark.parametrize("include_summaries", [True, False])
+    async def test_extend_uncovered_files_preserves_limit_and_overflow_row(self, missing_count, include_summaries):
+        obj = _make_large_pr_instance([
+            FilePatchInfo("", "", "", f"missing_{index}.py") for index in range(missing_count)
+        ])
+        obj.vars["include_file_summary_changes"] = include_summaries
+
+        extended = await obj.extend_uncovered_files("pr_files: []")
+        obj.data = yaml.safe_load(extended)
+        labels = obj._prepare_file_labels()
+
+        expected_filenames = [f"missing_{index}.py" for index in range(100)]
+        if missing_count > 100:
+            expected_filenames.append("Additional files not shown")
+        assert [file["filename"].strip() for file in obj.data["pr_files"]] == expected_filenames
+        assert [filename.strip() for filename, _, _ in labels["additional files"]] == expected_filenames
+        expected_summary = "No detailed description available." if include_summaries else ""
+        assert [summary for _, _, summary in labels["additional files"][:100]] == [expected_summary] * 100
+        if missing_count > 100:
+            expected_overflow = "Additional changed files are omitted from this table." if include_summaries else ""
+            assert labels["additional files"][-1][2] == expected_overflow
+        if not include_summaries:
+            assert all("changes_summary" not in file for file in obj.data["pr_files"])
 
 
 class TestDiagramEdgeParsing:
