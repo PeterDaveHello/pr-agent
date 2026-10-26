@@ -1,0 +1,22 @@
+pr_agent/git_providers/git_provider.py
+  s_fbcaef0b972eef::t_48e20bc907b39a 428-429,444-445,448,451
+tests/unittest/test_code_suggestion_thread_context.py
+  s_fbcaef0b972eef::t_3116fe01fd310e 148-174,176-178,180-184
+  s_fbcaef0b972eef::t_306f5344b7f64d 175,179,185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c9b4976b0427f6676e46f2d5be42166a176ee27e",
+  "prompts": {},
+  "sessions": {
+    "s_fbcaef0b972eef": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "833b6876-7d46-443d-982c-2f228d395e19",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
