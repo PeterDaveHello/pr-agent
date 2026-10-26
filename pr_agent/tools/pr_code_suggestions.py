@@ -1338,8 +1338,7 @@ class PRCodeSuggestions:
         if not isinstance(data, dict) or not isinstance(data.get("code_suggestions"), list):
             get_logger().error("Failed to parse code suggestions from the AI prediction",
                                artifact={"predictions": predictions})
-            self.parse_failure_count = getattr(self, "parse_failure_count", 0) + 1
-            return {"code_suggestions": []}
+            raise FallbackEligibleError("Invalid code suggestions response")
 
         # remove or edit invalid suggestions
         suggestion_list = []
@@ -2122,7 +2121,6 @@ class PRCodeSuggestions:
     async def prepare_prediction_main(self, model: str) -> dict:
         self.failed_chunk_count = 0
         self.total_chunk_count = 0
-        self.parse_failure_count = 0
         self.remaining_files_list = []
         self.partial_files_list = []
         # Each attempt owns a fresh reporter, so restore the placeholder before the next model
@@ -2239,7 +2237,7 @@ class PRCodeSuggestions:
                 else:
                     prediction_list.append(prediction)
 
-            self.failed_chunk_count = len(chunk_errors) + self.parse_failure_count
+            self.failed_chunk_count = len(chunk_errors)
             if self._chunk_progress is not None:
                 await self._chunk_progress.set_failed(self.failed_chunk_count)
             if chunk_errors and not prediction_list:
