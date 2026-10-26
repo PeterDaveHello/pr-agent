@@ -230,7 +230,7 @@ You can enable\disable the `review` tool to add specific labels to the PR:
   </tr>
   <tr>
     <td><b>enable_review_labels_effort</b></td>
-    <td>If set to true, the tool will publish a 'Review effort x/5' label (1–5 scale).</td>
+    <td>If set to true, the tool will publish a 'Review effort x/5' label (1–5 scale). Existing effort labels are kept when this option or effort estimation is disabled, or when the review has no valid replacement estimate. Security labels follow their own settings.</td>
   </tr>
 </table>
 
