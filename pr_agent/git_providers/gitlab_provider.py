@@ -639,6 +639,11 @@ class GitLabProvider(GitProvider):
                     "new_file": sd.get("new_file", False),
                     "deleted_file": sd.get("deleted_file", False),
                     "renamed_file": sd.get("renamed_file", False),
+                    # Skip parent reads only when both refs keep the gitlink at the same path.
+                    "_submodule_child": (
+                        ch.get("a_mode") == ch.get("b_mode") == "160000"
+                        and ch.get("old_path") == ch.get("new_path")
+                    ),
                 })
         return out
 
@@ -1235,7 +1240,7 @@ class GitLabProvider(GitProvider):
             # allow only a limited number of files to be fully loaded. We can manage the rest with diffs only
             counter_valid += 1
             content_fetch_failed = False
-            if counter_valid < MAX_FILES_ALLOWED_FULL or not diff['diff']:
+            if (counter_valid < MAX_FILES_ALLOWED_FULL and not diff.get("_submodule_child")) or not diff['diff']:
                 # Missing GitLab patches require every applicable content read. Treat an
                 # unexpected 404 as a failed read, or an empty side would invent changes.
                 strict_options = {"propagate_errors": True, "missing_is_error": True} if not diff['diff'] else {}
