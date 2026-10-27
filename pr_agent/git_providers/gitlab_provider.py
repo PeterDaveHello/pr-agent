@@ -1309,6 +1309,7 @@ class GitLabProvider(GitProvider):
             if not isinstance(change_count, str) or not change_count.isdecimal():
                 return diff_files
         self.diff_files = diff_files
+        self._diff_head_sha = head_sha_for_content
         return diff_files
 
     def get_files(self) -> list:
@@ -1355,8 +1356,12 @@ class GitLabProvider(GitProvider):
 
     def get_pr_head_sha(self) -> str:
         try:
-            diff_refs = getattr(self.mr, "diff_refs", None)
-            head_sha = diff_refs.get("head_sha") if isinstance(diff_refs, dict) else None
+            if getattr(self, "diff_files", None) is not None:
+                # Keep finding state tied to the reviewed code, even if MR metadata changed.
+                head_sha = getattr(self, "_diff_head_sha", None)
+            else:
+                diff_refs = getattr(self.mr, "diff_refs", None)
+                head_sha = diff_refs.get("head_sha") if isinstance(diff_refs, dict) else None
             return head_sha if isinstance(head_sha, str) else ""
         except (GitlabError, RequestException, AttributeError) as e:
             get_logger().exception(f"Could not get head SHA: {e}")
