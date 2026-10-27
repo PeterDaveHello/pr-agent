@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Similar Issues | PR-Agent</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" name="twitter:image" content="https://docs.pr-agent.ai/img/social-card.png"><meta data-rh="true" property="og:url" content="https://docs.pr-agent.ai/tools/similar_issues/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Similar Issues | PR-Agent"><meta data-rh="true" name="description" content="Overview"><meta data-rh="true" property="og:description" content="Overview"><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://docs.pr-agent.ai/tools/similar_issues/"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/tools/similar_issues/" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.pr-agent.ai/tools/similar_issues/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Similar issues","item":"https://docs.pr-agent.ai/tools/similar_issues"}]}</script><script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="5c89c0b1-b2ee-43c9-8c6f-43ed762b3c1e" data-project-name="PR-Agent" data-project-color="#2459db" data-project-logo="/img/favicon.svg" data-launcher-button-image="/img/favicon-white.svg" data-color-scheme-selector="[data-theme=&#39;dark&#39;]" async></script><link rel="stylesheet" href="/assets/css/styles.928a3cd8.css">
-<script src="/assets/js/runtime~main.01ef1fa4.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.53310415.js" defer="defer"></script>
 <script src="/assets/js/main.8693b73f.js" defer="defer"></script>
 </head>
 <body>
@@ -30,6 +30,11 @@ It is an issue-scoped command: comment <code>/similar_issue</code> on the issue 
 <li class=""><code>force_update_dataset = true</code> makes every run re-index the whole repository: LanceDB deletes the repository&#x27;s rows first, Pinecone and Qdrant upsert over the existing rows.</li>
 <li class=""><code>skip_comments = true</code> skips issue comments and embeds only the issue title and body.</li>
 </ul>
+<p>Embedding inputs are limited to <strong>8,191 tokens</strong> (one token below the model&#x27;s
+8,192-token context). Issues or comments exceeding this limit are skipped during
+indexing; an oversized issue also excludes its comments. Long similarity queries
+are truncated to their first 8,191 tokens, so later content does not influence
+the results.</p>
 <p>These keys live under the <code>[pr_similar_issue]</code> section. Each backend section below describes its own configuration and re-run behaviour.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="selecting-a-vector-database">Selecting a Vector Database<a href="#selecting-a-vector-database" class="hash-link" aria-label="Direct link to Selecting a Vector Database" title="Direct link to Selecting a Vector Database" translate="no">​</a></h3>
 <p>Configure your preferred database by setting the <code>vectordb</code> parameter under <code>[pr_similar_issue]</code> in <code>configuration.toml</code>:</p>
