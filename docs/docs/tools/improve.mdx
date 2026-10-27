@@ -122,6 +122,11 @@ The table format offers several key advantages:
 
 Table mode is the default of PR-Agent, and is recommended approach for most users due to these benefits.
 
+When `pr_code_suggestions.new_score_mechanism` is enabled, the Impact column uses
+integer `new_score_mechanism_th_high` and `new_score_mechanism_th_medium` thresholds.
+Quoted integers such as `"9"` and `"7"` are accepted; invalid values fall back to
+the defaults of 9 and 7. Other numeric values follow the existing integer coercion rules.
+
 <img src="/img/code_suggestions_as_comment_closed.png" alt="code_suggestions_as_comment_closed.png" width="512" />
 
 Teams with specific preferences can enable committable code comments mode in their local configuration, or use [dual publishing mode](#dual-publishing-mode).

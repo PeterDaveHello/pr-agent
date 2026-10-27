@@ -2455,11 +2455,11 @@ class PRCodeSuggestions:
             raise ValueError("Failed to generate summarized code suggestions") from e
 
     def get_score_str(self, score: int) -> str:
-        th_high = get_settings().pr_code_suggestions.get('new_score_mechanism_th_high', 9)
-        th_medium = get_settings().pr_code_suggestions.get('new_score_mechanism_th_medium', 7)
+        th_high = _as_threshold("pr_code_suggestions.new_score_mechanism_th_high", 9, 0)
         if score >= th_high:
             return "High"
-        elif score >= th_medium:
+        th_medium = _as_threshold("pr_code_suggestions.new_score_mechanism_th_medium", 7, 0)
+        if score >= th_medium:
             return "Medium"
         else:  # score < 7
             return "Low"
