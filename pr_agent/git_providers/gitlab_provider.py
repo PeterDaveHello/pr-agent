@@ -1932,21 +1932,21 @@ class GitLabProvider(GitProvider):
                     continue
                 range = relevant_lines_end - relevant_lines_start # no need to add 1
                 body = body.replace('```suggestion', f'```suggestion:-0+{range}')
-                lines = target_file.head_file.splitlines() if target_file.head_file else []
-                if not 0 < relevant_lines_start <= len(lines):
+                lines = split_diff_lines(target_file.head_file) if target_file.head_file else []
+                if target_file.head_file and not 0 < relevant_lines_start <= len(lines):
                     get_logger().warning(
                         f"Skipping suggestion: line {relevant_lines_start} out of range "
                         f"for '{relevant_file}' (head content has {len(lines)} lines)"
                     )
                     continue
-                relevant_line_in_file = lines[relevant_lines_start - 1]
+                relevant_line_in_file = lines[relevant_lines_start - 1] if lines else None
 
                 # Classify the anchor positionally from the hunk headers. A content search stops
                 # at the first line holding the same text, which moves the anchor when that text
                 # repeats earlier in the patch, and the body is a -0+N window that travels with it.
                 edit_type, found, source_line_no, target_line_no = 'addition', False, -1, 0
                 old_line_no = new_line_no = 0
-                for patch_line in (target_file.patch or '').splitlines():
+                for patch_line in split_diff_lines(target_file.patch or ''):
                     if patch_line.startswith('@@'):
                         match = self.RE_HUNK_HEADER.match(patch_line)
                         if match:
@@ -1963,11 +1963,16 @@ class GitLabProvider(GitProvider):
                         old_line_no += 1
                         new_line_no += 1
                     if new_line_no - 1 == relevant_lines_start:
+                        if relevant_line_in_file is None:
+                            relevant_line_in_file = patch_line[1:]
                         edit_type = 'addition' if patch_line.startswith('+') else 'context'
                         found, source_line_no, target_line_no = True, old_line_no, new_line_no
                         break
 
                 if not found:
+                    if relevant_line_in_file is None:
+                        get_logger().warning(f"Skipping suggestion: no source line for '{relevant_file}'")
+                        continue
                     # Keep the existing fallback path for anchors outside the diff. GitLab will
                     # reject the optimistic addition position and _create_suggestion_note will
                     # publish the general file note instead.
