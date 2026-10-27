@@ -1,0 +1,24 @@
+pr_agent/tools/pr_description.py
+  s_fbcaef0b972eef::t_dc5d5501aa0762 649,655,657
+  s_fbcaef0b972eef::t_58444009a937e2 650-654,656,658-662,665,673-680,684-691,696-698,700-706
+tests/unittest/test_pr_description.py
+  s_fbcaef0b972eef::t_dc2093c126dae2 731
+  s_fbcaef0b972eef::t_60f69f60757da3 610-613,653-698,728-730
+  s_fbcaef0b972eef::t_96cb2bc7c59baa 699-727
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3abded86982937ff6292320aeebb66affd0a4706",
+  "prompts": {},
+  "sessions": {
+    "s_fbcaef0b972eef": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "833b6876-7d46-443d-982c-2f228d395e19",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": null
+    }
+  }
+}
