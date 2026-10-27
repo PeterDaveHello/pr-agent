@@ -141,7 +141,7 @@ from pr_agent.algo.ai_handlers.litellm_helpers import (
 from pr_agent.algo.prompt_fragments import render_skills_prefix
 from pr_agent.algo.run_details import _as_decimal_cost, record_ai_call
 from pr_agent.algo.run_output import get_version
-from pr_agent.algo.setting_utils import normalize_setting_list
+from pr_agent.algo.setting_utils import _as_bool_setting, normalize_setting_list
 from pr_agent.algo.skills_loader import get_skills_context
 from pr_agent.algo.url_safety import with_safe_redirects
 from pr_agent.algo.utils import ReasoningEffort
@@ -223,12 +223,8 @@ def _strip_openai_azure_prefixes(model: str) -> str:
 
 
 def _as_bool(value, default: bool) -> bool:
-    """Parse a config value that may arrive as a bool (toml) or a string (env override)."""
-    if isinstance(value, bool):
-        return value
-    if isinstance(value, str):
-        return value.strip().lower() in ("true", "1", "yes", "on")
-    return default
+    """Preserve the old invalid-string fallback while accepting integer flags."""
+    return _as_bool_setting(value, default=False if isinstance(value, str) else default)
 
 
 def _as_list(value) -> list:

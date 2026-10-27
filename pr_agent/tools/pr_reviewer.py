@@ -57,6 +57,7 @@ from pr_agent.algo.run_output import (
     show_relevant_configurations,
     show_run_details,
 )
+from pr_agent.algo.setting_utils import _as_bool_setting
 from pr_agent.algo.skills_loader import get_skills_context
 from pr_agent.algo.token_budget import AttemptTokenBudget
 from pr_agent.algo.token_handler import TokenHandler
@@ -143,12 +144,8 @@ def _exception_chain_text(error: Exception) -> str:
 
 
 def _as_bool(value) -> bool:
-    """Interpret configured boolean values without treating non-empty strings as true."""
-    if isinstance(value, bool):
-        return value
-    if isinstance(value, str):
-        return value.strip().casefold() in ("1", "true", "yes", "on")
-    return False
+    """Use the shared parser for review publication settings."""
+    return _as_bool_setting(value)
 
 
 def _review_failure_comment(error: Exception) -> str:
