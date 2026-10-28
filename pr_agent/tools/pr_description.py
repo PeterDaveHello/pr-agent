@@ -704,8 +704,8 @@ class PRDescription:
                     new_yaml = yaml.dump(original_prediction_dict)
                     if load_yaml(new_yaml, keys_fix_yaml=self.keys_fix):
                         prediction = new_yaml
-                if isinstance(original_prediction, list):
-                    prediction = yaml.dump(original_prediction_dict["pr_files"])
+                        if isinstance(original_prediction_loaded, list):
+                            prediction = yaml.dump(original_prediction_dict["pr_files"])
 
             return prediction
         except Exception as e:
