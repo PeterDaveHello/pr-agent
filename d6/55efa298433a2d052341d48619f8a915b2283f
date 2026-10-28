@@ -1,0 +1,46 @@
+tests/unittest/test_linked_ticket_token_budget.py
+  s_563818f8d46efc::t_255e596e72ec6a 206-208,210,212,217,220-221,233-237,244
+  s_563818f8d46efc::t_f22b3c50fa9ab7 211,213-216,218-219,222-224,229-232,239-243,245-246
+  s_563818f8d46efc::t_ab32e9f61b2aba 225-228,238
+  s_fbcaef0b972eef::t_4ce4df41364b92 248,251,268,271-297
+  s_fbcaef0b972eef::t_38e3387c3d0b36 247,249-250,252-267,269-270,298-299
+  s_563818f8d46efc::t_ad683861fbd162 205,209
+pr_agent/tools/ticket_pr_compliance_check.py
+  s_563818f8d46efc::t_2af80159bee263 516
+  s_563818f8d46efc::t_41dc51a49b72ba 503-505,521
+  s_fbcaef0b972eef::t_dbe2413806d4ca 526
+  s_fbcaef0b972eef::t_092520a31d7104 534-538
+  s_c71a0f4938d109::t_a0ea555b901cab 507
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d655efa298433a2d052341d48619f8a915b2283f",
+  "prompts": {},
+  "sessions": {
+    "s_563818f8d46efc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a17e18-def9-7ca0-8867-1e12a2c2d48e",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": null
+    },
+    "s_c71a0f4938d109": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a17eb2-1c44-7c61-909f-29f5745acad5",
+        "model": "unknown"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    },
+    "s_fbcaef0b972eef": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "833b6876-7d46-443d-982c-2f228d395e19",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": null
+    }
+  }
+}
