@@ -542,6 +542,9 @@ comment commands such as `/review` and `/ask`, and to CLI `--pr_url` runs. In th
 request exits successfully without running the tool. Plain-diff CLI inputs (`--diff-file` and
 `--stdin`) have no PR metadata and are not excluded by these rules.
 
+For GitHub Actions, matching PRs also skip automatic review, description, and improve commands
+on `pull_request`, `pull_request_target`, and `workflow_run` events.
+
 ### Ignoring PRs with specific titles
 
 To ignore PRs with a specific title such as "[Bump]: ...", you can add the following to your `configuration.toml` file:
