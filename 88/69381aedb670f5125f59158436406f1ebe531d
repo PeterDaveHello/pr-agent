@@ -1,0 +1,32 @@
+pr_agent/tools/pr_description.py
+  s_563818f8d46efc::t_7ea1bf117b135a 707-708
+tests/unittest/test_pr_description.py
+  s_563818f8d46efc::t_7ea1bf117b135a 667-688
+  s_563818f8d46efc::t_e0af714f0a20e1 651,654,656,660-665
+  s_fbcaef0b972eef::t_60f69f60757da3 650,652-653,655,658,666
+  s_563818f8d46efc::t_68702d055844f6 657,659
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8869381aedb670f5125f59158436406f1ebe531d",
+  "prompts": {},
+  "sessions": {
+    "s_563818f8d46efc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a17e18-def9-7ca0-8867-1e12a2c2d48e",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": null
+    },
+    "s_fbcaef0b972eef": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "833b6876-7d46-443d-982c-2f228d395e19",
+        "model": "gemini-3.8-flash"
+      },
+      "human_author": null
+    }
+  }
+}
