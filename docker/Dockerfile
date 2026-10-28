@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y git curl && apt
 WORKDIR /app
 ENV UV_COMPILE_BYTECODE=1
 COPY pyproject.toml uv.lock ./
-COPY docs docs
 RUN uv sync --frozen --no-install-project --no-dev --extra all
+# Keep documentation changes from invalidating the dependency layer.
+COPY docs docs
 ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONPATH=/app
 
