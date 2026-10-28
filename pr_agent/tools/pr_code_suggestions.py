@@ -1487,7 +1487,7 @@ class PRCodeSuggestions:
                 relevant_lines_start = int(d['relevant_lines_start'])  # absolute position
                 relevant_lines_end = int(d['relevant_lines_end'])
                 content = d['suggestion_content'].rstrip()
-                new_code_snippet = (d.get("improved_code") or "").rstrip()
+                new_code_snippet = (d.get("improved_code") or "").rstrip(" \t\r\n")
                 existing_code = d.get("existing_code")
                 if not isinstance(existing_code, str):
                     raise TypeError("existing_code must be a string")
@@ -1652,7 +1652,7 @@ class PRCodeSuggestions:
                 or relevant_lines_end < relevant_lines_start
                 or relevant_lines_end > len(file_lines)):
             return None
-        file_lines[relevant_lines_start - 1:relevant_lines_end] = new_code_snippet.splitlines()
+        file_lines[relevant_lines_start - 1:relevant_lines_end] = split_diff_lines(new_code_snippet)
 
         try:
             compile("\n".join(file_lines), relevant_file, "exec", dont_inherit=True)
@@ -1708,8 +1708,8 @@ class PRCodeSuggestions:
 
         if not existing_code:
             return False, "the existing code is unavailable", True
-        anchored_lines = [line.rstrip() for line in textwrap.dedent("\n".join(anchored_lines)).split("\n")]
-        existing_lines = [line.rstrip() for line in textwrap.dedent(existing_code).splitlines()]
+        anchored_lines = [line.rstrip(" \t") for line in textwrap.dedent("\n".join(anchored_lines)).split("\n")]
+        existing_lines = [line.rstrip(" \t") for line in split_diff_lines(textwrap.dedent(existing_code))]
         if existing_lines != anchored_lines:
             return False, "the existing code does not match the anchored range", True
         return True, "", True
@@ -1728,15 +1728,15 @@ class PRCodeSuggestions:
     @staticmethod
     def _shift_code_indentation(code_snippet: str, delta_spaces: int) -> str:
         shifted_lines = []
-        for line in code_snippet.splitlines():
-            if not line.strip():
+        for line in split_diff_lines(code_snippet):
+            if not line.strip(" \t"):
                 shifted_lines.append("")
                 continue
             if delta_spaces > 0:
                 shifted_lines.append(" " * delta_spaces + line)
             elif delta_spaces < 0:
                 shift = -delta_spaces
-                leading_whitespace = len(line) - len(line.lstrip())
+                leading_whitespace = len(line) - len(line.lstrip(" \t"))
                 shifted_lines.append(line[min(shift, leading_whitespace):])
             else:
                 shifted_lines.append(line)
@@ -1763,7 +1763,7 @@ class PRCodeSuggestions:
         for index, (line, prefix) in enumerate(
             zip(lines, leading_whitespace, strict=True)
         ):
-            stripped = line.strip()
+            stripped = line.strip(" \t")
             if not stripped:
                 continue
             for opener_position in range(len(openers) - 1, -1, -1):
@@ -1772,7 +1772,7 @@ class PRCodeSuggestions:
                     interior_indexes = [
                         line_index
                         for line_index in range(opener_index + 1, index)
-                        if lines[line_index].strip()
+                        if lines[line_index].strip(" \t")
                     ]
                     opener_spaces = opener_prefix.count(" ")
                     positive_offsets = [
@@ -1793,10 +1793,10 @@ class PRCodeSuggestions:
 
     @staticmethod
     def _align_code_with_tabs(code_snippet: str, anchor_prefix: str) -> str:
-        lines = code_snippet.splitlines()
+        lines = split_diff_lines(code_snippet)
         if not lines:
             return code_snippet
-        leading_whitespace = [line[:len(line) - len(line.lstrip())] for line in lines]
+        leading_whitespace = [line[:len(line) - len(line.lstrip(" \t"))] for line in lines]
         anchor_depth = len(anchor_prefix) - len(anchor_prefix.lstrip("\t"))
         anchor_alignment = anchor_prefix[anchor_depth:]
         initial_index, initial_prefix = next(
@@ -1805,7 +1805,7 @@ class PRCodeSuggestions:
                 for index, (line, prefix) in enumerate(
                     zip(lines, leading_whitespace, strict=True)
                 )
-                if line.strip()
+                if line.strip(" \t")
             ),
             (0, ""),
         )
@@ -1827,7 +1827,7 @@ class PRCodeSuggestions:
                 zip(lines, leading_whitespace, strict=True)
             )
             if (
-                line.strip()
+                line.strip(" \t")
                 and prefix.count(" ") - continuation_adjustments[index]
                 != adjusted_initial_spaces
             )
@@ -1837,7 +1837,7 @@ class PRCodeSuggestions:
         for index, (line, prefix) in enumerate(
             zip(lines, leading_whitespace, strict=True)
         ):
-            if not line.strip():
+            if not line.strip(" \t"):
                 aligned_lines.append("")
                 continue
             continuation_alignment = (
@@ -1895,11 +1895,11 @@ class PRCodeSuggestions:
                     break
             if original_initial_line:
                 suggested_initial_line = next(
-                    (line for line in new_code_snippet.splitlines() if line.strip()),
+                    (line for line in split_diff_lines(new_code_snippet) if line.strip(" \t")),
                     "",
                 )
-                original_initial_spaces = len(original_initial_line) - len(original_initial_line.lstrip())
-                suggested_initial_spaces = len(suggested_initial_line) - len(suggested_initial_line.lstrip())
+                original_initial_spaces = len(original_initial_line) - len(original_initial_line.lstrip(" \t"))
+                suggested_initial_spaces = len(suggested_initial_line) - len(suggested_initial_line.lstrip(" \t"))
                 if original_initial_line.startswith("\t"):
                     original_prefix = original_initial_line[:original_initial_spaces]
                     new_code_snippet = self._align_code_with_tabs(new_code_snippet, original_prefix)
@@ -1943,7 +1943,7 @@ class PRCodeSuggestions:
         try:
             self.patches_diff_list_no_line_numbers = []
             for patches_diff in self.patches_diff_list:
-                patches_diff_lines = patches_diff.splitlines()
+                patches_diff_lines = split_diff_lines(patches_diff)
                 for i, line in enumerate(patches_diff_lines):
                     if line.strip():
                         if line.isnumeric():
@@ -2388,11 +2388,11 @@ class PRCodeSuggestions:
                     CHAR_LIMIT_PER_LINE = 84
                     suggestion_content = insert_br_after_x_chars(suggestion_content, CHAR_LIMIT_PER_LINE)
                     # pr_body += f"<tr><td><details><summary>{suggestion_content}</summary>"
-                    existing_code = suggestion["existing_code"].rstrip()
+                    existing_code = suggestion["existing_code"].rstrip(" \t\r\n")
                     if existing_code:
                         existing_code = self.dedent_code(relevant_file, relevant_lines_start, existing_code)
                     existing_code += "\n"
-                    improved_code = suggestion["improved_code"].rstrip()
+                    improved_code = suggestion["improved_code"].rstrip(" \t\r\n")
                     if improved_code:
                         improved_code = self.dedent_code(relevant_file, relevant_lines_start, improved_code)
                     improved_code += "\n"
@@ -2400,11 +2400,11 @@ class PRCodeSuggestions:
                     diff = difflib.unified_diff(existing_code.split('\n'),
                                                 improved_code.split('\n'), n=999)
                     patch_orig = "\n".join(diff)
-                    patch = "\n".join(patch_orig.splitlines()[5:]).strip('\n')
+                    patch = "\n".join(split_diff_lines(patch_orig)[5:]).strip('\n').rstrip(" \t\r\n")
 
                     fence = get_suggestion_fence(patch)
                     example_code = ""
-                    example_code += f"{fence}diff\n{patch.rstrip()}\n{fence}\n"
+                    example_code += f"{fence}diff\n{patch}\n{fence}\n"
                     if i == 0:
                         pr_body += """<td>\n\n"""
                     else:

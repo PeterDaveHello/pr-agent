@@ -520,6 +520,32 @@ def test_generate_summarized_suggestions_uses_safe_diff_fences(source_fence, out
     assert f"{outer_fence}diff\n{expected_patch}\n{outer_fence}\n</details>" in out
 
 
+@pytest.mark.parametrize("original,improved", [
+    ('VALUE = "part\u2028one"', 'VALUE = "better\u2028one"'),
+    ('VALUE = "part"\u2028', 'VALUE = "better"\u2028'),
+])
+def test_generate_summarized_suggestions_keeps_unicode_separator_within_diff_lines(original, improved):
+    git_provider = MagicMock()
+    git_provider.diff_files = [FilePatchInfo(
+        base_file='VALUE = "before\u2028one"\n',
+        head_file=f"{original}\n",
+        patch=f'@@ -1 +1 @@\n-VALUE = "before\u2028one"\n+{original}\n',
+        filename="app.py",
+    )]
+    git_provider.get_line_link.return_value = ""
+    tool = _make_tool(git_provider)
+    suggestion = _suggestion(
+        relevant_lines_start=1,
+        relevant_lines_end=1,
+        existing_code=original,
+        improved_code=improved,
+    )
+
+    out = tool.generate_summarized_suggestions({"code_suggestions": [suggestion]})
+
+    assert f"-{original}\n+{improved}" in out
+
+
 def test_generate_summarized_suggestions_uses_score_string_when_new_mechanism_enabled():
     git_provider = _provider_with_diff_files("app.py")
     tool = _make_tool(git_provider)
