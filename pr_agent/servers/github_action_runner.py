@@ -402,7 +402,7 @@ async def run_action():
                 get_settings().config.is_auto_command = True
                 get_settings().pr_description.final_update_message = False
                 get_logger().info(f"Running push commands: {push_commands}")
-                settings_provider = None
+                del settings_provider
                 for command in push_commands:
                     if await _handle_configured_command(pr_url, command) is RequestOutcome.SKIPPED:
                         return
@@ -411,7 +411,7 @@ async def run_action():
             pr_url = event_payload.get("pull_request", {}).get("url")
             if pr_url:
                 allowed = enforce_request_policy(pr_url, provider=settings_provider)
-                settings_provider = None
+                del settings_provider
                 if allowed is False:
                     return
                 # legacy - supporting both GITHUB_ACTION and GITHUB_ACTION_CONFIG
@@ -520,7 +520,7 @@ async def run_action():
         # Repo settings were already applied before the key gate, which judges the
         # provider they select.
         allowed = enforce_request_policy(pr_url, provider=settings_provider)
-        settings_provider = None
+        del settings_provider
         if allowed is False:
             return
 
