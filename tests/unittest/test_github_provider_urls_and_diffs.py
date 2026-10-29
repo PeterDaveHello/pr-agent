@@ -350,6 +350,20 @@ class TestGetDiffFilesEditTypes:
         assert [file.filename for file in diffs] == ["package.json"]
         assert p.get_filtered_diff_file_names() == ["pnpm-lock.yaml"]
 
+    def test_missing_api_counts_use_lf_boundaries(self, patched_helpers):
+        f = _make_file(
+            "x.py", "modified",
+            patch="@@ -1 +1 @@\n-old\n+new\u2028+continued\u2029-continued\n",
+        )
+        del f.additions
+        del f.deletions
+        p = _make_provider_for_diff([f])
+        p._get_pr_file_content = lambda file, sha, path=None: "content"
+
+        diff_file = p.get_diff_files()[0]
+
+        assert (diff_file.num_plus_lines, diff_file.num_minus_lines) == (1, 1)
+
     def test_additions_deletions_propagated(self, patched_helpers):
         f = _make_file("x.py", "modified", additions=5, deletions=2)
         p = _make_provider_for_diff([f])

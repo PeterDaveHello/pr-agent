@@ -11,7 +11,7 @@ from requests.exceptions import HTTPError
 from pr_agent.agent.request_policy import policy_metadata, policy_value
 
 from ..algo.file_filter import filter_ignored
-from ..algo.git_patch_processing import decode_if_bytes
+from ..algo.git_patch_processing import count_patch_lines, decode_if_bytes
 from ..algo.language_handler import build_language_file_matcher, is_valid_file
 from ..algo.types import EDIT_TYPE, FilePatchInfo
 from ..algo.utils import find_line_number_of_relevant_line_in_file, load_large_diff, replace_suggestion_blocks
@@ -365,7 +365,7 @@ class BitbucketServerProvider(GitProvider):
             patch = "" if content_fetch_failed else load_large_diff(
                 file_path, new_file_content_str, original_file_content_str, show_warning=False)
 
-            patch_lines = patch.splitlines(keepends=True)
+            num_plus_lines, num_minus_lines = count_patch_lines(patch)
             diff_files.append(
                 FilePatchInfo(
                     original_file_content_str,
@@ -374,8 +374,8 @@ class BitbucketServerProvider(GitProvider):
                     file_path,
                     edit_type=edit_type,
                     old_filename=old_filename,
-                    num_plus_lines=len([line for line in patch_lines if line.startswith('+')]),
-                    num_minus_lines=len([line for line in patch_lines if line.startswith('-')]),
+                    num_plus_lines=num_plus_lines,
+                    num_minus_lines=num_minus_lines,
                     content_fetch_failed=content_fetch_failed,
                 )
             )

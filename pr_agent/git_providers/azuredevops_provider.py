@@ -21,6 +21,7 @@ from ..algo.comment_identity import (
     get_pr_review_comment_identifiers,
 )
 from ..algo.file_filter import filter_ignored
+from ..algo.git_patch_processing import count_patch_lines
 from ..algo.inline_comment_dedup import (
     KEY_ISSUE_LOCATION_MARKER_RE,
     body_with_markers,
@@ -1141,10 +1142,7 @@ class AzureDevopsProvider(GitProvider):
                 if incremental_active:
                     self.unreviewed_files_map[file] = patch
 
-                # count number of lines added and removed
-                patch_lines = patch.splitlines(keepends=True)
-                num_plus_lines = len([line for line in patch_lines if line.startswith('+')])
-                num_minus_lines = len([line for line in patch_lines if line.startswith('-')])
+                num_plus_lines, num_minus_lines = count_patch_lines(patch)
 
                 diff_files.append(
                     FilePatchInfo(

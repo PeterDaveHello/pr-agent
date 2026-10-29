@@ -675,6 +675,16 @@ class TestAzureDevopsProviderFiles:
 
         assert diff_file.patch.endswith(f"+value{whitespace}")
 
+    def test_get_diff_files_counts_unicode_separators_as_source_content(self):
+        provider = self._provider_with_pull_request_diff(
+            SimpleNamespace(content="value = 'before\u2028+after\u2029-continued'\n"),
+            SimpleNamespace(content="value = 'old'\n"),
+        )
+
+        diff_file = provider.get_diff_files()[0]
+
+        assert (diff_file.num_plus_lines, diff_file.num_minus_lines) == (1, 1)
+
     def test_get_diff_files_keeps_file_when_original_content_fetch_fails(self):
         provider = self._provider_with_pull_request_diff(
             SimpleNamespace(content="new content\n"),
