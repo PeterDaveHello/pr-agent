@@ -7,6 +7,7 @@ import re
 import textwrap
 from enum import StrEnum
 from io import StringIO
+from itertools import islice
 from typing import Any, TypedDict
 from urllib.parse import quote, unquote
 
@@ -515,6 +516,24 @@ def convert_to_markdown_v2(output_data: dict,
     return markdown_text
 
 
+def _extract_line_range(content: str, start_line: int, end_line: int) -> str:
+    """Extract LF-delimited lines without splitting unrelated file content."""
+    if start_line < 1 or end_line < start_line:
+        return "\n".join(split_diff_lines(content)[start_line - 1:end_line])
+
+    newlines = re.finditer("\n", content)
+    offset = 0
+    # Cap skipped matches to keep oversized line numbers within islice's limits.
+    if start_line > 1:
+        before = next(islice(newlines, min(start_line - 2, len(content)), None), None)
+        if before is None:
+            return ""
+        offset = before.end()
+    after = next(islice(newlines, min(end_line - start_line, len(content)), None), None)
+    stop = after.end() if after is not None else len(content)
+    return "\n".join(split_diff_lines(content[offset:stop]))
+
+
 def extract_relevant_lines_str(end_line, files, relevant_file, start_line, dedent=False) -> str:
     """
     Finds 'relevant_file' in 'files', and extracts the lines from 'start_line' to 'end_line' str from the file content.
@@ -543,8 +562,7 @@ def extract_relevant_lines_str(end_line, files, relevant_file, start_line, deden
                                 continue
                             relevant_lines_str += line[1:] + '\n'
                     else:
-                        relevant_file_lines = split_diff_lines(file.head_file)
-                        relevant_lines_str = "\n".join(relevant_file_lines[start_line - 1:end_line])
+                        relevant_lines_str = _extract_line_range(file.head_file, start_line, end_line)
 
                     if dedent and relevant_lines_str:
                         # Remove the longest leading string of spaces and tabs common to all lines.
