@@ -481,16 +481,25 @@ code_suggestions:
 # _prepare_pr_code_suggestions filtering
 # ---------------------------------------------------------------------------
 
-def test_prepare_pr_code_suggestions_drops_const_instead_let_suggestion():
+@pytest.mark.parametrize(("content", "keep_suggestion"), [
+    ("Use const instead of let when not reassigning.", False),
+    ("Use `const` instead of `let` when not reassigning.", False),
+    ("Create the client once in the constructor instead of deleting and recreating it for every request.", True),
+    ("Use the constructor instead of a let binding.", True),
+    ("Cache the const binding instead of deleting it on every request.", True),
+])
+def test_prepare_pr_code_suggestions_filters_const_and_let_words(content, keep_suggestion):
     tool = _make_tool()
-    prediction = """
+    existing_code = "const client = new Client();" if keep_suggestion else "let x = 1;"
+    improved_code = "const client = this.client;" if keep_suggestion else "const x = 1;"
+    prediction = f"""
 code_suggestions:
-  - one_sentence_summary: Prefer const
+  - one_sentence_summary: First suggestion
     label: best practice
     relevant_file: app.js
-    suggestion_content: Use const instead of let when not reassigning.
-    existing_code: let x = 1;
-    improved_code: const x = 1;
+    suggestion_content: {content}
+    existing_code: {existing_code}
+    improved_code: {improved_code}
   - one_sentence_summary: Keep this one
     label: maintainability
     relevant_file: app.js
@@ -502,7 +511,8 @@ code_suggestions:
     data = tool._prepare_pr_code_suggestions(prediction)
 
     summaries = [s["one_sentence_summary"] for s in data["code_suggestions"]]
-    assert summaries == ["Keep this one"]
+    expected = ["First suggestion", "Keep this one"] if keep_suggestion else ["Keep this one"]
+    assert summaries == expected
 
 
 def test_prepare_pr_code_suggestions_skips_suggestion_missing_improved_code():

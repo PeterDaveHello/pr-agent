@@ -1387,8 +1387,12 @@ class PRCodeSuggestions:
                     get_logger().debug(f"Skipping suggestion {i + 1}, because it is a duplicate: {suggestion}")
                     continue
 
-                if 'const' in suggestion['suggestion_content'] and 'instead' in suggestion[
-                    'suggestion_content'] and 'let' in suggestion['suggestion_content']:
+                suggestion_content = suggestion['suggestion_content']
+                if (
+                    'instead' in suggestion_content
+                    and re.search(r"\bconst\b", suggestion_content)
+                    and re.search(r"\blet\b", suggestion_content)
+                ):
                     get_logger().debug(
                         f"Skipping suggestion {i + 1}, because it uses 'const instead let': {suggestion}")
                     continue
