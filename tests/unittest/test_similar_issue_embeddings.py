@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
+from github.Issue import Issue
 
 import pr_agent.tools.pr_similar_issue as psi
 
@@ -439,9 +440,78 @@ async def test_unresolved_comment_url_prevents_publication(query_tool):
     assert state.published == []
 
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize(("comment_index", "expected_pages"), [(0, [1]), (101, [1, 2]), (249, [1, 2, 3])])
+async def test_result_comment_fetch_stops_at_selected_page(query_tool, monkeypatch, comment_index, expected_pages):
+    from urllib.parse import parse_qs, urlsplit
+
+    state = query_tool
+    state.responses = [[(f"issue_2.comment_{comment_index}", 0.9)]]
+    comments_url = "https://api.github.com/repos/example/repo/issues/2/comments"
+    issue_url = "https://github.com/example/repo/issues/2"
+    pages = []
+
+    def request(method, url, parameters=None, headers=None):
+        assert method == "GET"
+        assert url.split("?")[0] == comments_url
+        page = int(parse_qs(urlsplit(url).query).get("page", [1])[0])
+        pages.append(page)
+        data = [
+            {"id": index, "html_url": f"{issue_url}#issuecomment-{index}"}
+            for index in range((page - 1) * 100, min(page * 100, 250))
+        ]
+        links = {"link": f'<{comments_url}?page={page + 1}>; rel="next"'} if page < 3 else {}
+        return links, data
+
+    requester = SimpleNamespace(per_page=100, is_not_lazy=True, requestJsonAndCheck=request)
+    matched_issue = Issue(requester, {}, {
+        "url": comments_url.removesuffix("/comments"), "html_url": issue_url, "title": "Issue 2",
+    }, completed=True)
+    get_issue = state.tool.git_provider.repo_obj.get_issue
+    monkeypatch.setattr(
+        state.tool.git_provider.repo_obj, "get_issue",
+        lambda number: matched_issue if number == 2 else get_issue(number),
+    )
+
+    await state.tool.run()
+
+    assert pages == expected_pages
+    assert state.published == [
+        "### Similar Issues\n___\n\n"
+        f"1. **[Issue 2]({issue_url}#issuecomment-{comment_index})** (score=0.90)\n\n"
+    ]
+
+
+@pytest.mark.asyncio
+async def test_result_comment_iterable_stops_at_selected_match(query_tool, monkeypatch):
+    state = query_tool
+    state.responses = [[("issue_2.comment_2", 0.9)]]
+    yielded = []
+
+    def comments():
+        for index in range(5):
+            yielded.append(index)
+            yield SimpleNamespace(html_url=f"https://example.test/2#comment-{index}")
+
+    get_issue = state.tool.git_provider.repo_obj.get_issue
+    matched_issue = get_issue(2)
+    matched_issue.get_comments = comments
+    monkeypatch.setattr(state.tool.git_provider.repo_obj, "get_issue",
+                        lambda number: matched_issue if number == 2 else get_issue(number))
+
+    await state.tool.run()
+
+    assert yielded == [0, 1, 2]
+    assert state.published == [
+        "### Similar Issues\n___\n\n"
+        "1. **[Issue 2](https://example.test/2#comment-2)** (score=0.90)\n\n"
+    ]
+
+
 @pytest.mark.parametrize("rid", [None, 17, "bad.issue", "issue_bad.comment_0", "issue_2.comment_bad",
                                   "issue_2.bad_comment_0", "issue_2.comment_0.extra", "issue_1.comment_bad",
-                                  "example_issue_repo", "other_2.issue", "issue_2.garbage", "issue_2"])
+                                  "example_issue_repo", "other_2.issue", "issue_2.comment_-2", "issue_2.garbage",
+                                  "issue_2"])
 def test_ineligible_ids_leave_valid_hits_aligned(rid):
     hits = [(rid, 1), ("issue_2.comment_0", 0.9), ("issue_2.issue", 0.8), ("issue_3.issue", 0.7)]
     assert psi.PRSimilarIssue._select_similar_hits(hits, 1) == ([2, 3], [0, -1], ["0.90", "0.70"])
