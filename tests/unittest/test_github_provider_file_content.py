@@ -312,3 +312,51 @@ def test_guarded_update_keeps_captured_sha_and_never_switches_to_create(status):
         path="CHANGELOG.md", branch="feature", content="stale contents", message="", sha="old-blob"
     )
     provider._get_repo().create_file.assert_not_called()
+
+
+def test_repo_lookup_reuses_case_insensitive_name_across_file_reads():
+    provider = GithubProvider.__new__(GithubProvider)
+    provider.repo = "owner/repo"
+    provider.github_client = MagicMock()
+    repo = MagicMock()
+    repo.full_name = "Owner/Repo"
+    repo.get_contents.return_value.decoded_content = b"content"
+    provider.github_client.get_repo.return_value = repo
+
+    assert provider.get_pr_file_content("first.py", "main") == "content"
+    assert provider.get_pr_file_content("second.py", "main") == "content"
+    provider.github_client.get_repo.assert_called_once_with("owner/repo")
+    assert repo.get_contents.call_count == 2
+
+
+def test_repo_lookup_fetches_again_for_a_different_repository():
+    provider = GithubProvider.__new__(GithubProvider)
+    provider.repo = "owner/repo"
+    provider.github_client = MagicMock()
+    first_repo = MagicMock()
+    first_repo.full_name = "Owner/Repo"
+    second_repo = MagicMock()
+    second_repo.full_name = "Owner/Other"
+    provider.github_client.get_repo.side_effect = [first_repo, second_repo]
+
+    assert provider._get_repo() is first_repo
+    provider.repo = "owner/other"
+    assert provider._get_repo() is second_repo
+    assert provider._get_repo() is second_repo
+    assert provider.github_client.get_repo.call_count == 2
+
+
+@pytest.mark.parametrize(
+    ("cached_name", "requested_name"),
+    [(None, "owner/repo"), ("Owner/Repo", None)],
+)
+def test_repo_lookup_refetches_when_cached_name_cannot_be_compared(cached_name, requested_name):
+    provider = GithubProvider.__new__(GithubProvider)
+    provider.repo = requested_name
+    provider.repo_obj = SimpleNamespace(full_name=cached_name)
+    provider.github_client = MagicMock()
+    replacement = MagicMock()
+    provider.github_client.get_repo.return_value = replacement
+
+    assert provider._get_repo() is replacement
+    provider.github_client.get_repo.assert_called_once_with(requested_name)

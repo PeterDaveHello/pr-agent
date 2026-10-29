@@ -1980,7 +1980,9 @@ class GithubProvider(GitProvider):
     def _get_repo(self):
         if hasattr(self, 'repo_obj') and \
                 hasattr(self.repo_obj, 'full_name') and \
-                self.repo_obj.full_name == self.repo:
+                isinstance(self.repo_obj.full_name, str) and \
+                isinstance(self.repo, str) and \
+                self.repo_obj.full_name.lower() == self.repo.lower():
             return self.repo_obj
         else:
             self.repo_obj = self.github_client.get_repo(self.repo)
