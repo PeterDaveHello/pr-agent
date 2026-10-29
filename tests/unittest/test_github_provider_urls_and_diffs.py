@@ -26,6 +26,36 @@ def _bare_provider():
     return GithubProvider.__new__(GithubProvider)
 
 
+@pytest.mark.parametrize(("url", "repo_name", "is_issue"), [
+    ("https://github.com/acme/pull-tools/issues/42", "acme/pull-tools", True),
+    ("https://github.com/pull/repo/issues/42", "pull/repo", True),
+    ("https://api.github.com/repos/acme/pull-tools/issues/42", "acme/pull-tools", True),
+    ("https://ghes.example.com/api/v3/repos/acme/pull-tools/issues/42", "acme/pull-tools", True),
+    ("https://ghes.example.com/acme/pull-tools/issues/42", "acme/pull-tools", True),
+    ("https://github.com/acme/repo/issues/42?note=pull#pull", "acme/repo", True),
+    ("https://github.com/acme/issues-helper/pull/42", "acme/issues-helper", False),
+    ("https://api.github.com/repos/acme/issues-helper/pulls/42", "acme/issues-helper", False),
+    ("https://ghes.example.com/api/v3/repos/acme/issues-helper/pulls/42", "acme/issues-helper", False),
+])
+def test_constructor_routes_by_url_resource(monkeypatch, url, repo_name, is_issue):
+    client = Mock()
+    repo = client.get_repo.return_value
+    repo.get_pull.return_value.get_commits.return_value = [Mock()]
+    monkeypatch.setattr(GithubProvider, "_get_github_client", lambda self: client)
+
+    provider = GithubProvider(url)
+
+    client.get_repo.assert_called_once_with(repo_name)
+    if is_issue:
+        repo.get_issue.assert_called_once_with(42)
+        repo.get_pull.assert_not_called()
+        assert provider.issue_main is repo.get_issue.return_value
+    else:
+        repo.get_pull.assert_called_once_with(42)
+        repo.get_issue.assert_not_called()
+        assert provider.pr is repo.get_pull.return_value
+
+
 # ---------------------------------------------------------------------------
 # _parse_pr_url
 # ---------------------------------------------------------------------------
@@ -173,6 +203,17 @@ class TestParseIssueUrl:
 # _get_owner_and_repo_path / get_git_repo_url
 # ---------------------------------------------------------------------------
 class TestRepoPathAndGitUrl:
+    @pytest.mark.parametrize(("url", "repo_name"), [
+        ("https://github.com/acme/issues-helper/pull/42", "acme/issues-helper"),
+        ("https://api.github.com/repos/acme/issues-helper/pulls/42", "acme/issues-helper"),
+        ("https://ghes.example.com/api/v3/repos/acme/issues-helper/pulls/42", "acme/issues-helper"),
+        ("https://github.com/acme/repo/pull/42?note=issues#issues", "acme/repo"),
+        ("https://github.com/acme/pull-tools.git", "acme/pull-tools"),
+        ("https://github.com/acme/issues-helper.git", "acme/issues-helper"),
+    ])
+    def test_repo_path_ignores_resource_words_outside_resource_segment(self, url, repo_name):
+        assert _bare_provider()._get_owner_and_repo_path(url) == repo_name
+
     def test_owner_repo_from_pr_url(self):
         p = _bare_provider()
         assert (
