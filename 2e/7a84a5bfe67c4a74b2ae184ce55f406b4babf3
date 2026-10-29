@@ -1,0 +1,38 @@
+pr_agent/git_providers/github_provider.py
+  s_31c1f9fc1bef12::t_97f634819c48ed 73-79
+  s_31c1f9fc1bef12::t_c8429c6fbfe59b 688,692-699,701,723-724,726,730
+  s_31c1f9fc1bef12::t_c2abe3296c1590 720
+  s_31c1f9fc1bef12::t_2f5ee40ef005a8 69-70
+  s_31c1f9fc1bef12::t_a8de43c291e1b4 705-716
+  s_31c1f9fc1bef12::t_842401fd6234e1 71
+  s_31c1f9fc1bef12::t_2243500413ddbe 725,727-729
+  s_31c1f9fc1bef12::t_505b44fa2bdd16 72
+tests/unittest/test_github_provider_urls_and_diffs.py
+  s_31c1f9fc1bef12::t_9dfcb6ebb08d63 286-288,310
+  s_31c1f9fc1bef12::t_8dc773b8cfd84d 1421-1422,1443,1445-1446,1455-1456
+  s_31c1f9fc1bef12::t_3d6f28cedabaa4 1548-1549,1561-1575,1577-1584
+  s_31c1f9fc1bef12::t_4d4b0894eeb4d2 16,284-285,306-309,311-318,324-327
+  s_31c1f9fc1bef12::t_3fc6313fcd3790 1698-1699
+  s_31c1f9fc1bef12::t_1b1c0c408257eb 1452-1453
+  s_31c1f9fc1bef12::t_9aef8fb4bad96e 25
+  s_31c1f9fc1bef12::t_cc69e594a46799 282-283,289,305,320-323,328-329,332-334,1413,1425,1447-1451,1459-1460,1469,1471-1474,1477,1480,1485,1492,1527,1535-1543,1546-1547,1550,1615,1620,1626,1628-1629,1650-1651,1656,1673,1681,1686
+  s_31c1f9fc1bef12::t_082efc1a6743b2 319
+  s_31c1f9fc1bef12::t_a1e2c131cf8990 1576,1585-1600
+  s_31c1f9fc1bef12::t_43be5cc112f57f 10,341-349,1544-1545,1551-1560
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2e7a84a5bfe67c4a74b2ae184ce55f406b4babf3",
+  "prompts": {},
+  "sessions": {
+    "s_31c1f9fc1bef12": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f77f4f7f-ae4e-4edf-aca0-c32b4830fb35",
+        "model": "gemini-4-argon"
+      },
+      "human_author": null
+    }
+  }
+}
