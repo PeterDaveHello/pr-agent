@@ -1332,7 +1332,8 @@ class PRCodeSuggestions:
                                            'relevant_lines_end': relevant_lines_end})
             return False
         if diff_file.head_file and getattr(diff_file, "head_file_is_complete", True):
-            range_resolvable = relevant_lines_end <= len(split_diff_lines(diff_file.head_file))
+            line_count = diff_file.head_file.count("\n") + (not diff_file.head_file.endswith("\n"))
+            range_resolvable = relevant_lines_end <= line_count
         else:
             range_resolvable = self._get_patch_range_lines(
                 diff_file.patch, relevant_lines_start, relevant_lines_end) is not None

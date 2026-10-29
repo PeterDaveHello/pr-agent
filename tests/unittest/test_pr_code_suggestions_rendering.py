@@ -901,3 +901,23 @@ def test_get_score_str_does_not_coerce_unused_medium_threshold(monkeypatch):
         "pr_code_suggestions.new_score_mechanism_th_high",
         "pr_code_suggestions.new_score_mechanism_th_medium",
     ]
+
+
+@pytest.mark.parametrize(
+    ("content", "line_count"),
+    [
+        ("one", 1),
+        ("one\n", 1),
+        ("one\n\n", 2),
+        ("one\r\ntwo\r\n", 2),
+        ("one\u2028two", 1),
+    ],
+)
+def test_suggestion_line_range_counts_git_lines_without_splitting(content, line_count):
+    diff_file = _diff_file()
+    diff_file.head_file = content
+    tool = _make_tool(_provider_with_diff_files("app.py"))
+    tool.git_provider.diff_files = [diff_file]
+
+    assert tool._is_suggestion_line_range_in_diff("app.py", 1, line_count) is True
+    assert tool._is_suggestion_line_range_in_diff("app.py", 1, line_count + 1) is False
