@@ -36,6 +36,11 @@ def filter_ignored(files, platform = 'github'):
         # compile all valid patterns
         compiled_patterns = []
         for r in patterns:
+            if not isinstance(r, str):
+                get_logger().warning(
+                    "Skipping non-string ignore regex; expected a string. Other ignore rules still apply",
+                    artifact={"type": type(r).__name__})
+                continue
             try:
                 compiled_patterns.append(re.compile(r))
             except re.error as e:
@@ -160,8 +165,17 @@ def translate_globs_to_regexes(globs: list):
     """Expand standalone ``**/`` segments into separate zero-directory translations."""
     regexes = {}
     expandable = []
+    seen = set()
     skipped = skipped_long = variants = 0
-    for pattern in dict.fromkeys(globs):
+    for pattern in globs:
+        if not isinstance(pattern, str):
+            get_logger().warning(
+                "Skipping non-string ignore glob; expected a string. Other ignore rules still apply",
+                artifact={"type": type(pattern).__name__})
+            continue
+        if pattern in seen:
+            continue
+        seen.add(pattern)
         if len(pattern) > _MAX_GLOB_LENGTH:
             skipped_long += 1
             continue

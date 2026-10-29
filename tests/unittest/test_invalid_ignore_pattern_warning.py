@@ -4,7 +4,7 @@ import io
 
 import pytest
 
-from pr_agent.algo.file_filter import filter_ignored
+from pr_agent.algo.file_filter import filter_ignored, translate_globs_to_regexes
 from pr_agent.config_loader import get_settings
 from pr_agent.log import get_logger
 
@@ -61,3 +61,45 @@ def test_an_invalid_pattern_does_not_disable_the_valid_ones(restore_ignore):
     kept = filter_ignored([_File("vendor/lib.py"), _File("app.py")])
 
     assert [f.filename for f in kept] == ["app.py"]
+
+
+@pytest.mark.parametrize("setting", ["regex", "glob"])
+@pytest.mark.parametrize("invalid", [42, False, None, ["*.py"], {"pattern": "*.py"}, b"^vendor/"])
+@pytest.mark.parametrize("invalid_first", [False, True])
+def test_non_string_entries_do_not_disable_valid_ignore_rules(restore_ignore, setting, invalid, invalid_first):
+    regexes = [r"^vendor/"]
+    globs = ["*.lock"]
+    patterns = regexes if setting == "regex" else globs
+    patterns.insert(0 if invalid_first else len(patterns), invalid)
+    restore_ignore.set("ignore.regex", regexes)
+    restore_ignore.set("ignore.glob", globs)
+    files = [_File("vendor/lib.py"), _File("deps.lock"), _File("app.py")]
+    result = []
+
+    logged = _capture(lambda: result.extend(filter_ignored(files)))
+
+    assert [f.filename for f in result] == ["app.py"]
+    assert "non-string ignore" in logged.lower()
+    assert "Could not filter file list" not in logged
+
+
+@pytest.mark.parametrize("invalid", [42, False, None, ["*.py"], {"pattern": "*.py"}])
+def test_non_string_generated_code_globs_do_not_disable_other_rules(restore_ignore, monkeypatch, invalid):
+    settings = restore_ignore
+    settings.set("ignore.regex", [r"^vendor/"])
+    settings.set("ignore.glob", ["*.lock"])
+    monkeypatch.setattr(settings.config, "ignore_language_framework", ["protobuf"])
+    monkeypatch.setattr(settings.generated_code, "protobuf", [invalid, "*_pb2.py"])
+
+    kept = filter_ignored([
+        _File("vendor/lib.py"), _File("deps.lock"), _File("api_pb2.py"), _File("app.py"),
+    ])
+
+    assert [f.filename for f in kept] == ["app.py"]
+
+
+def test_glob_translation_validates_before_deduplicating():
+    expected = translate_globs_to_regexes(["src/**/generated.py"])
+    patterns = iter([["invalid"], "src/**/generated.py", {"invalid": True}, "src/**/generated.py"])
+
+    assert translate_globs_to_regexes(patterns) == expected

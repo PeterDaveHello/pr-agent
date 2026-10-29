@@ -2144,7 +2144,7 @@ class GitLabProvider(GitProvider):
         return self.mr.description
 
     def get_issue_comments(self):
-        return self.mr.notes.list(get_all=True)[::-1]
+        return self.mr.notes.list(get_all=True, per_page=100)[::-1]
 
     def get_issue_comments_newest_first(self):
         return list(reversed(self.get_issue_comments()))

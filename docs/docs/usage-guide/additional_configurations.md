@@ -74,6 +74,8 @@ You can ignore files or folders using the following methods:
 
 which you can edit to ignore files or folders based on glob or regex patterns.
 
+Pattern list entries must be strings. A non-string entry in `ignore.regex`, `ignore.glob`, or an enabled generated-code glob list is skipped with a warning; the remaining valid rules still apply.
+
 ### Example usage
 
 Let's look at an example where we want to ignore all files with `.py` extension from the analysis.

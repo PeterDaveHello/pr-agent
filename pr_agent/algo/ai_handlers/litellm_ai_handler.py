@@ -2855,7 +2855,7 @@ class LiteLLMAIHandler(BaseAiHandler):
 
             encoder = TokenEncoder.get_token_encoder("anthropic/claude")
             system_tokens = len(encoder.encode(system or "", disallowed_special=()))
-            user_tokens = len(encoder.encode(user or "", disallowed_special=()))
+            user_tokens = len(encoder.encode(user or "", disallowed_special=())) if targets_user else 0
         except Exception:
             system_tokens = len(system or "") // 4
             user_tokens = len(user or "") // 4

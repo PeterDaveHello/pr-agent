@@ -4,6 +4,7 @@ import difflib
 import hashlib
 import json
 import os
+import random
 import re
 import time
 import traceback
@@ -15,9 +16,9 @@ from github.GithubObject import GithubObject
 from github.Issue import Issue
 from jwt.exceptions import PyJWTError
 from requests.exceptions import RequestException
-from retry.api import retry_call
 from starlette_context import context
 from starlette_context.errors import ContextDoesNotExistError
+from tenacity import Retrying, retry_if_exception_type, stop_after_attempt, stop_never
 
 from pr_agent.agent.request_policy import policy_metadata, policy_value
 
@@ -142,7 +143,8 @@ class GithubProvider(GitProvider):
         self._check_run_base_summaries: dict = {}
         self._check_runs_progress_blocked: set = set()
         self._published_inline_comment_bodies: list[str] = []
-        if pr_url and 'pull' in pr_url:
+        resource = self._get_url_resource(pr_url) if pr_url else ""
+        if resource in ('pull', 'pulls'):
             self.set_pr(pr_url)
             self.pr_commits = list(self.pr.get_commits())
             if self.pr_commits:
@@ -151,9 +153,9 @@ class GithubProvider(GitProvider):
                 self.last_commit_id = self._get_repo().get_commit(self.pr.head.sha)
             # pr_url for github actions can be as api.github.com, so we need to get the url from the pr object
             self.pr_url = self.get_pr_url()
-        elif pr_url and 'issue' in pr_url: #url is an issue
+        elif resource == 'issues':
             self.issue_main = self._get_issue_handle(pr_url)
-        else: #Instantiated the provider without a PR / Issue
+        else:
             self.pr_commits = None
 
     def _get_issue_handle(self, issue_url) -> Issue | None:
@@ -213,12 +215,24 @@ class GithubProvider(GitProvider):
     def supports_issue_url_tickets(self) -> bool:
         return True
 
+    @staticmethod
+    def _get_url_resource(url: str) -> str:
+        parsed_url = urlparse(url)
+        path = parsed_url.path
+        is_api_url = parsed_url.netloc == "api.github.com" or path.startswith("/api/v3/")
+        if path.startswith("/api/v3/"):
+            path = path[len("/api/v3"):]
+        path_parts = path.strip('/').split('/')
+        resource_index = 3 if is_api_url else 2
+        return path_parts[resource_index] if len(path_parts) > resource_index else ""
+
     def _get_owner_and_repo_path(self, given_url: str) -> str:
         try:
             repo_path = None
-            if 'issues' in given_url:
+            resource = self._get_url_resource(given_url)
+            if resource == 'issues':
                 repo_path, _ = self._parse_issue_url(given_url)
-            elif 'pull' in given_url:
+            elif resource in ('pull', 'pulls'):
                 repo_path, _ = self._parse_pr_url(given_url)
             elif given_url.endswith('.git'):
                 parsed_url = urlparse(given_url)
@@ -456,8 +470,44 @@ class GithubProvider(GitProvider):
         """
         # the retry settings are read at call time rather than in a decorator, so that importing this module
         # does not require a [github] settings section (issue #2427)
-        return retry_call(self._get_diff_files, exceptions=RateLimitExceeded,
-                          tries=get_settings().get("GITHUB.RATELIMIT_RETRIES", 5), delay=2, backoff=2, jitter=(1, 3))
+        tries = get_settings().get("GITHUB.RATELIMIT_RETRIES", 5)
+        invalid_tries = isinstance(tries, bool) or (isinstance(tries, float) and not tries.is_integer())
+        if not invalid_tries and not isinstance(tries, (int, float)):
+            try:
+                tries = int(tries)
+            except (TypeError, ValueError, OverflowError):
+                invalid_tries = True
+        if invalid_tries:
+            get_logger().warning("Invalid GITHUB.RATELIMIT_RETRIES; using default 5 attempts.")
+            tries = 5
+        if tries == 0:
+            return None
+
+        delay = 2
+
+        def log_before_retry(retry_state):
+            get_logger().warning(f"{retry_state.outcome.exception()}, retrying in {delay} seconds...")
+
+        def sleep_with_backoff(seconds):
+            nonlocal delay
+            time.sleep(seconds)
+            # Preserve cumulative jitter, drawn after each sleep even if the next attempt succeeds.
+            delay = delay * 2 + random.uniform(1, 3)
+
+        for attempt in Retrying(
+            retry=retry_if_exception_type(RateLimitExceeded),
+            stop=stop_after_attempt(tries) if tries > 0 else stop_never,
+            wait=lambda _retry_state: delay,
+            before_sleep=log_before_retry,
+            sleep=sleep_with_backoff,
+            reraise=True,
+        ):
+            try:
+                return self._get_diff_files()
+            except RateLimitExceeded:
+                # Keep unrelated exceptions (including Tenacity's TryAgain) outside the retry controller.
+                with attempt:
+                    raise
 
     def _get_diff_files(self) -> list[FilePatchInfo]:
         try:
@@ -1978,7 +2028,9 @@ class GithubProvider(GitProvider):
     def _get_repo(self):
         if hasattr(self, 'repo_obj') and \
                 hasattr(self.repo_obj, 'full_name') and \
-                self.repo_obj.full_name == self.repo:
+                isinstance(self.repo_obj.full_name, str) and \
+                isinstance(self.repo, str) and \
+                self.repo_obj.full_name.lower() == self.repo.lower():
             return self.repo_obj
         else:
             self.repo_obj = self.github_client.get_repo(self.repo)

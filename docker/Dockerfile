@@ -33,7 +33,7 @@ USER 10001:10001
 
 FROM service AS github_app
 COPY pr_agent pr_agent
-CMD ["python", "-m", "gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py", "--forwarded-allow-ips", "*", "pr_agent.servers.github_app:app"]
+CMD ["python", "-m", "gunicorn", "-k", "uvicorn_worker.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py", "--forwarded-allow-ips", "*", "pr_agent.servers.github_app:app"]
 
 FROM service AS bitbucket_app
 COPY pr_agent pr_agent
@@ -41,7 +41,7 @@ CMD ["python", "pr_agent/servers/bitbucket_app.py"]
 
 FROM service AS bitbucket_server_webhook
 COPY pr_agent pr_agent
-CMD ["python", "-m", "gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py", "--forwarded-allow-ips", "*", "pr_agent.servers.bitbucket_server_webhook:app"]
+CMD ["python", "-m", "gunicorn", "-k", "uvicorn_worker.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py", "--forwarded-allow-ips", "*", "pr_agent.servers.bitbucket_server_webhook:app"]
 
 FROM service AS github_polling
 COPY pr_agent pr_agent
@@ -55,7 +55,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 FROM service AS gitlab_webhook
 COPY pr_agent pr_agent
-CMD ["python", "-m", "gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py", "--forwarded-allow-ips", "*", "pr_agent.servers.gitlab_webhook:app"]
+CMD ["python", "-m", "gunicorn", "-k", "uvicorn_worker.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py", "--forwarded-allow-ips", "*", "pr_agent.servers.gitlab_webhook:app"]
 
 FROM service AS azure_devops_webhook
 COPY pr_agent pr_agent
@@ -63,7 +63,7 @@ CMD ["python", "pr_agent/servers/azuredevops_server_webhook.py"]
 
 FROM service AS gitea_app
 COPY pr_agent pr_agent
-CMD ["python", "-m", "gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py","pr_agent.servers.gitea_app:app"]
+CMD ["python", "-m", "gunicorn", "-k", "uvicorn_worker.UvicornWorker", "-c", "pr_agent/servers/gunicorn_config.py","pr_agent.servers.gitea_app:app"]
 
 FROM service AS mosaico_agent
 COPY pr_agent pr_agent
