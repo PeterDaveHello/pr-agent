@@ -3170,6 +3170,30 @@ class TestGitLabCapabilities:
 
         assert provider.get_issue_comments() == ["oldest", "middle", "newest"]
 
+    def test_get_issue_comments_reads_all_notes_with_larger_pages(self):
+        provider = self._provider()
+        client = Gitlab("https://gitlab.example.com", private_token="test-token")
+        provider.mr = client.projects.get("test/repo", lazy=True).mergerequests.get(1, lazy=True)
+        next_url = (
+            "https://gitlab.example.com/api/v4/projects/test%2Frepo/"
+            "merge_requests/1/notes?page=2&per_page=100"
+        )
+        responses = []
+        for start, stop, next_link in [(101, 1, next_url), (1, 0, None)]:
+            response = MagicMock()
+            response.json.return_value = [{"id": index} for index in range(start, stop, -1)]
+            response.links = {"next": {"url": next_link}} if next_link else {}
+            response.headers = {}
+            responses.append(response)
+        client.http_request = MagicMock(side_effect=responses)
+
+        comments = provider.get_issue_comments()
+
+        assert [comment.id for comment in comments] == list(range(1, 102))
+        assert client.http_request.call_count == 2
+        assert client.http_request.call_args_list[0].kwargs["per_page"] == 100
+        assert client.http_request.call_args_list[1].args[1] == next_url
+
     def test_persistent_state_ownership_uses_authenticated_user_id(self):
         provider = self._provider()
         provider._get_own_user_id = MagicMock(return_value=42)
