@@ -1,0 +1,26 @@
+pr_agent/git_providers/github_provider.py
+  s_31c1f9fc1bef12::t_a2b991314e2f47 622,624,638-640,664-666,674-675,701-706
+tests/unittest/test_github_provider_urls_and_diffs.py
+  s_31c1f9fc1bef12::t_475fa92ab58499 310-318,621
+  s_31c1f9fc1bef12::t_045289a0da3457 1525-1527
+  s_31c1f9fc1bef12::t_6f3fdebf038c37 1487,1495-1496,1516
+  s_31c1f9fc1bef12::t_1c0ba5c7368f2e 1549,1554,1571,1579-1580,1585,1595-1609
+  s_31c1f9fc1bef12::t_b4aa1330a71cd6 273-275
+  s_31c1f9fc1bef12::t_a0ebf3dcf6b47e 1380,1390-1391,1410-1414,1416-1417,1420-1421,1430-1440,1445,1452
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e5dcb98bd1de8a6c919a7a0d91aea6c8ce23aa87",
+  "prompts": {},
+  "sessions": {
+    "s_31c1f9fc1bef12": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f77f4f7f-ae4e-4edf-aca0-c32b4830fb35",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
