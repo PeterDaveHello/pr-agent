@@ -5,6 +5,7 @@ import sys
 from types import SimpleNamespace
 from unittest.mock import Mock
 
+import httpx
 import pytest
 
 import pr_agent.tools.pr_similar_issue as psi
@@ -106,6 +107,42 @@ def test_a_partial_embedding_failure_zeroes_only_the_failing_item(monkeypatch):
     monkeypatch.setattr(psi, "_embed", fails_for_b)
 
     assert psi._embed_with_fallback(["a", "b"]) == [[0.5], [0] * 1536]
+
+
+@pytest.mark.parametrize("error_type,status_code", [
+    (psi.openai.AuthenticationError, 401),
+    (psi.openai.PermissionDeniedError, 403),
+])
+@pytest.mark.parametrize("input_count,max_batch_size,error_call,expected_batch_sizes", [
+    pytest.param(65, 32, 1, [65], id="bulk"),
+    pytest.param(65, 32, 3, [65, 32, 32], id="batch_after_success"),
+    pytest.param(3, 1, 3, [3, 1, 1], id="item_after_success"),
+])
+def test_authentication_and_permission_errors_abort_embedding_fallback(
+    monkeypatch, error_type, status_code, input_count, max_batch_size, error_call, expected_batch_sizes,
+):
+    """Abort every fallback layer, including after earlier items succeeded."""
+    response = httpx.Response(
+        status_code, request=httpx.Request("POST", "https://api.openai.com/v1/embeddings"),
+    )
+    error = error_type("Embedding access denied", response=response, body=None)
+    batches = []
+
+    def embed(texts):
+        batches.append(list(texts))
+        if len(batches) >= error_call:
+            raise error
+        if len(texts) > max_batch_size:
+            raise RuntimeError("oversized request")
+        return [[int(text)] for text in texts]
+
+    monkeypatch.setattr(psi, "_embed", embed)
+
+    with pytest.raises(error_type) as exc_info:
+        psi._embed_with_fallback([str(i) for i in range(input_count)])
+
+    assert exc_info.value is error
+    assert [len(batch) for batch in batches] == expected_batch_sizes
 
 
 def test_the_client_is_reused_across_calls(monkeypatch):

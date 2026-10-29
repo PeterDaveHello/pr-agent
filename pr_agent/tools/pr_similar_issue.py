@@ -58,6 +58,8 @@ def _embed_with_fallback(texts: list[str]) -> list[list[float]]:
         if len(embeddings) != len(texts):
             raise ValueError("Embedding response count does not match input")
         return embeddings
+    except (openai.AuthenticationError, openai.PermissionDeniedError):
+        raise
     except Exception as e:
         original_error = e
         get_logger().error("Failed to embed entire list, retrying in bounded batches...",
@@ -74,12 +76,16 @@ def _embed_with_fallback(texts: list[str]) -> list[list[float]]:
                     raise ValueError("Embedding batch response count does not match input")
                 embeds.extend(batch_embeds)
                 continue
+            except (openai.AuthenticationError, openai.PermissionDeniedError):
+                raise
             except Exception as e:
                 get_logger().warning("Embedding batch failed, retrying its items...",
                                      artifact={"error": str(e)})
         for text in batch:
             try:
                 embeds.append(_embed([text])[0])
+            except (openai.AuthenticationError, openai.PermissionDeniedError):
+                raise
             except Exception:
                 failures += 1
                 embeds.append([0] * 1536)
