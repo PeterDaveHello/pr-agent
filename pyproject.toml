@@ -53,7 +53,8 @@ dependencies = [
   # Declare urllib3 directly because gerrit_provider.py imports urllib3.util; the >=2.8.0
   # floor is a security requirement and follows the >=patched,<next-major convention above.
   "urllib3>=2.8.0,<3",
-  "uvicorn>=0.31.1,<1",
+  "uvicorn>=0.36.0,<1",
+  "uvicorn-worker==0.4.0",
   "tenacity==8.2.3",
   "langfuse==4.18.0",
   "gunicorn==26.2.0",
