@@ -13,7 +13,6 @@ from pr_agent.algo.pr_processing import (
 from pr_agent.algo.prompt_fragments import render_diff_hunk_format
 from pr_agent.algo.run_details import record_command_failure
 from pr_agent.algo.token_budget import AttemptTokenBudget
-from pr_agent.algo.token_handler import TokenHandler
 from pr_agent.algo.utils import get_suggestion_fence, load_yaml
 from pr_agent.config_loader import get_settings, get_verbosity_level
 from pr_agent.git_providers import get_git_provider
@@ -51,10 +50,6 @@ class PRAddDocs:
             'docs_for_language': get_docs_for_language(self.main_language,
                                                        get_settings().pr_add_docs.docs_style),
         }
-        self.token_handler = TokenHandler(self.git_provider.pr,
-                                          self.vars,
-                                          get_settings().pr_add_docs_prompt.system,
-                                          get_settings().pr_add_docs_prompt.user)
 
     async def run(self):
         temporary_comment_published = False

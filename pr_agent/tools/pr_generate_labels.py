@@ -14,7 +14,6 @@ from pr_agent.algo.pr_processing import (
 )
 from pr_agent.algo.run_details import record_command_failure
 from pr_agent.algo.token_budget import AttemptTokenBudget
-from pr_agent.algo.token_handler import TokenHandler
 from pr_agent.algo.utils import filter_generated_labels, get_user_labels, load_yaml, set_custom_labels
 from pr_agent.config_loader import get_settings
 from pr_agent.git_providers import get_git_provider
@@ -55,14 +54,6 @@ class PRGenerateLabels:
             "enable_custom_labels": get_settings().config.enable_custom_labels,
             "custom_labels_class": "",  # will be filled if necessary in 'set_custom_labels' function
         }
-
-        # Initialize the token handler
-        self.token_handler = TokenHandler(
-            getattr(self.git_provider, "pr", None),
-            self.vars,
-            get_settings().pr_custom_labels_prompt.system,
-            get_settings().pr_custom_labels_prompt.user,
-        )
 
         # Initialize prediction state
         self.patches_diff = None
