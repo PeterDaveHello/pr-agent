@@ -159,6 +159,29 @@ index 1111111..2222222 100644
         assert diff_file.num_plus_lines == 2
         assert diff_file.num_minus_lines == 1
 
+    @pytest.mark.parametrize(
+        ("lines_added", "lines_removed", "expected"),
+        [
+            (-1, 7, (2, 7)),
+            (7, -2, (7, 1)),
+            (float("inf"), 7, (2, 7)),
+            (7, float("-inf"), (7, 1)),
+            (1.5, 7, (2, 7)),
+            (7, 2.5, (7, 1)),
+            (True, 7, (2, 7)),
+            (7, False, (7, 1)),
+        ],
+    )
+    def test_invalid_diffstat_count_falls_back_per_side(self, lines_added, lines_removed, expected):
+        diff_file = _cloud_diff_file(MODIFIED_RAW_DIFF, lines_added=lines_added, lines_removed=lines_removed)
+
+        assert (diff_file.num_plus_lines, diff_file.num_minus_lines) == expected
+
+    def test_zero_and_numeric_string_diffstat_counts_remain_valid(self):
+        diff_file = _cloud_diff_file(MODIFIED_RAW_DIFF, lines_added=0, lines_removed="7")
+
+        assert (diff_file.num_plus_lines, diff_file.num_minus_lines) == (0, 7)
+
     def test_a_partially_populated_diffstat_falls_back_per_side(self):
         # `lines_added` is present and authoritative; `lines_removed` is absent, so only that
         # side falls back to the patch. The reported side must not collapse to 0.

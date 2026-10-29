@@ -158,12 +158,18 @@ def _diffstat_line_count(diff, field: str) -> int | None:
     if value is None:
         return None
     try:
-        return int(value)
-    except (TypeError, ValueError):
+        count = int(value)
+    except (TypeError, ValueError, OverflowError):
         get_logger().warning(
             f"Bitbucket diffstat reported a non-numeric {field} for file {_gef_filename(diff)}"
         )
         return None
+    if count < 0 or isinstance(value, bool) or (not isinstance(value, str) and count != value):
+        get_logger().warning(
+            f"Bitbucket diffstat reported an invalid {field} for file {_gef_filename(diff)}"
+        )
+        return None
+    return count
 
 
 class BitbucketProvider(GitProvider):
