@@ -1,0 +1,68 @@
+docs/docs/usage-guide/additional_configurations.md
+  s_31c1f9fc1bef12::t_e4020978c64371 285
+  s_31c1f9fc1bef12::t_84d684d398da15 286
+tests/unittest/test_github_action_runner_key_gate.py
+  s_31c1f9fc1bef12::t_a885a9ebe38d86 65,81
+tests/unittest/test_github_action_runner_core.py
+  s_31c1f9fc1bef12::t_72a90779767e79 320,573-574
+  s_31c1f9fc1bef12::t_b6abf6720f0ea4 701
+  s_31c1f9fc1bef12::t_206c87936a9d97 1772,1783,1790,1792-1794
+  s_31c1f9fc1bef12::t_326b52a4f9c716 964
+  s_31c1f9fc1bef12::t_20d09c9b5514e8 1667,1672
+  s_31c1f9fc1bef12::t_1aef795d649ea7 1668,1681-1683,1737,1754
+  s_31c1f9fc1bef12::t_e136b89b7ee0b1 1660
+  s_31c1f9fc1bef12::t_a626b2bb309dfc 1279-1280
+  s_31c1f9fc1bef12::t_07ea47ac060a81 1751-1752,1807-1809,1811-1825
+  s_31c1f9fc1bef12::t_2f6d79d2cc89f2 1810
+  s_31c1f9fc1bef12::t_21787aefc0bf49 1666,1678-1680,1696
+  s_31c1f9fc1bef12::t_abdcce5b05b8c8 7,1826-1841
+  s_31c1f9fc1bef12::t_8f9dd29d0b9a9c 16,1657-1659,1661-1665,1669-1670,1725-1726,1730-1731,1733-1735,1738-1739,1744,1746-1749
+  s_31c1f9fc1bef12::t_15403c7b1b45c4 1671,1673-1677,1684-1695,1697-1710,1712-1720,1723
+  s_31c1f9fc1bef12::t_6f8595059f87a9 1711,1721-1722,1724,1727-1729,1736,1742-1743,1750
+  s_31c1f9fc1bef12::t_1217d8765e88ad 1732,1740-1741,1745,1753,1755-1757,1773-1782,1784-1789,1791,1795-1796
+  s_31c1f9fc1bef12::t_83a16185c44825 748,750
+  s_31c1f9fc1bef12::t_59fd406143e850 1758-1771
+  s_31c1f9fc1bef12::t_00a6f2bd3939d5 1797-1806
+pr_agent/git_providers/github_provider.py
+  s_31c1f9fc1bef12::t_54417c54467732 228-231
+  s_31c1f9fc1bef12::t_0195e2415c5d37 150-151
+  s_31c1f9fc1bef12::t_aa0b399b8ec63b 189-201,208-220,222-227,232
+  s_31c1f9fc1bef12::t_62e7c48500d6ff 202-207,221
+  s_31c1f9fc1bef12::t_2b4877eb94eb34 138
+pr_agent/servers/github_action_runner.py
+  s_31c1f9fc1bef12::t_af3ff8e189817b 5,24
+  s_31c1f9fc1bef12::t_e9ec657e6f185d 76-80,83-86,93
+  s_31c1f9fc1bef12::t_fd397c1a2e320a 640-648,650-651
+  s_31c1f9fc1bef12::t_488a7d0f5df6c7 616,622
+  s_31c1f9fc1bef12::t_10bf94d5903580 157
+  s_31c1f9fc1bef12::t_7d947f6233d044 507,614-615,617-621,623-625,639
+  s_31c1f9fc1bef12::t_aa2a2b5c066358 2,10,82,87-88,637-638
+  s_31c1f9fc1bef12::t_2d4ef787f32233 124-126,133
+  s_31c1f9fc1bef12::t_c8176b7bd23e8f 81
+tests/unittest/test_github_provider_pr_refresh.py
+  s_31c1f9fc1bef12::t_68ee0e0ced6013 84-85
+  s_31c1f9fc1bef12::t_b5aea42eb817be 13,20,51-60
+  s_31c1f9fc1bef12::t_ee5349fd9d9a3a 61-62
+  s_31c1f9fc1bef12::t_4ae999624502ce 86-113
+  s_31c1f9fc1bef12::t_0cc7e8d2b19110 1-12,14-19,21-50,63-83,114-131
+pr_agent/settings/configuration.toml
+  s_31c1f9fc1bef12::t_5b751f156780a9 498-500
+docs/docs/usage-guide/configuration_reference.md
+  s_31c1f9fc1bef12::t_0f82a1888cefe0 468-470
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d0e3555dcb66de8a1b4d5e5f156d3516df9afed7",
+  "prompts": {},
+  "sessions": {
+    "s_31c1f9fc1bef12": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f77f4f7f-ae4e-4edf-aca0-c32b4830fb35",
+        "model": "gemini-4-argon"
+      },
+      "human_author": null
+    }
+  }
+}
