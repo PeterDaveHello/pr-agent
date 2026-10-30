@@ -13,6 +13,7 @@ from pr_agent.algo.pr_processing import (
     FallbackEligibleError,
     get_pr_diff,
     retry_with_fallback_models,
+    run_diff_preparation,
 )
 from pr_agent.algo.run_details import init_run_details
 from pr_agent.algo.run_output import append_run_details
@@ -237,7 +238,8 @@ class PRQuestions:
             OUTPUT_BUFFER_TOKENS_SOFT_THRESHOLD,
             preserve_minimum=True,
         )
-        output = get_pr_diff(
+        output = await run_diff_preparation(
+            get_pr_diff,
             self.git_provider,
             budget.token_handler,
             model,
