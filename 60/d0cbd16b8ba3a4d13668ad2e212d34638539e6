@@ -1,0 +1,33 @@
+pr_agent/servers/github_action_runner.py
+  s_31c1f9fc1bef12::t_fd397c1a2e320a 622-630,632-633
+  s_31c1f9fc1bef12::t_2d4ef787f32233 118-120,127
+  s_31c1f9fc1bef12::t_aa2a2b5c066358 2,9,75-82,87,151,619-621
+tests/unittest/test_github_action_runner_core.py
+  s_31c1f9fc1bef12::t_59fd406143e850 1743-1756
+  s_31c1f9fc1bef12::t_07ea47ac060a81 1736-1737,1789-1791,1793-1807
+  s_31c1f9fc1bef12::t_1217d8765e88ad 1720,1726-1727,1730,1738-1742,1757-1778
+  s_31c1f9fc1bef12::t_20d09c9b5514e8 1665,1669
+  s_31c1f9fc1bef12::t_b6abf6720f0ea4 700
+  s_31c1f9fc1bef12::t_2f6d79d2cc89f2 1792
+  s_31c1f9fc1bef12::t_00a6f2bd3939d5 1779-1788
+  s_31c1f9fc1bef12::t_15403c7b1b45c4 1668,1670-1714
+  s_31c1f9fc1bef12::t_8f9dd29d0b9a9c 15,1656-1664,1666-1667,1715-1719,1721-1725,1728-1729,1731-1735
+tests/unittest/test_github_action_runner_key_gate.py
+  s_31c1f9fc1bef12::t_a885a9ebe38d86 65,81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60d0cbd16b8ba3a4d13668ad2e212d34638539e6",
+  "prompts": {},
+  "sessions": {
+    "s_31c1f9fc1bef12": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f77f4f7f-ae4e-4edf-aca0-c32b4830fb35",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
