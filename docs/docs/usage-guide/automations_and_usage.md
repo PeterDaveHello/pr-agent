@@ -39,7 +39,7 @@ The commands above assume the `pr_agent` package is importable — use the venv 
    This is useful for debugging or experimenting with different tools.
 
 3. **git provider**: The [git_provider](https://github.com/the-pr-agent/pr-agent/blob/main/pr_agent/settings/configuration.toml) field in a configuration file determines the GIT provider that will be used by PR-Agent. Currently, the following providers are supported:
-   `github` **(default)**, `gitlab`, `bitbucket`, `azure`, `codecommit`, `local`, and `gitea`.
+   `github` **(default)**, `gitlab`, `bitbucket`, `bitbucket_server`, `azure`, `codecommit`, `local`, `gerrit`, `gitea`, and `plain-diff`.
 
 4. For scripts that need a failed request to return a non-zero process status, enable tool error propagation:
 
@@ -60,6 +60,12 @@ pr-agent doctor
 ```
 
 It checks that `config.model` is set, that the active provider has a real API key, and that a one-token completion against the configured model succeeds. The exit code is `0` only when every check passes, so CI setups can gate on it. It ships with the package, unlike the fuller health check below, which exercises real commands on a real PR.
+
+When host-configured `push_outputs` is enabled, `doctor` adds a fourth check for the selected output destinations: registered channel names, a nonempty file path, HTTPS scheme and hostname for webhook/Slack URLs, and a nonempty Telegram token string and a chat ID that is a nonempty string or nonzero integer. An omitted file path uses the normal default. Distinct custom sink names receive recognition-only checks; their private settings are not validated.
+
+`push_outputs.enable` accepts booleans or strings. String values `false`, `0`, `no`, and the empty string disable it (ignoring case and surrounding whitespace); other strings enable it. Disabled output keeps the existing three checks and output unchanged.
+
+The output check reads the active host settings but does not construct sinks, send output, access files, or contact destinations. It checks only the fields listed above; URL ports and other URL components are not validated. Success does not establish delivery, file writability, destination reachability, authentication, or permissions. The existing model ping still contacts the configured model before the output check. No PR URL or git-provider setup is needed.
 
 To verify that PR-Agent has been configured correctly end to end, you can also run this health check command from the repository root:
 

@@ -290,7 +290,6 @@ def test_gerrit_consumers_keep_host_timeout_after_repo_overlay(
                 monkeypatch.setattr(GerritProvider, "get_pr_description", lambda self: "")
                 monkeypatch.setattr(GerritProvider, "get_commit_messages", lambda self: "")
                 monkeypatch.setattr(pr_questions, "get_main_pr_language", lambda *args: "")
-                monkeypatch.setattr(pr_questions, "TokenHandler", lambda *args: None)
                 monkeypatch.setattr(pr_questions.PRQuestions, "_load_conversation_history", lambda self: "")
                 question = pr_questions.PRQuestions(key, args=[], ai_handler=SimpleNamespace)
                 assert isinstance(question.git_provider, GerritProvider)
@@ -1172,6 +1171,37 @@ def test_publish_code_suggestions_skips_a_symlink(tmp_path, monkeypatch):
     assert provider.publish_code_suggestions([_suggestion("linked.py")]) is True
     assert applied == []
     assert (tmp_path / ".git" / "config").exists()
+
+
+def test_publish_code_suggestions_skips_an_inverted_line_range(tmp_path, monkeypatch):
+    # add_suggestion writes lines[:start - 1] and then lines[end:], so a 5-to-3 range
+    # would keep every original line and repeat line 4.
+    provider = _provider_for_suggestions(tmp_path)
+    applied = []
+    monkeypatch.setattr(gerrit_provider, "add_suggestion", lambda *args, **kwargs: applied.append(args))
+    suggestion = _suggestion("app.py")
+    suggestion["relevant_lines_start"], suggestion["relevant_lines_end"] = 5, 3
+
+    assert provider.publish_code_suggestions([suggestion]) is True
+    assert applied == []
+    assert (tmp_path / "app.py").read_text() == "print(1)\n"
+
+
+@pytest.mark.parametrize("missing", ["none", "absent"])
+def test_publish_code_suggestions_skips_a_missing_end_line(tmp_path, monkeypatch, missing):
+    # add_suggestion slices lines[end:], so an end of None would repeat the whole file.
+    provider = _provider_for_suggestions(tmp_path)
+    applied = []
+    monkeypatch.setattr(gerrit_provider, "add_suggestion", lambda *args, **kwargs: applied.append(args))
+    suggestion = _suggestion("app.py")
+    if missing == "none":
+        suggestion["relevant_lines_end"] = None
+    else:
+        del suggestion["relevant_lines_end"]
+
+    assert provider.publish_code_suggestions([suggestion]) is True
+    assert applied == []
+    assert (tmp_path / "app.py").read_text() == "print(1)\n"
 
 
 @pytest.mark.parametrize("relevant_file", [".git/config", ".GIT/config"])
