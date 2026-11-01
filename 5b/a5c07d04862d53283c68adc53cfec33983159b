@@ -1,0 +1,39 @@
+tests/unittest/test_github_action_runner_key_gate.py
+  s_31c1f9fc1bef12::t_660c48872b57f9 65,81
+pr_agent/servers/github_action_runner.py
+  s_31c1f9fc1bef12::t_0311c44af79b10 2,5,10,24,76-89,94-100,131-133,140,164,517,624-626,628-629,638-643,655-666,668-669
+  s_31c1f9fc1bef12::t_cf28beaba1bc79 627,630-632,637
+  s_31c1f9fc1bef12::t_8414cd717b4ee2 26
+  s_31c1f9fc1bef12::t_b14c5227ce5634 633-636
+docs/docs/usage-guide/configuration_reference.md
+  s_31c1f9fc1bef12::t_7420dc3393e83e 468-470
+tests/unittest/test_github_action_runner_core.py
+  s_31c1f9fc1bef12::t_2eec95e818f9b3 1946-1965
+  s_31c1f9fc1bef12::t_f029ccbf19cce5 2,1913-1915,1920-1928,1933,1942
+  s_31c1f9fc1bef12::t_dab54136a57e79 8-9,18,326,579-580,707,754,756,970,1289-1290,1699-1731,1735-1742,1744-1770,1772-1836,1838-1840,1842-1871,1873-1890,1892-1893,1897-1900,1902-1903,1905,1907-1911,1966,1968,1970-1971,1973-1978
+  s_31c1f9fc1bef12::t_d4b92a56ce5462 1732-1734,1743,1771,1837,1841,1872,1891,1894-1896,1901,1904,1906,1912,1916-1919,1929-1932,1934-1941,1943-1945,1967,1969,1972
+tests/unittest/test_github_provider_pr_refresh.py
+  s_31c1f9fc1bef12::t_a4d4893c4580a7 1-136
+docs/docs/usage-guide/additional_configurations.md
+  s_31c1f9fc1bef12::t_bdbd3d86577193 285-286
+pr_agent/settings/configuration.toml
+  s_31c1f9fc1bef12::t_992c3c1e497683 498-500
+pr_agent/git_providers/github_provider.py
+  s_31c1f9fc1bef12::t_f5ce4354462f57 140,152-153,191-230
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5ba5c07d04862d53283c68adc53cfec33983159b",
+  "prompts": {},
+  "sessions": {
+    "s_31c1f9fc1bef12": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f77f4f7f-ae4e-4edf-aca0-c32b4830fb35",
+        "model": "gemini-4-argon"
+      },
+      "human_author": null
+    }
+  }
+}
