@@ -190,6 +190,20 @@ def test_base_file_reconstructed_when_run_from_subdirectory(cfg, tmp_path, monke
         "No major issues detected",
         id="review-gradle-build-script",
     ),
+    pytest.param(
+        "/review", "main.rkt",
+        "review:\n  estimated_effort_to_review_[1-5]: 1\n"
+        "  relevant_tests: \"No\"\n  security_concerns: \"No\"\n  key_issues_to_review: []\n",
+        "No major issues detected",
+        id="review-racket-source",
+    ),
+    pytest.param(
+        "/review", "main.ss",
+        "review:\n  estimated_effort_to_review_[1-5]: 1\n"
+        "  relevant_tests: \"No\"\n  security_concerns: \"No\"\n  key_issues_to_review: []\n",
+        "No major issues detected",
+        id="review-scheme-source",
+    ),
     ("/describe", "foo.py", "title: Update the second line\ndescription: The second line changed.\n"
                   "type: [Enhancement]\npr_files: []\n", "The second line changed."),
     pytest.param(

@@ -27,6 +27,7 @@ def test_lowercase_bad_extension_is_still_dropped(filename):
     "filename", [
         "main.py", "Makefile", "app.SVGZ", "app.MIN.JSX", "bundle.JS.MAP.backup", "PACKAGE-LOCK.JSON",
         "build.gradle", "settings.gradle", "app/build.gradle", "build.gradle.kts",
+        "main.rkt", "main.ss",
     ]
 )
 def test_reviewable_files_are_kept(filename):
@@ -63,6 +64,7 @@ def test_partition_preserves_original_generated_filename_and_valid_file_order():
 
 @pytest.mark.parametrize("filename,configured", [
     ("archive.TAR", ["tar"]), ("archive.tar", ["TAR"]), ("build.gradle", ["gradle"]),
+    ("main.rkt", ["rkt"]), ("main.ss", ["ss"]),
 ])
 def test_configured_extension_matches_either_case(filename, configured):
     """A user-supplied bad_extensions entry matches regardless of how it is spelled."""

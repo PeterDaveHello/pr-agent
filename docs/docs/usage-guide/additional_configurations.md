@@ -69,8 +69,9 @@ In some cases, you may want to exclude specific files or directories from the an
 
 The built-in generated-file filter matches `.min.js`, `.min.css`, `.js.map`, `.ts.map`, and `.css.map` suffixes case-insensitively; exact lockfile basenames such as `package-lock.json` keep their existing case-sensitive matching.
 
-Gradle build scripts (`build.gradle`, `settings.gradle`, and `build.gradle.kts`) are eligible for analysis by default,
-at the repository root and in subdirectories. Explicit ignore rules and custom extension exclusions still apply.
+Gradle build scripts (`build.gradle`, `settings.gradle`, and `build.gradle.kts`), Racket source files (`.rkt`),
+and Scheme source files (`.ss`) are eligible for analysis by default, at the repository root and in subdirectories.
+Explicit ignore rules and custom extension exclusions still apply.
 For example, `ignore.glob = ['*.gradle', '*.gradle.kts']` excludes both script forms at any depth.
 
 You can ignore files or folders using the following methods:
