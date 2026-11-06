@@ -1,0 +1,22 @@
+pr_agent/tools/ticket_pr_compliance_check.py
+  s_b6c4ff26a07818::t_4bf13f28c70ef5 848-850,854-858,876,880,882-886,889-894
+tests/unittest/test_ticket_extraction_async.py
+  s_b6c4ff26a07818::t_c6229814e44c1f 1665-1673,1675,1677-1679
+  s_b6c4ff26a07818::t_7d2607621b0fba 1674,1676
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc1ebeda23e1c4690b7c72444d3546ddfb59faf0",
+  "prompts": {},
+  "sessions": {
+    "s_b6c4ff26a07818": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "c93d4f34-ee43-4f6b-b994-3815476787b0",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
