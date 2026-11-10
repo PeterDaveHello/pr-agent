@@ -1,0 +1,22 @@
+docs/docs/usage-guide/additional_configurations.md
+  h_91c03fe45fa613 515
+docs/docs/usage-guide/automations_and_usage.md
+  h_91c03fe45fa613 182,184-185
+docs/docs/usage-guide/configuration_reference.md
+  h_91c03fe45fa613 332
+docs/docs/usage-guide/extending_pr_agent.md
+  h_91c03fe45fa613 76
+pr_agent/settings/configuration.toml
+  h_91c03fe45fa613 313
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bdfa7b0fc1c038143b13737a0e49d263e74ba13a",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
