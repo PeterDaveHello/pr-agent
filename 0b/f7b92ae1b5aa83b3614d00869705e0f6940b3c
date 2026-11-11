@@ -1,11 +1,11 @@
 docs/docs/usage-guide/additional_configurations.md
   h_91c03fe45fa613 515
 docs/docs/usage-guide/automations_and_usage.md
-  h_91c03fe45fa613 62,110,181-185
+  h_91c03fe45fa613 62,110,181-185,181,182,183,184-185
 docs/docs/usage-guide/configuration_reference.md
   h_91c03fe45fa613 337
 docs/docs/usage-guide/extending_pr_agent.md
-  h_91c03fe45fa613 76-77
+  h_91c03fe45fa613 76-77,76,77
 docs/docs/usage-guide/mail_notifications.md
   h_91c03fe45fa613 17-18
 pr_agent/cli.py
