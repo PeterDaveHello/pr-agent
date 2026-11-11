@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e5cbd0aca271ec34c68fb0062b206bfc3e327f8",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
