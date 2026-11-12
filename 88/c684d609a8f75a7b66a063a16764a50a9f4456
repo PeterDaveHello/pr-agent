@@ -1,0 +1,30 @@
+pyproject.toml
+  h_91c03fe45fa613 170
+docker/Dockerfile
+  h_91c03fe45fa613 2,85-86
+docker/Dockerfile.lambda
+  h_91c03fe45fa613 5
+.github/workflows/build-and-test.yaml
+  h_91c03fe45fa613 34,72,173
+.github/workflows/pr-agent-review.yaml
+  h_91c03fe45fa613 233
+.github/workflows/pre-commit.yml
+  h_91c03fe45fa613 23
+.github/workflows/provider-smoke.yaml
+  h_91c03fe45fa613 27
+.github/workflows/publish.yml
+  h_91c03fe45fa613 298
+tests/unittest/test_ci_uv_pin_coverage.py
+  h_91c03fe45fa613 1-110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88c684d609a8f75a7b66a063a16764a50a9f4456",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
