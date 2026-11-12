@@ -1,0 +1,24 @@
+docker/Dockerfile
+  h_91c03fe45fa613 85-86
+.github/workflows/build-and-test.yaml
+  h_91c03fe45fa613 72
+.github/workflows/publish.yml
+  h_91c03fe45fa613 298
+tests/unittest/test_ci_uv_pin_coverage.py
+  h_91c03fe45fa613 1-110
+.github/workflows/pre-commit.yml
+  h_91c03fe45fa613 23
+.github/workflows/provider-smoke.yaml
+  h_91c03fe45fa613 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cda6766eb8879e7abed1e09ac5b91affe33d6c8d",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
