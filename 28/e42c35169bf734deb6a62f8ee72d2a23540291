@@ -1,0 +1,22 @@
+pyproject.toml
+  h_91c03fe45fa613 170
+.github/workflows/pr-agent-review.yaml
+  h_91c03fe45fa613 233
+.github/workflows/build-and-test.yaml
+  h_91c03fe45fa613 34,172
+docker/Dockerfile.lambda
+  h_91c03fe45fa613 5
+docker/Dockerfile
+  h_91c03fe45fa613 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28e42c35169bf734deb6a62f8ee72d2a23540291",
+  "prompts": {},
+  "humans": {
+    "h_91c03fe45fa613": {
+      "author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
