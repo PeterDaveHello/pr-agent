@@ -9,7 +9,7 @@ docs/docs/usage-guide/extending_pr_agent.md
 docs/docs/usage-guide/mail_notifications.md
   h_91c03fe45fa613 17-18
 pr_agent/cli.py
-  h_91c03fe45fa613 171-178
+  h_91c03fe45fa613 171-178,171-175,176,177-178
 pr_agent/settings/configuration.toml
   h_91c03fe45fa613 319
 ---
