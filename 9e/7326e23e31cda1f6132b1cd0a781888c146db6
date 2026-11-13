@@ -11,7 +11,7 @@ docs/docs/usage-guide/automations_and_usage.md
 docs/docs/usage-guide/additional_configurations.md
   h_91c03fe45fa613 503
 pr_agent/cli.py
-  h_91c03fe45fa613 171-178
+  h_91c03fe45fa613 171-178,171-175,176,177-178
 ---
 {
   "schema_version": "authorship/3.0.0",
