@@ -1,0 +1,33 @@
+tests/unittest/test_command_initialization_async.py
+  s_b1fd4802158ed1::t_4fe52230f4602b 12-13,248-283,286-305,307-317,319-328,330-338,340,350-368,376-379,381-391,394-395,397,399-415,417-440,443-464
+  s_b1fd4802158ed1::t_520fcdefe16adb 284-285,306,329,339,341-349,369-373,380,392-393,396,398,416,441-442
+  s_b1fd4802158ed1::t_3da0a7fb34a3d3 318,374-375
+pr_agent/commands/pr_reviewer.py
+  s_b1fd4802158ed1::t_488e1a497bec14 814
+  s_b1fd4802158ed1::t_3b18f2442ba621 305-322
+  s_b1fd4802158ed1::t_432e03e40cd77b 2
+  s_b1fd4802158ed1::t_f642b49fa59e18 2159-2161
+  s_b1fd4802158ed1::t_5379b0f72cefb9 325-345,811-813,819
+  s_b1fd4802158ed1::t_0d3a877c9c20c3 1009,1012,1014,1039-1040,1045,1048
+  s_b1fd4802158ed1::t_b633dcdad928f4 953-955,966-998,1000-1008,1023-1038,1042-1044,1046-1047,1049-1063,1065-1071,1075,1077-1082,1906-1909,2000-2003,2011-2012
+  s_b1fd4802158ed1::t_c0b96de7c6456d 6,728,731,734
+  s_b1fd4802158ed1::t_0b8376580367c9 1010-1011,1013,1015-1017
+  s_b1fd4802158ed1::t_61100b96246767 1018-1022,1041,1064,1072-1074,1076,1083
+  s_b1fd4802158ed1::t_6646448b2d7f76 323-324
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4bd7a30bceb93b2cc42d60a16dd9c90f88fbbaab",
+  "prompts": {},
+  "sessions": {
+    "s_b1fd4802158ed1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4eaf50e1-b96a-4c1b-9de0-9aaa4b83539d",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
