@@ -1,0 +1,54 @@
+pr_agent/git_providers/github_provider.py
+  s_b1fd4802158ed1::t_f621872aedd481 222
+  s_b1fd4802158ed1::t_889fb8df3ff269 452-456,507
+pr_agent/git_providers/gitlab_provider.py
+  s_b1fd4802158ed1::t_67aed74e13ec4c 1824-1828
+  s_b1fd4802158ed1::t_b3e7e8e2b20177 1215
+  s_b1fd4802158ed1::t_f48219d2ca8bc5 1233,1420
+tests/unittest/test_deterministic_risk.py
+  s_b1fd4802158ed1::t_03a16bc2e7585a 514,526,651
+  s_b1fd4802158ed1::t_edd76a189feb85 509,515,520-521,523-525,527,539,545,549-554,556-557,587
+  s_b1fd4802158ed1::t_07ba95e4062b89 660,679,681-688,690
+  s_b1fd4802158ed1::t_9be738c91ca23c 665-678
+  s_b1fd4802158ed1::t_d96d4ae3500e82 834,836
+  s_b1fd4802158ed1::t_23cd1f67297b14 502-504,506-508,511-513,517-519,529-531,538,541-544,547-548,558-560,562-571,580-581,583-584,586,589-650,652-657
+  s_b1fd4802158ed1::t_3f5e87d0e76c3a 738-740,748,758-763,815-818,820-828,840-841,844-847,849-853,868-869,873-874
+  s_b1fd4802158ed1::t_7c59d95ec4b807 786-794,856-864
+  s_b1fd4802158ed1::t_78bab69c14f798 505,510,516,522,528,532-537,540,546,555,561,588
+  s_b1fd4802158ed1::t_5748181b3facc2 658-659,661,663-664,689,691-693
+  s_b1fd4802158ed1::t_fb71f411435a43 662
+  s_b1fd4802158ed1::t_e0a7d8202cee7c 694-735
+  s_b1fd4802158ed1::t_38b269e0d7d12c 680
+  s_b1fd4802158ed1::t_f65dcec897d7a0 572-579,582,585
+  s_b1fd4802158ed1::t_539d8268ac62cc 736-737,741-747,749-757,764-785,795-814,819,829-833,835,837-839,842-843,848,854-855,865-867,870-872,875-877
+pr_agent/git_providers/git_provider.py
+  s_b1fd4802158ed1::t_11ead87792ea82 432-435
+pr_agent/git_providers/azuredevops_provider.py
+  s_b1fd4802158ed1::t_4d30ee10b91fd4 644,648,651,656
+  s_b1fd4802158ed1::t_b896a729c68b68 645-647
+  s_b1fd4802158ed1::t_54bb67645ebcbc 650,683,705-709,729-731
+  s_b1fd4802158ed1::t_94ef5186be341a 245,632
+  s_b1fd4802158ed1::t_2ecdbe0b622b3e 157,178
+pr_agent/commands/pr_reviewer.py
+  s_b1fd4802158ed1::t_1ca4e3f5023399 1812-1814,1816,1823
+  s_b1fd4802158ed1::t_91bb5486e3bc7e 1745-1757,1817,1822,1834-1835,1837-1838
+  s_b1fd4802158ed1::t_2f985356702e2e 1815,1818-1821,1828,1836
+docs/docs/commands/review.md
+  s_b1fd4802158ed1::t_2c4b1cd4202c95 665-666
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f4c1e8e5d1fcfe5531136e11ea0e645c111dcdb3",
+  "prompts": {},
+  "sessions": {
+    "s_b1fd4802158ed1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4eaf50e1-b96a-4c1b-9de0-9aaa4b83539d",
+        "model": "gemini-4-argon"
+      },
+      "human_author": null
+    }
+  }
+}
