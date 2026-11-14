@@ -62,7 +62,6 @@ pr_agent_job:
     - export openai__key=$OPENAI_KEY
     - python -m pr_agent.cli --pr_url="$MR_URL" describe
     - python -m pr_agent.cli --pr_url="$MR_URL" review
-    - python -m pr_agent.cli --pr_url="$MR_URL" improve
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 ```
