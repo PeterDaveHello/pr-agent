@@ -25,6 +25,7 @@ pr_agent/commands/pr_reviewer.py
   s_b1fd4802158ed1::t_07bd84ab0db5f2 350-351,353,397
   s_b1fd4802158ed1::t_787c28e2a3c07e 1149-1151
   s_b1fd4802158ed1::t_449b245be9d8a1 1186-1187,1196-1198,1201-1203
+  s_b1fd4802158ed1::t_2da1aca48fdb64 933-934
 ---
 {
   "schema_version": "authorship/3.0.0",
