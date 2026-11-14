@@ -1,0 +1,27 @@
+pr_agent/commands/pr_reviewer.py
+  s_b1fd4802158ed1::t_f9c345108d7feb 407-411,511,554,596,714-724
+  s_b1fd4802158ed1::t_9075c8d0f76ffd 360-362
+tests/unittest/test_pr_reviewer_per_commit.py
+  s_b1fd4802158ed1::t_8854e8a0ed36b9 306,941-1054
+  s_b1fd4802158ed1::t_a40e568cbab0ad 1055-1056
+pr_agent/git_providers/github_provider.py
+  s_b1fd4802158ed1::t_90463b549c8df7 510-511
+pr_agent/git_providers/gitlab_provider.py
+  s_b1fd4802158ed1::t_6bfb1dad495455 1422-1434
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bb19b96adcdbd96117493e3d2f9b9db962a9e943",
+  "prompts": {},
+  "sessions": {
+    "s_b1fd4802158ed1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4eaf50e1-b96a-4c1b-9de0-9aaa4b83539d",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
