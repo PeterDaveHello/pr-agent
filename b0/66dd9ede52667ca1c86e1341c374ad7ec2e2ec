@@ -13,7 +13,7 @@ pr_agent/git_providers/github_provider.py
 pr_agent/commands/pr_reviewer.py
   s_b1fd4802158ed1::t_f5621090ad4fb8 512-513
   s_b1fd4802158ed1::t_5a243a299a17a4 601,603
-  s_b1fd4802158ed1::t_f9c345108d7feb 410,412
+  s_b1fd4802158ed1::t_f9c345108d7feb 410,412,728
   s_b1fd4802158ed1::t_1256786b0f56dd 361-365,411
   s_b1fd4802158ed1::t_5408dc443166ef 732,735
   s_b1fd4802158ed1::t_5cb6ba69de284e 558-559
