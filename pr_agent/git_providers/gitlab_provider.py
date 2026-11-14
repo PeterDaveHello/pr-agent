@@ -36,7 +36,7 @@ from urllib3.exceptions import ConnectTimeoutError, HTTPError, MaxRetryError, Ne
 from urllib3.exceptions import ProxyError as Urllib3ProxyError
 
 from pr_agent.agent.request_policy import policy_metadata, policy_value
-from pr_agent.algo.setting_utils import _as_bool_setting
+from pr_agent.algo.setting_utils import _as_bool_setting, _as_ssl_verify_setting
 from pr_agent.algo.types import EDIT_TYPE, FilePatchInfo
 from pr_agent.git_providers.diff_parsing import to_hunk_only_patch
 
@@ -640,7 +640,7 @@ class GitLabProvider(GitProvider):
         if not gitlab_url:
             raise ValueError("GitLab URL is not set in the config file")
         self.gitlab_url = gitlab_url
-        ssl_verify = get_settings().get("GITLAB.SSL_VERIFY", True)
+        ssl_verify = _as_ssl_verify_setting(get_settings().get("GITLAB.SSL_VERIFY", True))
         gitlab_access_token = get_settings().get("GITLAB.PERSONAL_ACCESS_TOKEN", None)
         if not gitlab_access_token:
             raise ValueError("GitLab personal access token is not set in the config file")
@@ -2476,7 +2476,7 @@ class GitLabProvider(GitProvider):
         return head_sha if isinstance(head_sha, str) and head_sha else None
 
     def resolve_outdated_inline_threads(self):
-        if (not get_settings().get("GITLAB.RESOLVE_OUTDATED_INLINE_THREADS", False)
+        if (not _as_bool_setting(get_settings().get("GITLAB.RESOLVE_OUTDATED_INLINE_THREADS", False))
                 or getattr(self, "_commit_diff_refs", None) is not None):
             return
         own_user_id = self._get_own_user_id()
@@ -2572,7 +2572,7 @@ class GitLabProvider(GitProvider):
         return removed
 
     def reconcile_code_suggestion_threads(self) -> int:
-        if not get_settings().get("GITLAB.AUTO_RESOLVE_FIXED_INLINE_THREADS", False):
+        if not _as_bool_setting(get_settings().get("GITLAB.AUTO_RESOLVE_FIXED_INLINE_THREADS", False)):
             return 0
         own_user_id = self._get_own_user_id()
         current_head_sha = self._cleanup_command_head()
