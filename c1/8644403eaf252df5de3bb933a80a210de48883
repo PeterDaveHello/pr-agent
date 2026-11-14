@@ -1,0 +1,23 @@
+docs/docs/commands/review.md
+  s_b1fd4802158ed1::t_116b90e5fd5812 661-662
+tests/unittest/test_deterministic_risk.py
+  s_b1fd4802158ed1::t_f65dcec897d7a0 572-579,582,585
+pr_agent/commands/pr_reviewer.py
+  s_b1fd4802158ed1::t_91bb5486e3bc7e 1714-1726,1784-1786,1801-1805
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c18644403eaf252df5de3bb933a80a210de48883",
+  "prompts": {},
+  "sessions": {
+    "s_b1fd4802158ed1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4eaf50e1-b96a-4c1b-9de0-9aaa4b83539d",
+        "model": "gemini-4-argon"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
