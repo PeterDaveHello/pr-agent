@@ -1,0 +1,19 @@
+pr_agent/git_providers/github_provider.py
+  s_8fa4442eff0b01::t_7c44c3c7b11c4c 1077-1082
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "676cc97dbff75480e4638cca981080c685b3bfb4",
+  "prompts": {},
+  "sessions": {
+    "s_8fa4442eff0b01": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "24297f0b-b222-4597-a1fa-f270bee5cd81",
+        "model": "claude_poc_and_for_sales_account_3k_x2.default.claude-fable-5-2"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
