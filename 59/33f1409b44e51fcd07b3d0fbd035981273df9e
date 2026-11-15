@@ -1,0 +1,40 @@
+tests/unittest/test_pr_reviewer_per_commit.py
+  s_b1fd4802158ed1::t_e6ef39229ae59e 962,965,1017,1035,1037,1040-1041,1043-1044,1057
+  s_b1fd4802158ed1::t_b3824f9b002c86 1010,1045,1050,1055,1060
+  s_b1fd4802158ed1::t_5de27a32115e91 956,959-960
+  s_b1fd4802158ed1::t_ab5f46c1c71720 961,1030-1031,1033-1034,1038-1039,1042,1046-1047
+  s_b1fd4802158ed1::t_a40e568cbab0ad 1129-1130
+  s_b1fd4802158ed1::t_082ed6755f930e 987,989
+  s_b1fd4802158ed1::t_08759c46d3ab3e 942-952,968-986,988,990-1009,1011,1029,1036,1048-1049,1053-1054,1056,1059
+  s_b1fd4802158ed1::t_8854e8a0ed36b9 306,941,953-955,957-958,963-964,966-967,1012-1016,1018-1028,1032,1051-1052,1058,1061-1128
+pr_agent/git_providers/github_provider.py
+  s_b1fd4802158ed1::t_90463b549c8df7 510-511
+pr_agent/commands/pr_reviewer.py
+  s_b1fd4802158ed1::t_f9c345108d7feb 410,412
+  s_b1fd4802158ed1::t_5a243a299a17a4 601,603
+  s_b1fd4802158ed1::t_1256786b0f56dd 361-365,411
+  s_b1fd4802158ed1::t_d5d49662464770 726-730,733
+  s_b1fd4802158ed1::t_9075c8d0f76ffd 360
+  s_b1fd4802158ed1::t_e5190c013a97bc 528,555,600,602,604-607
+  s_b1fd4802158ed1::t_5408dc443166ef 732,735
+  s_b1fd4802158ed1::t_f5621090ad4fb8 512-513
+  s_b1fd4802158ed1::t_5cb6ba69de284e 558-559
+pr_agent/git_providers/gitlab_provider.py
+  s_b1fd4802158ed1::t_6bfb1dad495455 1422-1434
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5933f1409b44e51fcd07b3d0fbd035981273df9e",
+  "prompts": {},
+  "sessions": {
+    "s_b1fd4802158ed1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4eaf50e1-b96a-4c1b-9de0-9aaa4b83539d",
+        "model": "gemini-4-argon"
+      },
+      "human_author": null
+    }
+  }
+}
