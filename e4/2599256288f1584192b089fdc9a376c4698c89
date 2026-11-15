@@ -1,0 +1,23 @@
+tests/unittest/test_review_persistent_comment_authorship.py
+  s_8fa4442eff0b01::t_66d976d55cef85 628-672
+pr_agent/git_providers/github_provider.py
+  s_8fa4442eff0b01::t_7c44c3c7b11c4c 1084-1085
+  s_8fa4442eff0b01::t_1ae0bf994ca263 1082-1083
+  s_8fa4442eff0b01::t_30fcbe7b21a425 1078
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e42599256288f1584192b089fdc9a376c4698c89",
+  "prompts": {},
+  "sessions": {
+    "s_8fa4442eff0b01": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "24297f0b-b222-4597-a1fa-f270bee5cd81",
+        "model": "claude_poc_and_for_sales_account_3k_x2.default.claude-fable-5-2"
+      },
+      "human_author": "Peter Dave Hello <hsu@peterdavehello.org>"
+    }
+  }
+}
