@@ -99,7 +99,8 @@ _CLAUDE_MODEL_FAMILIES = [
         "model_id": "claude-sonnet-4-5-20250929",
         "max_tokens": 200000,
         "bare": False,  # bare not in MAX_TOKENS
-        "vertex": "claude-sonnet-4-5@20250929",
+        "anthropic": False,
+        "vertex": False,
         "bedrock_name": "claude-sonnet-4-5-20250929-v1:0",
         "bedrock_regions": ("us", "au", "eu", "jp", "global"),
         "extended_thinking": True,

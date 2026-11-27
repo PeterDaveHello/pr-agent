@@ -1411,6 +1411,21 @@ class TestGetMaxTokens:
         assert "anthropic/claude-opus-4-6-20260120" not in CLAUDE_EXTENDED_THINKING_MODELS
         assert "vertex_ai/claude-opus-4-6@20260120" not in CLAUDE_EXTENDED_THINKING_MODELS
 
+    def test_claude_sonnet_4_5_preserves_bedrock_support(self):
+        model = "claude-sonnet-4-5-20250929"
+        bedrock_aliases = {
+            f"bedrock/{region}anthropic.{model}-v1:0"
+            for region in ("", "us.", "au.", "eu.", "jp.", "global.")
+        }
+        for alias in bedrock_aliases:
+            assert MAX_TOKENS[alias] == 200000
+            assert alias in CLAUDE_EXTENDED_THINKING_MODELS
+        assert model in CLAUDE_EXTENDED_THINKING_MODELS
+        assert model not in MAX_TOKENS
+        for alias in (f"anthropic/{model}", "vertex_ai/claude-sonnet-4-5@20250929"):
+            assert alias not in MAX_TOKENS
+            assert alias not in CLAUDE_EXTENDED_THINKING_MODELS
+
     @pytest.fixture
     def family_with_unknown_top_level_key(self):
         bad_fam = dict(_CLAUDE_MODEL_FAMILIES[0])
