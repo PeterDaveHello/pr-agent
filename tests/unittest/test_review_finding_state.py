@@ -516,3 +516,77 @@ def test_finding_id_unchanged_by_fix():
     )
 
     assert with_fix == plain
+
+
+@pytest.mark.parametrize("field", ["body", "path", "excluded_files"])
+def test_state_marker_round_trips_comment_delimiters(field):
+    marker_text = "<!-- pr-agent-review-state --> --!>"
+    finding = _finding()
+    kwargs = {}
+    if field == "excluded_files":
+        kwargs["excluded_files"] = [f"src/{marker_text}.py"]
+    else:
+        finding[field] = marker_text
+    state = reconcile_review_findings(None, [finding], allow_resolution=True, **kwargs).state
+
+    marker = serialize_review_state(state)
+    parsed = parse_review_state(marker)
+
+    assert marker.count(state_module._STATE_MARKER_NAMESPACE) == 1
+    assert parsed.present and parsed.valid
+    assert parsed.state == state
+    assert state_module.split_review_state_marker(f"review\n{marker}") == ("review", marker)
+    assert not parse_review_state(f"{marker}\n{marker}").valid
+
+
+@pytest.mark.parametrize(
+    ("path", "heading"),
+    [
+        ("src/app.py", "### `src/app.py:10-12`"),
+        ("src/[name]*.py", "### `src/[name]*.py:10-12`"),
+        ("src/name\n### extra.py", "### `src/name\\n### extra.py:10-12`"),
+        ("src/`name`.py", "### ``src/`name`.py:10-12``"),
+        ("src/<!-- pr-agent-review-state.py", r"### `src/<\! pr-agent-review-state.py:10-12`"),
+    ],
+)
+def test_resolved_finding_location_keeps_state_and_markdown_intact(path, heading):
+    active = reconcile_review_findings(
+        None, [_finding(path=path, start=10, end=12)], allow_resolution=True, head_sha="head-1",
+    ).state
+    resolved = reconcile_review_findings(active, [], allow_resolution=True, head_sha="head-2").state
+
+    body = append_review_state("Current review", resolved)
+    parsed = parse_review_state(body)
+
+    assert heading in body.splitlines()
+    assert body.count(state_module._STATE_MARKER_NAMESPACE) == 1
+    assert parsed.valid and parsed.state == resolved
+    assert parsed.state["findings"][0]["path"] == path
+
+
+def test_resolved_finding_body_preserves_state_marker_integrity():
+    prose = (
+        "The parser mishandles this marker:\n"
+        "```html\n<!-- pr-agent-review-state -->\n```\n"
+        "Preserve this explanation."
+    )
+    active = reconcile_review_findings(
+        None, [_finding(prose)], allow_resolution=True, head_sha="head-1",
+    ).state
+    loaded = parse_review_state(append_review_state("Current review", active))
+    assert loaded.valid and loaded.state == active
+    resolved = reconcile_review_findings(
+        loaded.state, [], allow_resolution=True, head_sha="head-2",
+    ).state
+
+    comment = append_review_state("Current review", resolved)
+    parsed = parse_review_state(comment)
+    visible, marker = state_module.split_review_state_marker(comment)
+
+    assert comment.count(state_module._STATE_MARKER_NAMESPACE) == 1
+    assert parsed.valid and parsed.state == resolved
+    assert marker
+    assert r"<\!-- pr-agent-review-state -->" in visible
+    assert "Preserve this explanation." in visible
+    assert parsed.state["findings"][0]["body"] == prose
+    assert parsed.state["findings"][0]["finding_id"] == active["findings"][0]["finding_id"]

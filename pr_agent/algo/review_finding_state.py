@@ -169,6 +169,8 @@ def serialize_review_state(state: Mapping[str, Any]) -> str:
     # diff contains. Escaping the ">" keeps the marker one comment; json.loads decodes the
     # escape, so the finding round-trips unchanged.
     payload = payload.replace("-->", "--\\u003e").replace("--!>", "--!\\u003e")
+    # Keep marker-like JSON text from being counted as another state block.
+    payload = payload.replace("<!--", "\\u003c!--")
     return f"<!-- pr-agent-review-state:v{STATE_SCHEMA_VERSION}\n{payload}\n-->"
 
 
@@ -365,11 +367,7 @@ def _render_resolved_section(state: Mapping[str, Any]) -> str:
         "",
     ]
     for finding in resolved:
-        location = finding["path"]
-        if finding.get("line_start"):
-            location += f":{finding['line_start']}"
-            if finding.get("line_end") and finding["line_end"] != finding["line_start"]:
-                location += f"-{finding['line_end']}"
+        location = _location_code_span(_finding_location(finding))
         body = finding["body"]
         if body.startswith(_STORED_POSSIBLE_ISSUE_HEADER):
             body = f"**{t('review.possible_issue')}**\n\n{body.removeprefix(_STORED_POSSIBLE_ISSUE_HEADER)}"
@@ -479,9 +477,13 @@ def append_review_state(
         body = raw_body.split(_STATE_MARKER_NAMESPACE, 1)[0].rstrip()
     else:
         body = raw_body.rstrip()
+    # Resolved finding prose may quote the marker after the incoming body was cleaned.
+    resolved_section = _render_resolved_section(state).replace(
+        _STATE_MARKER_NAMESPACE, _STATE_MARKER_NAMESPACE.replace("<!--", r"<\!--", 1)
+    )
     human_body = "\n\n".join(
         section
-        for section in (body, _render_resolved_section(state))
+        for section in (body, resolved_section)
         if section
     )
     marker = serialize_review_state(state)

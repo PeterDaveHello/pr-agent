@@ -107,7 +107,7 @@ def test_resolved_section_preserves_finding_markdown_structure():
     rendered = _render_resolved_section(resolved)
 
     assert (
-        "### src/app.py:3-4\n\n"
+        "### `src/app.py:3-4`\n\n"
         "**Possible Issue**\n\n"
         "The loop never ends:\n"
         "```text\n"
