@@ -1,20 +1,16 @@
-"""Share one chunk runner between the chunked `/review` and `/improve` runs.
+"""Share one chunk runner between the chunked `/review` and `/describe` runs.
 
-Both tools split a too-large diff with `get_pr_multi_diffs` and call the model once
-per chunk, but each used to run its own dispatch loop with its own failure handling.
-This runner owns the part the two runs genuinely share: starting one model call per
+Both tools split a too-large diff and dispatch chunks to a caller-supplied handler,
+which may reuse a completed result instead of calling the model.
+This runner owns the part the two runs genuinely share: starting one handler call per
 chunk (concurrently, or one at a time when the caller asks), advancing the progress
 reporter as each chunk settles, and returning the results aligned with the chunks
 so the caller keeps the chunks that succeeded and sees the ones that failed as
 values instead of losing the batch to the first error.
 
-What the runner deliberately does *not* own is the retry policy, because that is
-where the two tools differ today and the maintainer asked to keep it that way
-(#4725): `/review` retries failed chunks on the next fallback model by re-entering
-its chunked preparation under the outer fallback loop, resuming from the cached
-successful chunks; `/improve` recovers failed chunks on the remaining models inside
-the same attempt, re-preparing each chunk against the fallback model's token
-budget. Each tool keeps what it publishes and reports as failed when chunks fail;
+Retry policy stays in the callers: `/review` resumes its successful chunks on a
+fallback attempt; `/describe` reuses only chunks with complete file descriptions.
+Each tool keeps its own prompt preparation, result validation, and publication;
 this runner only hands it the aligned results to decide from.
 
 A chunk that raises a `BaseException` which is not an `Exception` (cancellation,
@@ -45,7 +41,7 @@ async def run_chunk_batch[T, R](
     stagger_first: bool = False,
     reporter: ChunkProgressSink | None = None,
 ) -> list[R | Exception]:
-    """Run one model call per chunk and return the results aligned with the chunks.
+    """Run each chunk's handler and return the results aligned with the chunks.
 
     Each entry is the call's return value, or the `Exception` it raised; a failed
     chunk never aborts the batch. Set `parallel=False` to run the chunks one at a

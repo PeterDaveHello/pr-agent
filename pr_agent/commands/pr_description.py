@@ -12,6 +12,7 @@ from pydantic import ValidationError
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
 from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
 from pr_agent.algo.artifacts import get_artifact_context
+from pr_agent.algo.chunk_runner import run_chunk_batch
 from pr_agent.algo.code_fence import strip_wrapping_code_fence
 from pr_agent.algo.comment_identity import PRDescriptionHeader
 from pr_agent.algo.language_handler import filter_bad_extensions
@@ -583,41 +584,24 @@ class PRDescription:
             self.description_total_chunk_count = len(chunk_pairs)
             results = [None] * len(chunk_pairs)
             progress = self._chunk_progress = self._chunk_progress_reporter(total=len(chunk_pairs))
-            if not get_settings().pr_description.get("async_ai_calls", True):
-                for i, (patches, _files_in_patch) in enumerate(chunk_pairs):  # sync calls
-                    if not patches:
-                        continue
-                    patches_diff = chunk_diffs[i]
-                    get_logger().debug(f"PR diff number {i + 1} for describe files")
-                    try:
-                        results[i] = await self._describe_chunk(
-                            progress, model, patches_diff,
-                        )
-                    except Exception as e:
-                        results[i] = e
-            else:  # async calls
-                tasks = []
-                task_indices = []
-                for i, (patches, _files_in_patch) in enumerate(chunk_pairs):
-                    if patches:
-                        patches_diff = chunk_diffs[i]
-                        get_logger().debug(f"PR diff number {i + 1} for describe files")
-                        task = asyncio.create_task(
-                            self._describe_chunk(
-                                progress,
-                                model,
-                                patches_diff,
-                            )
-                        )
-                        tasks.append(task)
-                        task_indices.append(i)
-                # Wait for all tasks to complete
-                task_results = await asyncio.gather(*tasks, return_exceptions=True)
-                for chunk_index, result in zip(task_indices, task_results, strict=True):
-                    results[chunk_index] = result
-            for result in results:
-                if isinstance(result, BaseException) and not isinstance(result, Exception):
-                    raise result
+            active_indices = [i for i, (patches, _files_in_patch) in enumerate(chunk_pairs) if patches]
+
+            async def _run_chunk(index: int):
+                get_logger().debug(f"PR diff number {index + 1} for describe files")
+                patches_diff = chunk_diffs[index]
+                described = described_chunks.get(patches_diff)
+                if described is not None:
+                    return described[0]
+                return await self._get_prediction(model, patches_diff, prompt="pr_description_only_files_prompts")
+
+            chunk_results = await run_chunk_batch(
+                active_indices,
+                _run_chunk,
+                parallel=get_settings().pr_description.get("async_ai_calls", True),
+                reporter=progress,
+            )
+            for chunk_index, result in zip(active_indices, chunk_results, strict=True):
+                results[chunk_index] = result
             file_description_chunks = []
             chunk_models = []
             chunk_errors = []
@@ -987,21 +971,6 @@ class PRDescription:
             body_builder=self._describe_progress_body,
             label="description",
         )
-
-    async def _describe_chunk(self, progress, model: str, patches_diff: str) -> str:
-        """Describe one file chunk, then advance the in-place progress comment it runs under."""
-        try:
-            described = getattr(self, "_described_chunks", {}).get(patches_diff)
-            if described is not None:
-                return described[0]
-            return await self._get_prediction(
-                model,
-                patches_diff,
-                prompt="pr_description_only_files_prompts",
-            )
-        finally:
-            if progress is not None:
-                await progress.record_settled()
 
     async def _get_prediction(
         self,

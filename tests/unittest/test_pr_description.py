@@ -1616,9 +1616,10 @@ description: |
         )
 
     @pytest.mark.asyncio
-    async def test_large_pr_empty_chunk_keeps_result_associated_with_its_files(self, monkeypatch):
+    @pytest.mark.parametrize("async_calls", [True, False])
+    async def test_large_pr_empty_chunk_keeps_result_associated_with_its_files(self, monkeypatch, async_calls):
         obj = _make_large_pr_instance()
-        monkeypatch.setitem(get_settings().pr_description, "async_ai_calls", True)
+        monkeypatch.setitem(get_settings().pr_description, "async_ai_calls", async_calls)
         chunks = [[], ["diff --git a/src/file2.py b/src/file2.py\n... file2 ..."]]
 
         async def mock_get_prediction(model, patches_diff, prompt="pr_description_prompt"):
@@ -1638,26 +1639,35 @@ description: |
         assert len(obj._get_prediction.await_args_list) == 2  # one non-empty chunk and the header pass
 
     @pytest.mark.asyncio
+    @pytest.mark.parametrize("async_calls", [True, False])
     @pytest.mark.parametrize(
         "first_chunk_outcome",
         ["success", "error"],
         ids=["after-successful-chunk", "after-failed-chunk"],
     )
-    async def test_large_pr_chunk_cancellation_propagates(self, monkeypatch, first_chunk_outcome):
+    async def test_large_pr_chunk_cancellation_propagates(self, monkeypatch, first_chunk_outcome, async_calls):
         obj = _make_large_pr_instance()
-        monkeypatch.setitem(get_settings().pr_description, "async_ai_calls", True)
+        monkeypatch.setitem(get_settings().pr_description, "async_ai_calls", async_calls)
+        chunks = _large_pr_chunks()
+        chunks[0].append(["diff for src/file3.py"])
+        chunks[1].append(10)
+        chunks[5].append(["src/file3.py"])
+        settled = []
 
         async def mock_get_prediction(model, patches_diff, prompt="pr_description_prompt"):
             if "file2" in patches_diff:
                 raise asyncio.CancelledError()
-            if first_chunk_outcome == "error":
+            await asyncio.sleep(0)
+            filename = "src/file1.py" if "file1" in patches_diff else "src/file3.py"
+            settled.append(filename)
+            if filename == "src/file1.py" and first_chunk_outcome == "error":
                 raise RuntimeError("transient chunk error")
-            return _file_prediction("src/file1.py")
+            return _file_prediction(filename)
 
         obj._get_prediction = AsyncMock(side_effect=mock_get_prediction)
         with patch("pr_agent.commands.pr_description.get_pr_diff", return_value=""), patch(
             "pr_agent.commands.pr_description.get_pr_diff_multiple_patchs",
-            return_value=_large_pr_chunks(),
+            return_value=chunks,
         ), patch("pr_agent.commands.pr_description.load_yaml", wraps=load_yaml) as mock_load_yaml, patch(
             "pr_agent.commands.pr_description.get_logger"
         ) as mock_get_logger, pytest.raises(asyncio.CancelledError):
@@ -1666,6 +1676,7 @@ description: |
         mock_load_yaml.assert_not_called()
         mock_get_logger.return_value.warning.assert_not_called()
         assert obj._described_chunks == {}
+        assert settled == (["src/file1.py", "src/file3.py"] if async_calls else ["src/file1.py"])
 
     @pytest.mark.asyncio
     async def test_large_pr_all_fail_then_fallback_model_keeps_partial_result(self, monkeypatch):
