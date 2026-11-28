@@ -54,6 +54,25 @@ def test_context_only_hunk_between_changes_preserves_separators():
     assert decouple_and_convert_to_hunks_with_lines_numbers(patch, None) == expected
 
 
+@pytest.mark.parametrize("suffix", [
+    "",
+    "@@@ -9 -9 +9 @@@\n-ignored\n+ignored\n",
+    "@@ -9,0 +9,0 @@ empty\n",
+])
+@pytest.mark.parametrize(("hunk", "rendered"), [
+    (
+        "@@ -1 +1 @@\n-old\t\n+new  \n",
+        "\n@@ -1 +1 @@\n__new hunk__\n1 +new  \n__old hunk__\n-old\t",
+    ),
+    (
+        "@@ -1 +0,0 @@\n-old\t\n",
+        "\n@@ -1 +0,0 @@\n__new hunk__\n__old hunk__\n-old\t",
+    ),
+])
+def test_last_populated_hunk_survives_invalid_or_empty_trailing_hunks(suffix, hunk, rendered):
+    assert decouple_and_convert_to_hunks_with_lines_numbers(hunk + suffix, None) == rendered
+
+
 @pytest.mark.parametrize("hunk_count", [1, 128])
 def test_many_hunks_preserve_complete_output(hunk_count):
     patch_parts = []

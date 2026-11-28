@@ -4,6 +4,7 @@ import json
 import re
 import traceback
 from codecs import BOM_UTF16_BE, BOM_UTF16_LE
+from itertools import chain
 
 from pr_agent.algo.setting_utils import normalize_setting_list
 from pr_agent.algo.types import EDIT_TYPE
@@ -456,37 +457,30 @@ __old hunk__
     else:
         patch_with_lines_str = ""
 
-    rendered_hunks = []
+    rendered_hunks = [patch_with_lines_str]
     patch_lines = split_diff_lines(patch)
     new_content_lines = []
     old_content_lines = []
-    match = None
-    start1, size1, start2, size2 = -1, -1, -1, -1
-    prev_header_line = []
-    header_line = []
+    header_line = None
+    start2 = 0
     skip_hunk = False
-    for line_i, line in enumerate(patch_lines):
+    # Finish the last hunk through the same path as a hunk followed by another header.
+    for line_i, line in enumerate(chain(patch_lines, (None,))):
         if line == NO_NEWLINE_AT_EOF_MARKER:
             continue
 
-        if line.startswith('@@'):
-            hunk_header_match = RE_HUNK_HEADER.match(line)
-            if not hunk_header_match:
-                get_logger().warning("Skipping a line that starts with '@@' but is not a unified "
-                                     "hunk header", artifact={"line": line})
-                skip_hunk = True
-                continue
-            skip_hunk = False
-            header_line = line
-            match = hunk_header_match
-            if match and (new_content_lines or old_content_lines):  # found a new hunk, split the previous lines
-                if prev_header_line:
-                    patch_with_lines_str += f'\n{prev_header_line}\n'
-                is_plus_lines = is_minus_lines = False
-                if new_content_lines:
-                    is_plus_lines = any(line.startswith('+') for line in new_content_lines)
-                if old_content_lines:
-                    is_minus_lines = any(line.startswith('-') for line in old_content_lines)
+        if line is None or line.startswith('@@'):
+            if line is not None:
+                hunk_header_match = RE_HUNK_HEADER.match(line)
+                if not hunk_header_match:
+                    get_logger().warning("Skipping a line that starts with '@@' but is not a unified "
+                                         "hunk header", artifact={"line": line})
+                    skip_hunk = True
+                    continue
+            if header_line is not None and (new_content_lines or old_content_lines):
+                patch_with_lines_str = f'\n{header_line}\n'
+                is_plus_lines = any(line.startswith('+') for line in new_content_lines)
+                is_minus_lines = any(line.startswith('-') for line in old_content_lines)
                 # Always present the new hunk for the section, otherwise the LLM gets confused
                 if is_plus_lines or is_minus_lines:
                     patch_with_lines_str = patch_with_lines_str.rstrip('\r\n') + '\n__new hunk__\n'
@@ -498,17 +492,17 @@ __old hunk__
                         patch_with_lines_str += f"{line_old}\n"
                 # Keep completed hunks out of subsequent rstrip/concatenation work.
                 rendered_hunks.append(patch_with_lines_str)
-                patch_with_lines_str = ""
-                new_content_lines = []
-                old_content_lines = []
-            if match:
-                prev_header_line = header_line
-
-            section_header, size1, size2, start1, start2 = extract_hunk_headers(match)
+            if line is None:
+                break
+            skip_hunk = False
+            header_line = line
+            _, _, _, _, start2 = extract_hunk_headers(hunk_header_match)
+            new_content_lines = []
+            old_content_lines = []
 
         elif skip_hunk:
             continue
-        elif match is None:
+        elif header_line is None:
             # Ignore unified-diff file metadata before the first valid hunk.
             continue
         elif line.startswith('+'):
@@ -524,25 +518,6 @@ __old hunk__
             new_content_lines.append(line)
             old_content_lines.append(line)
 
-    # finishing last hunk
-    if match and (new_content_lines or old_content_lines):
-        patch_with_lines_str += f'\n{header_line}\n'
-        is_plus_lines = is_minus_lines = False
-        if new_content_lines:
-            is_plus_lines = any(line.startswith('+') for line in new_content_lines)
-        if old_content_lines:
-            is_minus_lines = any(line.startswith('-') for line in old_content_lines)
-        # Always present the new hunk for the section, otherwise the LLM gets confused
-        if is_plus_lines or is_minus_lines:
-            patch_with_lines_str = patch_with_lines_str.rstrip('\r\n') + '\n__new hunk__\n'
-            for i, line_new in enumerate(new_content_lines):
-                patch_with_lines_str += f"{start2 + i} {line_new}\n"
-        if is_minus_lines:
-            patch_with_lines_str = patch_with_lines_str.rstrip('\r\n') + '\n__old hunk__\n'
-            for line_old in old_content_lines:
-                patch_with_lines_str += f"{line_old}\n"
-
-    rendered_hunks.append(patch_with_lines_str)
     return "".join(rendered_hunks).rstrip('\r\n')
 
 
