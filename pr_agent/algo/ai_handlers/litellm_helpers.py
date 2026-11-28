@@ -546,22 +546,10 @@ async def _cancel_and_reap_tasks(
     if not pending:
         return
 
-    async def wait_for_cancellation() -> None:
+    if protect_from_cancellation:
+        await _reap_cancelled_tasks(pending, cleanup_timeout)
+    else:
         await asyncio.wait(pending, timeout=max(0.0, cleanup_timeout))
-
-    if not protect_from_cancellation:
-        await wait_for_cancellation()
-        return
-
-    cleanup_waiter = asyncio.create_task(wait_for_cancellation())
-    while not cleanup_waiter.done():
-        try:
-            await asyncio.shield(cleanup_waiter)
-        except asyncio.CancelledError:
-            # The original cancellation is already being handled. Keep the fixed-time
-            # cleanup waiter alive so repeated cancellation cannot detach child tasks.
-            continue
-    cleanup_waiter.result()
 
 
 async def _reap_cancelled_tasks(tasks, cleanup_timeout: float) -> None:

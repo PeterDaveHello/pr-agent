@@ -49,7 +49,9 @@ def _record_cancellation_cleanup_deadlines(monkeypatch):
         original_helper = getattr(litellm_helpers, helper_name)
 
         async def record_deadline(tasks, cleanup_timeout, *, _original_helper=original_helper, **kwargs):
-            cleanup_records.append((asyncio.get_running_loop().time() + cleanup_timeout, cleanup_timeout))
+            # The protected cancellation path delegates its wait to the reaper.
+            if not kwargs.get("protect_from_cancellation", False):
+                cleanup_records.append((asyncio.get_running_loop().time() + cleanup_timeout, cleanup_timeout))
             await _original_helper(tasks, cleanup_timeout, **kwargs)
 
         monkeypatch.setattr(litellm_helpers, helper_name, record_deadline)
