@@ -609,17 +609,9 @@ class PRSimilarIssue:
         issue_str = f"Issue Header: \"{header}\"\n\nIssue Body:\n{body}"
         return issue_str, comments, number
 
-    def _update_index_with_issues(self, issues_list, repo_name_for_index, pinecone_namespace, upsert=False):
-        import pandas as pd
-
-        get_logger().info('Processing issues...')
+    def _collect_issue_corpus(self, issues_list, repo_name_for_index) -> "Corpus":
+        """Collect indexable issues and comments without backend completion markers."""
         corpus = Corpus()
-        example_issue_record = Record(
-            id=f"example_issue_{repo_name_for_index}",
-            text="example_issue",
-            metadata=Metadata(repo=repo_name_for_index)
-        )
-
         counter = 0
         issues_iterator = iter(issues_list)
         while True:
@@ -668,6 +660,19 @@ class PRSimilarIssue:
                 counter += 1
                 if counter % 100 == 0:
                     get_logger().info(f"Scanned {counter} issues")
+        return corpus
+
+    def _update_index_with_issues(self, issues_list, repo_name_for_index, pinecone_namespace, upsert=False):
+        import pandas as pd
+
+        get_logger().info('Processing issues...')
+        example_issue_record = Record(
+            id=f"example_issue_{repo_name_for_index}",
+            text="example_issue",
+            metadata=Metadata(repo=repo_name_for_index)
+        )
+
+        corpus = self._collect_issue_corpus(issues_list, repo_name_for_index)
 
         # the sentinel row is written last so its presence only signals a completed ingest:
         # a run interrupted partway will leave no sentinel and the next run re-indexes instead
@@ -741,57 +746,9 @@ class PRSimilarIssue:
 
         get_logger().info('Processing issues...')
 
-        corpus = Corpus()
         sentinel_id = f"example_issue_{repo_name_for_index}"
 
-        counter = 0
-        issues_iterator = iter(issues_list)
-        while True:
-            if counter >= self.max_issues_to_scan:
-                get_logger().info(f"Scanned {self.max_issues_to_scan} issues, stopping")
-                break
-            try:
-                issue = next(issues_iterator)
-            except StopIteration:
-                break
-            if _is_pull_request(issue):
-                continue
-
-            issue_str, comments, number = self._process_issue(issue)
-            issue_key = f"issue_{number}"
-            username = issue.user.login
-            created_at = str(issue.created_at)
-            if _fits_embedding_input(issue_str):
-                issue_record = Record(
-                    id=issue_key + "." + "issue",
-                    text=issue_str,
-                    metadata=Metadata(repo=repo_name_for_index,
-                                        username=username,
-                                        created_at=created_at,
-                                        level=IssueLevel.ISSUE)
-                )
-                corpus.append(issue_record)
-                if comments:
-                    for j, comment in enumerate(comments):
-                        comment_body = comment.body
-                        if not isinstance(comment_body, str) or len(comment_body.split()) < 10:
-                            continue
-
-                        if _fits_embedding_input(comment_body):
-                            comment_record = Record(
-                                id=issue_key + ".comment_" + str(j),
-                                text=comment_body,
-                                metadata=Metadata(repo=repo_name_for_index,
-                                                    username=username,  # use issue username for all comments
-                                                    created_at=created_at,
-                                                    level=IssueLevel.COMMENT)
-                            )
-                            corpus.append(comment_record)
-
-                # Count only indexed issues so oversized rejects do not burn the scan budget
-                counter += 1
-                if counter % 100 == 0:
-                    get_logger().info(f"Scanned {counter} issues")
+        corpus = self._collect_issue_corpus(issues_list, repo_name_for_index)
 
         if len(corpus.documents) == 0:
             if ingest and not force_refresh:
@@ -847,61 +804,13 @@ class PRSimilarIssue:
             raise
 
         get_logger().info('Processing issues...')
-        corpus = Corpus()
         example_issue_record = Record(
             id=f"example_issue_{repo_name_for_index}",
             text="example_issue",
             metadata=Metadata(repo=repo_name_for_index)
         )
 
-        counter = 0
-        issues_iterator = iter(issues_list)
-        while True:
-            if counter >= self.max_issues_to_scan:
-                get_logger().info(f"Scanned {self.max_issues_to_scan} issues, stopping")
-                break
-            try:
-                issue = next(issues_iterator)
-            except StopIteration:
-                break
-            if _is_pull_request(issue):
-                continue
-
-            issue_str, comments, number = self._process_issue(issue)
-            issue_key = f"issue_{number}"
-            username = issue.user.login
-            created_at = str(issue.created_at)
-            if _fits_embedding_input(issue_str):
-                issue_record = Record(
-                    id=issue_key + "." + "issue",
-                    text=issue_str,
-                    metadata=Metadata(repo=repo_name_for_index,
-                                      username=username,
-                                      created_at=created_at,
-                                      level=IssueLevel.ISSUE)
-                )
-                corpus.append(issue_record)
-                if comments:
-                    for j, comment in enumerate(comments):
-                        comment_body = comment.body
-                        if not isinstance(comment_body, str) or len(comment_body.split()) < 10:
-                            continue
-
-                        if _fits_embedding_input(comment_body):
-                            comment_record = Record(
-                                id=issue_key + ".comment_" + str(j),
-                                text=comment_body,
-                                metadata=Metadata(repo=repo_name_for_index,
-                                                  username=username,
-                                                  created_at=created_at,
-                                                  level=IssueLevel.COMMENT)
-                            )
-                            corpus.append(comment_record)
-
-                # Count only indexed issues so oversized rejects do not burn the scan budget
-                counter += 1
-                if counter % 100 == 0:
-                    get_logger().info(f"Scanned {counter} issues")
+        corpus = self._collect_issue_corpus(issues_list, repo_name_for_index)
 
         # Write the sentinel row last so its presence only signals a completed ingest:
         # a run interrupted partway will leave no sentinel and the next run re-indexes instead
